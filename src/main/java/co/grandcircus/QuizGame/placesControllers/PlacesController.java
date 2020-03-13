@@ -24,7 +24,7 @@ public class PlacesController {
 	@RequestMapping("/places")
 	public ModelAndView places() {
 		
-		List<Candidate> candidates = placesApi.getPlaces("lat","lng");
+		List<Candidate> candidates = placesApi.getPlaces();
 		
 		return new ModelAndView("placesTest", "candidates", candidates);
 	}

@@ -4,6 +4,9 @@ target/
 !**/src/main/**
 !**/src/test/**
 src/main/resources/config/application.properties
+\src\main\webapp\WEB-INF\views\config.js
+\src\main\resources\static
+src\main\webapp\WEB-INF\views\placesTest.jsp
 
 ### STS ###
 .apt_generated

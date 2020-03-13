@@ -19,6 +19,7 @@
 	rel="stylesheet"
 	integrity="sha384-yrfSO0DBjS56u5M+SjWTyAHujrkiYVtRYh2dtB3yLQtUz3bodOeialO59u5lUCFF"
 	crossorigin="anonymous"><link rel="stylesheet" href="/style.css">
+	<link rel="stylesheet" href="../style.css">
 </head>
 <body>
 
@@ -35,11 +36,38 @@
     <td>${candidate.name }</td>
     <td>${candidate.formatted_address }</td>
      <td>${candidate.rating }</td>
+   
+
   </tr>
    </c:forEach>
   
 </table>
 
+
+<h3>My Google Maps Demo</h3>
+<!--The div element for the map -->
+<div id="map"></div>
+<!-- Replace the value of the key parameter with your own API key. -->
+
+<!-- <script src="script.js"></script> -->
+<script>
+
+function initMap() {
+  // The location of Uluru
+  var rencen = {lat: 42.3293 , lng: -83.0398 };
+  var rencen2 = {lat: 42.5 , lng: -82.9 };
+  // The map, centered at Uluru
+  var map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 8, center: rencen});
+  // The marker, positioned at Uluru
+  var marker = new google.maps.Marker({position: rencen, map: map});
+  var marker = new google.maps.Marker({position: rencen2, map: map});
+}
+</script>
+
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQBAPP61snKjU7C8Gma0DXzZ_YkJ9wsLk&callback=initMap">
+</script>
 
 
 </body>

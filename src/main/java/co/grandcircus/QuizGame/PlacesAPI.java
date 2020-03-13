@@ -33,9 +33,9 @@ public class PlacesAPI {
 	@Value("${placesKey}")
 	private String placesKey;
 
-	public List<Candidate> getPlaces(String lat, String lng) { 
+	public List<Candidate> getPlaces() { 
 
-		String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+lat+","+lng+"&radius=1500&type=restaurant&keyword=cruise&key="+placesKey;
+		String url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Museum of Contemporary Art Australia&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key="+placesKey;
 
 		Places response = rt.getForObject(url, Places.class);
 			
