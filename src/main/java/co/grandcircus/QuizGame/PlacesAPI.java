@@ -17,7 +17,7 @@ public class PlacesAPI {
 
 
 		private RestTemplate rt;
-
+//
 		// initialization block that runs when a new instance of the class is created
 		// loaded before the constructor
 		{
@@ -33,16 +33,17 @@ public class PlacesAPI {
 	@Value("${placesKey}")
 	private String placesKey;
 
-	public List<Candidate> getPlaces() { 
+	public List<Candidate> getPlaces(String lat, String lng) { 
 
-		String url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Museum%20of%20Contemporary%20Art%20Australia&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAQBAPP61snKjU7C8Gma0DXzZ_YkJ9wsLk";
+		String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+lat+","+lng+"&radius=1500&type=restaurant&keyword=cruise&key="+placesKey;
 
 		Places response = rt.getForObject(url, Places.class);
-		
+			
 		System.out.println(response);
 		
 		List<Candidate> candidates = response.getCandidates();
 
 		return candidates;
 	}
+	
 }
