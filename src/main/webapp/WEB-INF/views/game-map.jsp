@@ -43,6 +43,7 @@
 	<!--MAP DIV-->
 	<div id="map"></div>
 	<!-- <script src="script.js"></script> -->
+	<a href="/fight">Click to Battle</a>
 	<!--GAME STATUS-->
 	<h4>
 		<strong>Status</strong>

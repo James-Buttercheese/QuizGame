@@ -24,5 +24,6 @@
 <body>
 	<h1>Countries and Cats</h1>
 	<a href="/play">New Game</a>
+	<a href="/fight">Quick Battle</a>
 </body>
 </html>
