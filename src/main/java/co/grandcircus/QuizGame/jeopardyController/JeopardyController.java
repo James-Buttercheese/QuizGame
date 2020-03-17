@@ -1,6 +1,7 @@
 package co.grandcircus.QuizGame.jeopardyController;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,6 +20,16 @@ import co.grandcircus.QuizGame.jeopardyEntities.Clue;
 
 @Controller
 public class JeopardyController {
+	
+	// Problem with \' on the answers
+	
+	
+	private static String category;
+	private static String question;
+	private static String correctAnswer;
+//	private static Integer difficulty;
+	private static List<String> answers; //maybe not
+	
 	
 	@Autowired
 	private JeopardyAPI jeopApi;
@@ -48,26 +59,51 @@ public class JeopardyController {
 //		System.out.println("Number of clues in cat: " + cluesInCategory.length);
 		
 //		List<Clue> randomClues = new ArrayList<>();
-		Set<String> answers = new HashSet<>();
-		answers.add(mainClue.getAnswer());    
+		Set<String> randomAnswers = new HashSet<>();
+		randomAnswers.add(mainClue.getAnswer());    
 //		System.out.println(mainClue.getAnswer());
 		
 		for (int i=0; i<20; i++) {   
 			Clue randomClue = jeopApi.generateRandomClue(cluesInCategory);
 //			if (!randomClues.contains(randomClue)) {   The Api has duplicate clues in different ids
-			if (!answers.contains(randomClue.getAnswer()) && !randomClue.getAnswer().isEmpty()) {
+			if (!randomAnswers.contains(randomClue.getAnswer()) && !randomClue.getAnswer().isEmpty()) {
 //				randomClues.add(randomClue);
-				answers.add(randomClue.getAnswer()); 
+				randomAnswers.add(randomClue.getAnswer()); 
 			}
-			if (answers.size() == 5) {
+			if (randomAnswers.size() == 5) {
 				break;
 			}			
 		}
 		
+		for (String randomAnswer : randomAnswers) {
+			System.out.println("Answer :" + randomAnswer);
+		}
+		
+		answers = new ArrayList<>();
+		for (String randomAnswer : randomAnswers) {
+			answers.add(randomAnswer);
+		}
+		
+		
+		
+		category = mainClue.getCategory().getTitle();
+		question = mainClue.getQuestion();
+		correctAnswer = mainClue.getAnswer();
+//		difficulty = mainClue.getValue();
+		
 		ModelAndView mav = new ModelAndView("jeopardyGame");
 		mav.addObject("mainClue", mainClue);
+		System.out.println("First Category: " + category);
+		System.out.println("First Question: " + question);
+		System.out.println("First Difficulty: " + difficulty);
 //		mav.addObject("randomClues", randomClues);
 		mav.addObject("answers", answers);
+		
+//		System.out.println("First round of answers: ");
+//		for (String answer: answers) {
+//			System.out.println(answer);
+//		}
+		
 		
 		return mav;
 		
@@ -75,27 +111,32 @@ public class JeopardyController {
 	}
 	
 	@PostMapping("/jeopardy/game")
-	public ModelAndView result(@RequestParam("category") String category,
+	public ModelAndView result(//@RequestParam("category") String category,
 			@RequestParam("difficulty") String difficulty,
-			@RequestParam("question") String question,
-			@RequestParam("correctAnswer") String correctAnswer,
-			@RequestParam("answers") String[] answers,
+			//@RequestParam("question") String question,
+			//@RequestParam("correctAnswer") String correctAnswer,
+			//@RequestParam("answers") String[] answers,
 			@RequestParam("answer") String answer) {
 
 		// Compute points here
 		
-		System.out.println(category);
-		System.out.println(difficulty);
-		System.out.println(question);
-		System.out.println(correctAnswer);
-		System.out.println(answers);
+		System.out.println("Second Category: " + category);		   //sometimes this gets null
+		System.out.println("Second Question: " + question);  //sometimes this gets null. Sometimes gets a different question
+		System.out.println("Second Difficulty: " + difficulty);
 		
-		System.out.println(answers[0]);
-		System.out.println(answers[answers.length-1]); //waiting for this error here!
 		
-		answers[0] = answers[0].substring(1);
-		answers[answers.length-1] = answers[answers.length-1].substring(0,answers[answers.length-1].length()-1);
+		System.out.println("Second round of answers: ");
+		for (String ans: answers) {
+			System.out.println(ans);
+		}
 		
+		System.out.println("Correct Answer: " + correctAnswer);     //sometimes this gets null  <i>Movin\' Out</i>
+		
+		System.out.println(answers.get(0));        //[<i>Movin\' Out</i>
+		System.out.println(answers.get(answers.indexOf(answers.get(answers.size()-1)))); //waiting for this error here! //sometimes this gets null (in the example above)
+		
+		//answers.set(0, answers.get(0).substring(1));
+		//answers.set(answers.size()-1, answers.get(answers.size()-1).substring(0, answers.size()-1));
 		
 		
 		ModelAndView mav = new ModelAndView("jeopardyResult");
