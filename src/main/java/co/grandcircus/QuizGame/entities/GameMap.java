@@ -5,23 +5,42 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-public class Map {
+public class GameMap {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne(mappedBy = "map")
-	private Location startLoc;
+	@OneToOne (cascade = CascadeType.ALL)
+	private Pin startLoc;
 
-	@OneToOne(mappedBy = "map")
-	private Location endLoc;
+	@OneToOne (cascade = CascadeType.ALL)
+	private Pin endLoc;
 
-	@ManyToOne
+	@ManyToOne (cascade = CascadeType.ALL)
 	private User user;
 
-	@OneToMany(mappedBy = "map")
-	private List<Location> locations;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "map")
+	private List<Pin> locations;
+
+
+	
+
+	public GameMap(Pin startLoc, Pin endLoc, User user, List<Pin> locations) {
+		super();
+		this.startLoc = startLoc;
+		this.endLoc = endLoc;
+		this.user = user;
+		this.locations = locations;
+	}
+
+
+
+	public GameMap() {
+		super();
+	}
+
+
 
 	public Long getId() {
 		return id;
@@ -31,19 +50,19 @@ public class Map {
 		this.id = id;
 	}
 
-	public Location getStart() {
+	public Pin getStart() {
 		return startLoc;
 	}
 
-	public void setStart(Location start) {
+	public void setStart(Pin start) {
 		this.startLoc = start;
 	}
 
-	public Location getEnd() {
+	public Pin getEnd() {
 		return endLoc;
 	}
 
-	public void setEnd(Location end) {
+	public void setEnd(Pin end) {
 		this.endLoc = end;
 	}
 
@@ -55,11 +74,11 @@ public class Map {
 		this.user = user;
 	}
 
-	public List<Location> getLocations() {
+	public List<Pin> getLocations() {
 		return locations;
 	}
 
-	public void setLocations(List<Location> locations) {
+	public void setLocations(List<Pin> locations) {
 		this.locations = locations;
 	}
 

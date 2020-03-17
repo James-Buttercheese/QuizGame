@@ -15,7 +15,7 @@ public class User {
 	private Integer pin;
 	
 	@OneToMany(mappedBy="user")
-	private List<Map> maps;
+	private List<GameMap> maps;
 	
 	@OneToMany(mappedBy="user")
 	private List<Item> items;

@@ -3,7 +3,7 @@ package co.grandcircus.QuizGame.entities;
 import javax.persistence.*;
 
 @Entity
-public class Location {
+public class Pin {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,8 +11,30 @@ public class Location {
 
 	private String latLong;
 
-	@ManyToOne
-	private Map map;
+	@ManyToOne (cascade = CascadeType.ALL)
+	private GameMap map;
+	
+	
+	public Pin(String latLong, GameMap map) {
+		super();
+		this.latLong = latLong;
+		this.map = map;
+	}
+
+
+
+	public Pin() {
+		super();
+	}
+
+
+
+	public Pin(String latLong) {
+		super();
+		this.latLong = latLong;
+	}
+
+
 
 	public Long getId() {
 		return id;
@@ -30,17 +52,17 @@ public class Location {
 		this.latLong = latLong;
 	}
 
-	public Map getMap() {
+	public GameMap getMap() {
 		return map;
 	}
 
-	public void setMap(Map map) {
+	public void setMap(GameMap map) {
 		this.map = map;
 	}
 
 	@Override
 	public String toString() {
-		return "Location [id=" + id + ", latLong=" + latLong + ", map=" + map + "]";
+		return "Location [id=" + id + ", latLong=" + latLong + ", map=" + map.getId() + "]";
 	}
 
 }

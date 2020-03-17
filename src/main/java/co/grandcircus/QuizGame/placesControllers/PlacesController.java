@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import co.grandcircus.QuizGame.PlacesAPI;
+import co.grandcircus.QuizGame.DAO.MapDao;
+import co.grandcircus.QuizGame.entities.GameMap;
+import co.grandcircus.QuizGame.entities.Pin;
+import co.grandcircus.QuizGame.entities.User;
 import co.grandcircus.QuizGame.placesEntities.Location;
 import co.grandcircus.QuizGame.placesEntities.Result;
 
@@ -21,6 +25,9 @@ public class PlacesController {
 
 	@Autowired
 	private HttpSession sesh;
+
+	@Autowired
+	private MapDao mapdao;
 
 	@Autowired
 	private PlacesAPI placesApi;
@@ -42,20 +49,20 @@ public class PlacesController {
 			mav.addObject("lat", 42.3293);
 			mav.addObject("lng", -83.0398);
 		}
-		
+
 		System.out.println(lat + "" + lng);
-		
+
 		return mav;
-		
+
 	}
 
 	@PostMapping("/places")
 	public ModelAndView placesPost(String location) {
 
 		String[] arrOfStr = location.split(",");
-		
+
 		String lat = arrOfStr[0].substring(5);
-		String lng = arrOfStr[1].substring(4, arrOfStr[1].length()-1);
+		String lng = arrOfStr[1].substring(4, arrOfStr[1].length() - 1);
 
 		ModelAndView mav = new ModelAndView("redirect:/places");
 
@@ -70,6 +77,12 @@ public class PlacesController {
 
 		ModelAndView mav = new ModelAndView("testMaps");
 
+		User jack = new User();
+		jack.setUsername("jack");
+		jack.setPin(3130);
+
+		GameMap map = new GameMap();
+
 		Location location = new Location(42.3293, -83.0398);
 		Location location2 = new Location(42.5, -82.9);
 		Location location3 = new Location(42.6, -82.8);
@@ -78,16 +91,23 @@ public class PlacesController {
 		Location location6 = new Location(42.9, -83.2);
 		Location location7 = new Location(43.0, -83.3);
 
-		List<Location> locations = new ArrayList<>();
-		locations.add(location);
-		locations.add(location2);
-		locations.add(location3);
-		locations.add(location4);
-		locations.add(location5);
-		locations.add(location6);
-		locations.add(location7);
+		List<Pin> locations = new ArrayList<>();
+		
+		locations.add(new Pin(location2.toString(), map));
+		locations.add(new Pin(location3.toString(), map));
+		locations.add(new Pin(location4.toString(), map));
+		locations.add(new Pin(location5.toString(), map));
+		locations.add(new Pin(location6.toString(), map));
 
-		mav.addObject("locations", locations);
+		map.setStart(new Pin(location.toString(), map));
+		map.setEnd(new Pin(location7.toString(), map));
+		map.setUser(jack);
+		map.setLocations(locations);
+		
+
+		mapdao.save(map);
+
+//		mav.addObject("locations", locations);
 
 		return mav;
 	}

@@ -1,9 +1,10 @@
-package co.grandcircus.QuizGame.repositories;
+package co.grandcircus.QuizGame.DAO;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import co.grandcircus.QuizGame.entities.GameMap;
 
-public interface MapRepository extends JpaRepository<GameMap, Long> {
+
+public interface MapDao extends JpaRepository<GameMap, Long>{
 
 }
