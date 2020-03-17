@@ -69,7 +69,7 @@ public class JeopardyAPI {
 		return clue;
 	}
 	
-	public Clue[] findByCategory(Long id){ 
+	public Clue[] findByCategory(Integer id){ 
 		
 		// I believe there aren't any categories with more than 100 clues.
 		// But if there are, offset is required
@@ -85,14 +85,82 @@ public class JeopardyAPI {
 	}
 	
 	public Clue[] findByDifficulty(Integer difficulty, Integer offset){ 
+				
 		if (offset == null) {
 			offset = 0;
 		}	
 		
-		String url = "http://jservice.io/api/clues?value=" + difficulty;
+		String url = "http://jservice.io/api/clues?value=" + difficulty + "&offset=" + offset;
 		Clue[] clue = rt.getForObject(url, Clue[].class);
 		return clue;
 	
 	}
-
+	
+	
+	public Clue[] findByCategoryAndDifficulty(Integer difficulty, Integer id) {
+		
+		String url = "http://jservice.io/api/clues?value=" + difficulty + "&category=" + id;
+		Clue[] clue = rt.getForObject(url, Clue[].class);
+		return clue;
+		
+	}
+	
+	
+	public Integer generateRandomOffsetByDifficulty(Integer difficulty) {
+		
+		// Difficulty: 100 - 1000 both inclusive (not 700, not 900)
+				// Offset: from 0 to (incrementing by 100)
+				// 100 - 9700 (45 clues)
+				// 200 - 30900 (4 clues)
+				// 300 - 9200 (84 clues)
+				// 400 - 29900 (55 clues)
+				// 500 - 8800 (73 clues)
+				// 600 - 20300 (12 clues)
+				// 800 - 19800 (9 clues)
+				// 1000 - 19800 (37 clues)
+		int maxOffset = 0;
+		
+		switch(difficulty) {
+		case 100:
+			maxOffset = 9700;
+			break;
+		case 200:
+			maxOffset = 30900;
+			break;
+		case 300:
+			maxOffset = 9200;
+			break;
+		case 400:
+			maxOffset = 29900;
+			break;
+		case 500:
+			maxOffset = 8800;
+			break;
+		case 600:
+			maxOffset = 20300;
+			break;
+		case 800:
+		case 1000:
+			maxOffset = 19800;
+			break;
+		}
+		
+		Integer randomOffset = (int) Math.round(Math.random()*maxOffset); //come back
+		return randomOffset;	
+		
+	}
+	
+	
+	public Clue generateRandomClue(Clue[] clues) {
+		
+		int randomNumber = (int) (Math.random() * clues.length);
+		System.out.println(randomNumber);
+		
+		return clues[randomNumber];
+		
+	}
+	
+	
+	
+	
 }
