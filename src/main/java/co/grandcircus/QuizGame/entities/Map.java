@@ -11,13 +11,11 @@ public class Map {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne
-	@Column(name="start_loc")
-	private Location start;
-	
-	@OneToOne
-	@Column(name="end_loc")
-	private Location end;
+	@OneToOne(mappedBy = "map")
+	private Location startLoc;
+
+	@OneToOne(mappedBy = "map")
+	private Location endLoc;
 
 	@ManyToOne
 	private User user;
@@ -34,19 +32,19 @@ public class Map {
 	}
 
 	public Location getStart() {
-		return start;
+		return startLoc;
 	}
 
 	public void setStart(Location start) {
-		this.start = start;
+		this.startLoc = start;
 	}
 
 	public Location getEnd() {
-		return end;
+		return endLoc;
 	}
 
 	public void setEnd(Location end) {
-		this.end = end;
+		this.endLoc = end;
 	}
 
 	public User getUser() {
@@ -67,7 +65,7 @@ public class Map {
 
 	@Override
 	public String toString() {
-		return "Map [id=" + id + ", start=" + start + ", end=" + end + ", user=" + user + ", locations=" + locations
+		return "Map [id=" + id + ", start=" + startLoc + ", end=" + endLoc + ", user=" + user + ", locations=" + locations
 				+ "]";
 	}
 
