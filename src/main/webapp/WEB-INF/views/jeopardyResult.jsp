@@ -25,7 +25,7 @@
 	<br />
 
 	<div class="alert alert-primary" role="alert">
-		<p>${question}</p>
+		<p style="text-align: center">${question}</p>
 	</div>
 
 
@@ -36,13 +36,13 @@
 					<c:when test="${answer == correctAnswer}">
 						<button type="button"
 							class="list-group-item list-group-item-action" style="background-color:green; color:white">
-							<p>${answer}</p>
+							<p style="text-align: center">${answer}</p>
 						</button>
 					</c:when>
 					<c:otherwise>
 						<button type="button"
 							class="list-group-item list-group-item-action" style="background-color:#da0000; color:white">
-							<p>${answer}</p>
+							<p style="text-align: center">${answer}</p>
 						</button>
 					</c:otherwise>
 				</c:choose></li>
