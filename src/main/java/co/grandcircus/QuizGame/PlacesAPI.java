@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import co.grandcircus.QuizGame.placesEntities.Candidate;
 import co.grandcircus.QuizGame.placesEntities.Places;
+import co.grandcircus.QuizGame.placesEntities.Result;
 
 @Component
 public class PlacesAPI {
@@ -33,15 +34,14 @@ public class PlacesAPI {
 	@Value("${placesKey}")
 	private String placesKey;
 
-	public List<Candidate> getPlaces() { 
+	public List<Result> getPlaces() { 
 
-		String url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Museum of Contemporary Art Australia&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key="+placesKey;
-
-		Places response = rt.getForObject(url, Places.class);
-			
-		System.out.println(response);
+		String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=42.3293,-83.0398&radius=1500&type=restaurant&key="+placesKey;
 		
-		List<Candidate> candidates = response.getCandidates();
+		Places response = rt.getForObject(url, Places.class);
+		
+		List<Result> candidates = response.getResults();
+		
 
 		return candidates;
 	}
