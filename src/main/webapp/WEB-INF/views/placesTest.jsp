@@ -82,6 +82,7 @@ function initMap() {
   var marker = new google.maps.Marker({position: rencen2, map: map});
 }
 
+
 </script>
 
 	<script async defer
