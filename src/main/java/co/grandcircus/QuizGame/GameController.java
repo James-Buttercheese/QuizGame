@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import co.grandcircus.QuizGame.entities.User;
 import co.grandcircus.QuizGame.placesEntities.Candidate;
+import co.grandcircus.QuizGame.placesEntities.Result;
 import co.grandcircus.QuizGame.repositories.UserRepository;
 
 @Controller
@@ -33,7 +34,7 @@ public class GameController {
 
 	@RequestMapping("/play")
 	public ModelAndView places() {
-		List<Candidate> candidates = papi.getPlaces();
+		List<Result> candidates = papi.getPlaces();
 
 		return new ModelAndView("game-map", "candidates", candidates);
 	}

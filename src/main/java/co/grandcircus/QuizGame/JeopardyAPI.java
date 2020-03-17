@@ -154,7 +154,7 @@ public class JeopardyAPI {
 	public Clue generateRandomClue(Clue[] clues) {
 		
 		int randomNumber = (int) (Math.random() * clues.length);
-		System.out.println(randomNumber);
+		//System.out.println(randomNumber);
 		
 		return clues[randomNumber];
 		

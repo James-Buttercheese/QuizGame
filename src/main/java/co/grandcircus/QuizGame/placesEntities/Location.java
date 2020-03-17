@@ -18,7 +18,17 @@ public class Location {
 	}
 	@Override
 	public String toString() {
-		return "Location [lat=" + lat + ", lng=" + lng + "]";
+		return ("{lat:" + lat + ",lng:" + lng + "}");
+	}
+	public Location(Double lat, Double lng) {
+		super();
+		this.lat = lat;
+		this.lng = lng;
+	}
+	public Location() {
+		super();
 	}
 
+	
+	
 }

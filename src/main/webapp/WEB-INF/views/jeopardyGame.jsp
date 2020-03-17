@@ -35,11 +35,11 @@
 		<c:forEach var="answer" items="${answers}">
 			<li class="list-group-item">
 				<form method="post">
-					<input type="hidden" value="${mainClue.category.title}" name="category" />
+					<%-- <input type="hidden" value="${mainClue.category.title}" name="category" /> --%>
 					<input type="hidden" value="${mainClue.value}" name="difficulty" />
-					<input type="hidden" value="${mainClue.question}" name="question" />
-					<input type="hidden" value="${mainClue.answer}" name="correctAnswer" />
-					<input type="hidden" value="${answers}" name="answers" />
+					<%-- <input type="hidden" value="${mainClue.question}" name="question" /> --%>
+					<%-- <input type="hidden" value="${mainClue.answer}" name="correctAnswer" /> --%>
+					<%-- <input type="hidden" value="${answers}" name="answers" /> --%>
 					<input type="hidden" value="${answer}" name="answer" />	
 					<button type="submit" class="list-group-item list-group-item-action"><p>${answer}</p></button>
 				</form>
