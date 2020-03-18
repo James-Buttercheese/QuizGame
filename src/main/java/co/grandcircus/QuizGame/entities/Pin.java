@@ -12,13 +12,13 @@ public class Pin {
 	private String latLong;
 
 	@ManyToOne (cascade = CascadeType.ALL)
-	private GameMap map;
+	private GameMap gameMap;
 	
 	
 	public Pin(String latLong, GameMap map) {
 		super();
 		this.latLong = latLong;
-		this.map = map;
+		this.gameMap = map;
 	}
 
 
@@ -53,16 +53,16 @@ public class Pin {
 	}
 
 	public GameMap getMap() {
-		return map;
+		return gameMap;
 	}
 
 	public void setMap(GameMap map) {
-		this.map = map;
+		this.gameMap = map;
 	}
 
 	@Override
 	public String toString() {
-		return "Location [id=" + id + ", latLong=" + latLong + ", map=" + map.getId() + "]";
+		return "Location [id=" + id + ", latLong=" + latLong + ", map=" + gameMap.getId() + "]";
 	}
 
 }

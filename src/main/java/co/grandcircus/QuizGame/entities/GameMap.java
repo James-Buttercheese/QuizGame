@@ -20,7 +20,7 @@ public class GameMap {
 	@ManyToOne (cascade = CascadeType.ALL)
 	private User user;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "map")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "gameMap")
 	private List<Pin> locations;
 
 
