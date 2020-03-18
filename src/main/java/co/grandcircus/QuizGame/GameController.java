@@ -7,12 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import co.grandcircus.QuizGame.entities.User;
-import co.grandcircus.QuizGame.placesEntities.Candidate;
 import co.grandcircus.QuizGame.placesEntities.Result;
-import co.grandcircus.QuizGame.repositories.UserRepository;
-
 @Controller
 public class GameController {
 
@@ -21,10 +16,7 @@ public class GameController {
 
 	@Autowired
 	private JeopardyAPI japi;
-	
-	@Autowired
-	private UserRepository urepo;
-	
+		
 	@RequestMapping("/")
 	public ModelAndView mainMenu() {
 		ModelAndView mav = new ModelAndView("main-menu");
