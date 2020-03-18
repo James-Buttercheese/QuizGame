@@ -42,8 +42,6 @@
 var results = (${results});
 
 function initMap() {
-
-	console.log(results[0].lat);
 	
   var rencen = results[0];
  
