@@ -61,7 +61,7 @@ function initMap() {
 		  map: map,
 		  title: result.place_id});
 	  marker.addListener('click', function() {
-		  window.location.assign('/jeopardy?placeId='+this.getTitle()+"&mapid="+mid);
+		  window.location.assign('/jeopardy?placeId='+this.getTitle()+"&mapId="+mid);
 		  
 // 		  /jeopardy?placeId=A&mapId=B
 		  

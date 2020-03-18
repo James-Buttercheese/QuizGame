@@ -18,7 +18,7 @@
 <div class="card" style="width: 18rem;">
   <ul class="list-group list-group-flush">
     <li class="list-group-item">Category: ${mainClue.category.title}</li>
-    <li class="list-group-item">Difficulty: ${mainClue.value}</li>
+    <li class="list-group-item">Difficulty: ${diffName}</li>
   </ul>
 </div>
 
@@ -37,6 +37,7 @@
 				<form method="post">
 					<%-- <input type="hidden" value="${mainClue.category.title}" name="category" /> --%>
 					<input type="hidden" value="${mainClue.value}" name="difficulty" />
+					<input type="hidden" value="${mapId}" name="mapId" />
 					<%-- <input type="hidden" value="${mainClue.question}" name="question" /> --%>
 					<%-- <input type="hidden" value="${mainClue.answer}" name="correctAnswer" /> --%>
 					<%-- <input type="hidden" value="${answers}" name="answers" /> --%>
