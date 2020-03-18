@@ -215,11 +215,10 @@ public class PlacesController {
 	}
 
 	@RequestMapping("play-map")
-	public ModelAndView play() {
-		
-		Long id = 1l;
-		
-		List<Pin> pins = pindao.findByMapId(id);
+	public ModelAndView play(@RequestParam(name="mapId") Long id) {
+		ModelAndView mav = new ModelAndView("play-map");
+			
+		List<Pin> pins = pindao.findByGameMapId(id);
 		List<String> placeIds = new ArrayList<>();
 		List<String> results= new ArrayList<>();
 		
@@ -234,6 +233,9 @@ public class PlacesController {
 			results.add(result.toString());
 		}
 		
-		return new ModelAndView("play-map", "results", results);
+		mav.addObject("results", results);
+		mav.addObject("mid", id);
+		
+		return mav;
 	}
 }
