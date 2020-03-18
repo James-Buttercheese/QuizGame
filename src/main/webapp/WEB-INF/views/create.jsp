@@ -54,11 +54,8 @@
 
 var locations = (${locations});
 
-console.log(locations);
-
 function initMap() {
 
-	console.log(locations[0].lat);
 	
   var rencen = locations[0];
  
@@ -66,11 +63,10 @@ function initMap() {
 	      document.getElementById('map'), {zoom: 15, center: rencen});
   
   for ( i = 0; i < (locations.length); i ++) { 
-	  	
+
 	  var location = locations[i];
-	  var marker = new google.maps.Marker({position: location, map: map});
-	  
-	console.log(i);
+	  var marker = new google.maps.Marker({position: location,
+		  map: map});
   } 
 }
 

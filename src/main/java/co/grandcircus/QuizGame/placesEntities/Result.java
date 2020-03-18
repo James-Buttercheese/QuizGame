@@ -62,11 +62,7 @@ public class Result {
 	}
 	@Override
 	public String toString() {
-		return "Result [geometry=" + geometry + ", name=" + name + ", opening_hours=" + opening_hours + ", photos="
-				+ photos + ", rating=" + rating + ", prive_level=" + prive_level + ", vicinity=" + vicinity
-				+ ", place_id=" + place_id + "]";
+		return "{rating:" + rating + ",place_id:" + "'"+ place_id + "'" + ",lat:" + geometry.getLocation().getLat() + ",lng:" + geometry.getLocation().getLng() + "}";
 	}
-	
-	
 
 }

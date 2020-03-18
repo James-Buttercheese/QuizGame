@@ -17,7 +17,8 @@ import co.grandcircus.QuizGame.entities.GameMap;
 import co.grandcircus.QuizGame.entities.Pin;
 import co.grandcircus.QuizGame.placesEntities.Location;
 import co.grandcircus.QuizGame.placesEntities.Result;
-import co.grandcircus.QuizGame.repositories.MapRepository;
+import co.grandcircus.QuizGame.repositories.GameMapRepo;
+import co.grandcircus.QuizGame.repositories.PinRepo;
 
 @Controller
 public class PlacesController {
@@ -26,7 +27,10 @@ public class PlacesController {
 	private HttpSession sesh;
 
 	@Autowired
-	private MapRepository mapdao;
+	private GameMapRepo mapdao;
+	
+	@Autowired
+	private PinRepo pindao;
 
 	@Autowired
 	private PlacesAPI placesApi;
@@ -49,8 +53,7 @@ public class PlacesController {
 			mav.addObject("lat", 42.3293);
 			mav.addObject("lng", -83.0398);
 		}
-
-		System.out.println(lat + "" + lng);
+		
 
 		return mav;
 
@@ -94,8 +97,6 @@ public class PlacesController {
 		locations.add(location5);
 		locations.add(location6);
 		locations.add(location7);
-		
-		System.out.println(locations);
 
 
 		mav.addObject("locations", locations);
@@ -154,17 +155,17 @@ public class PlacesController {
 		if (city.equalsIgnoreCase("detroit")) {
 			List<Result> candidates = placesApi.getDetroit();
 			mav.addObject("candidates", candidates);
-			System.out.println(candidates);
+			
 			
 		} else if (city.equalsIgnoreCase("chicago")) {
 			List<Result> candidates = placesApi.getChicago();
 			mav.addObject("candidates", candidates);
-			System.out.println(candidates);
+		
 			
 		} else if (city.equalsIgnoreCase("newYork")) {
 			List<Result> candidates = placesApi.getNewYork();
 			mav.addObject("candidates", candidates);
-			System.out.println(candidates);
+		
 		}
 		}
 		
@@ -175,6 +176,8 @@ public class PlacesController {
 			List<String> locales= new ArrayList<>();
 			List<Result> results = new ArrayList<>();
 			List<Pin> locations = new ArrayList<>();
+			List<String> strings= new ArrayList<>();
+			
 			
 			System.out.println(ids);
 			
@@ -187,21 +190,50 @@ public class PlacesController {
 			}
 			mav.addObject("locations", locales);
 			
-			map.setStart(new Pin(results.get(0).getGeometry().getLocation().toString(), map));
+			map.setStart(new Pin(results.get(0).getGeometry().getLocation().toString(), map, results.get(0).getPlace_id()));
 	
-			map.setEnd(new Pin(results.get(results.size()-1).getGeometry().getLocation().toString(), map));
+			map.setEnd(new Pin(results.get(results.size()-1).getGeometry().getLocation().toString(), map, results.get(results.size()-1).getPlace_id()));
 			results.remove(results.size()-1);
 			
 			for (Result result : results) {
-				locations.add(new Pin(result.getGeometry().getLocation().toString(), map));				
+				locations.add(new Pin(result.getGeometry().getLocation().toString(), map, result.getPlace_id()));	
+				strings.add(result.toString());
 			}
 			
 			map.setLocations(locations);
 			mapdao.save(map);
+			
+			mav.addObject("results", strings);
+			
+			System.out.println(results.get(0).toString());
+			System.out.println(locales.get(0).toString());
+			
 		}
 		
 		
 		return mav;
 	}
 
+	@RequestMapping("play-map")
+	public ModelAndView play() {
+		
+		Long id = 1l;
+		
+		List<Pin> pins = pindao.findByMapId(id);
+		List<String> placeIds = new ArrayList<>();
+		List<String> results= new ArrayList<>();
+		
+		
+		for (Pin pin : pins) {
+			placeIds.add(pin.getPlace_id());
+		}
+		
+		for(String pid : placeIds) {
+			Result result = placesApi.getById(pid);
+			
+			results.add(result.toString());
+		}
+		
+		return new ModelAndView("play-map", "results", results);
+	}
 }
