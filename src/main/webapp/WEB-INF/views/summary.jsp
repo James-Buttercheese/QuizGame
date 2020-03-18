@@ -13,6 +13,10 @@
 
 <h2>${correct}</h2>
 
+<form action="/play-map">
+<input type="hidden" value="${mapId}"name="mapId"/>
+<button type="submit">Back to Map</button>
+</form>
 
 
 

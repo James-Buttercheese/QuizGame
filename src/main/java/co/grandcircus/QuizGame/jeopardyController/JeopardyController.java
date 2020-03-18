@@ -195,6 +195,7 @@ public class JeopardyController {
 		
 		ModelAndView mav = new ModelAndView("jeopardyResult");
 		
+		mav.addObject("mapId", mapId);
 		mav.addObject("correct", correct);
 		mav.addObject("diffName", diffName);
 		mav.addObject("category", category);
@@ -210,8 +211,11 @@ public class JeopardyController {
 	public ModelAndView summary(@RequestParam("mapId") Long mapId,
 			@RequestParam("correct") String correct) {
 		
+		ModelAndView mav = new ModelAndView("summary");
+		mav.addObject("mapId", mapId);
+		mav.addObject("correct", correct);
 		System.out.println("MapId: " + mapId);
-		return new ModelAndView("summary", "correct", correct);
+		return mav;
 		
 	}
 	
