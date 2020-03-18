@@ -23,7 +23,14 @@
 </head>
 <body>
 	<h1>Countries and Cats</h1>
-	<a href="/play">New Game</a>
-	<a href="/fight">Quick Battle</a>
+	<a href="/create">Create Map</a>
+	<form action="/play-map">
+		<select name="mapId">
+			<c:forEach items="${maps}" var="map">
+				<option value="${map.id}">${map.id}</option>
+			</c:forEach>
+		</select>
+		<button type="submit">Play Map</button>
+	</form>
 </body>
 </html>
