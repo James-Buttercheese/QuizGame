@@ -40,27 +40,29 @@
 
 // var locations = (${locations});
 var results = (${results});
+var mid = (${mid});
 
 function initMap() {
+
 	
   var rencen = results[0];
  
   var map = new google.maps.Map(
 	      document.getElementById('map'), {zoom: 15, center: rencen});
   
-  for ( i = 0; i < (results.length); i ++) { 
+  var result;
+  
+  for (result of results) { 
 	  
 	  	
-	  var location = {lat: results[i].lat, lng: results[i].lng};
+	  var location = {lat: result.lat, lng: result.lng};
 	  var marker = new google.maps.Marker({position: location,
-		  map: map});
-// 	  marker.addListener('click', function() {
-// 		  window.location.assign('/jeopardy/game?placeId='+results[i].place_id);
-// 		  window.location.assign('/jeopardy/game?diff='+i+'00')
+		  map: map,
+		  title: result.place_id});
+	  marker.addListener('click', function() {
+		  window.location.assign('/jeopardy?placeId='+this.getTitle()+"&mapId="+mid);
 		  
-// 		  /jeopardy?placeId=A&mapId=B
-		  
-//         });
+        });
 
 	  
   } 

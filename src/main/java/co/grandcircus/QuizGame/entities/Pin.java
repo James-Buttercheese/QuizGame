@@ -19,19 +19,19 @@ public class Pin {
 	
 	
 	
-	public Pin(String latLong, GameMap map, String place_id) {
+	public Pin(String latLong, GameMap gamemap, String place_id) {
 		super();
 		this.latLong = latLong;
-		this.gameMap = map;
+		this.gameMap = gamemap;
 		this.place_id = place_id;
 	}
 
 
 
-	public Pin(String latLong, GameMap map) {
+	public Pin(String latLong, GameMap gamemap) {
 		super();
 		this.latLong = latLong;
-		this.gameMap = map;
+		this.gameMap = gamemap;
 	}
 
 
@@ -82,14 +82,14 @@ public class Pin {
 		return gameMap;
 	}
 
-	public void setMap(GameMap map) {
-		this.gameMap = map;
+	public void setMap(GameMap gamemap) {
+		this.gameMap = gamemap;
 	}
 
 	@Override
 	public String toString() {
 
-		return "Pin [id=" + id + ", latLong=" + latLong + ", map=" + gameMap + ", place_id=" + place_id + "]";
+		return "Pin [id=" + id + ", latLong=" + latLong + ", gamemap=" + gameMap + ", place_id=" + place_id + "]";
 
 	}
 

@@ -10,11 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import co.grandcircus.QuizGame.PlacesAPI;
 import co.grandcircus.QuizGame.entities.GameMap;
 import co.grandcircus.QuizGame.entities.Pin;
+import co.grandcircus.QuizGame.entities.Player;
 import co.grandcircus.QuizGame.placesEntities.Location;
 import co.grandcircus.QuizGame.placesEntities.Result;
 import co.grandcircus.QuizGame.repositories.GameMapRepo;
@@ -215,10 +217,18 @@ public class PlacesController {
 	}
 
 	@RequestMapping("play-map")
-	public ModelAndView play() {
+	public ModelAndView play(@RequestParam(name="mapId") Long id, 
+			@SessionAttribute(name="player", required = false)Player player) {
+		ModelAndView mav = new ModelAndView("play-map");
 		
-		Long id = 1l;
+		if (player == null) {
+		Player p = new Player();
+		p.setEnergy(15);
+		p.setWinCount(0);
 		
+		sesh.setAttribute("player", player);
+		}
+
 		List<Pin> pins = pindao.findByGameMapId(id);
 		List<String> placeIds = new ArrayList<>();
 		List<String> results= new ArrayList<>();
@@ -234,6 +244,11 @@ public class PlacesController {
 			results.add(result.toString());
 		}
 		
-		return new ModelAndView("play-map", "results", results);
+		mav.addObject("results", results);
+		mav.addObject("mid", id);
+		
+		return mav;
 	}
+	
+
 }
