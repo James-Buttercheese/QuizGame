@@ -44,7 +44,6 @@ var mid = (${mid});
 
 function initMap() {
 
-	console.log(results[0].lat);
 	
   var rencen = results[0];
  
@@ -62,8 +61,6 @@ function initMap() {
 		  title: result.place_id});
 	  marker.addListener('click', function() {
 		  window.location.assign('/jeopardy?placeId='+this.getTitle()+"&mapId="+mid);
-		  
-// 		  /jeopardy?placeId=A&mapId=B
 		  
         });
 
