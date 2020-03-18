@@ -215,7 +215,6 @@ public class PlacesController {
 	}
 
 	@RequestMapping("play-map")
-
 	public ModelAndView play(@RequestParam(name="mapId") Long id) {
 		ModelAndView mav = new ModelAndView("play-map");
 			
@@ -240,4 +239,6 @@ public class PlacesController {
 		
 		return mav;
 	}
+	
+
 }

@@ -7,7 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import co.grandcircus.QuizGame.entities.GameMap;
 import co.grandcircus.QuizGame.placesEntities.Result;
+import co.grandcircus.QuizGame.repositories.GameMapRepo;
 @Controller
 public class GameController {
 
@@ -16,12 +19,14 @@ public class GameController {
 
 	@Autowired
 	private JeopardyAPI japi;
+	
+	@Autowired
+	private GameMapRepo mapdao;
 		
 	@RequestMapping("/")
 	public ModelAndView mainMenu() {
-		ModelAndView mav = new ModelAndView("main-menu");
-
-		return mav;
+		List<GameMap> maps = mapdao.findAll();
+		return new ModelAndView("main-menu", "maps", maps);
 	}
 
 	@RequestMapping("/play")
