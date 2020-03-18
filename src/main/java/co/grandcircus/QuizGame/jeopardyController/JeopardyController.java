@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +32,9 @@ public class JeopardyController {
 //	private static Integer difficulty;
 	private static List<String> answers; //maybe not
 	
-	
+	@Autowired
+	private HttpSession sesh;
+
 	@Autowired
 	private JeopardyAPI jeopApi;
 	
