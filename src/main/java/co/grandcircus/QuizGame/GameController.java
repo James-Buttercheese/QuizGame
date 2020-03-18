@@ -34,7 +34,7 @@ public class GameController {
 
 	@RequestMapping("/play")
 	public ModelAndView places() {
-		List<Result> candidates = papi.getPlaces();
+		List<Result> candidates = papi.getDetroit();
 
 		return new ModelAndView("game-map", "candidates", candidates);
 	}

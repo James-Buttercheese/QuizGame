@@ -11,7 +11,7 @@ public class Result {
 	private Double rating;
 	private Double prive_level;
 	private String vicinity;
-	private String id;
+	private String place_id;
 	public Geometry getGeometry() {
 		return geometry;
 	}
@@ -54,17 +54,17 @@ public class Result {
 	public void setVicinity(String vicinity) {
 		this.vicinity = vicinity;
 	}
-	public String getId() {
-		return id;
+	public String getPlace_id() {
+		return place_id;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setPlace_id(String place_id) {
+		this.place_id = place_id;
 	}
 	@Override
 	public String toString() {
 		return "Result [geometry=" + geometry + ", name=" + name + ", opening_hours=" + opening_hours + ", photos="
-				+ photos + ", rating=" + rating + ", prive_level=" + prive_level + ", vicinity=" + vicinity + ", id="
-				+ id + "]";
+				+ photos + ", rating=" + rating + ", prive_level=" + prive_level + ", vicinity=" + vicinity
+				+ ", place_id=" + place_id + "]";
 	}
 	
 	

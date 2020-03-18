@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -29,17 +29,17 @@
 <body>
 
 
-	<div>
-		<form method="post" action="/places">
-			<select name="location">
-				<c:forEach var="candidate" items="${candidates}">
-					<option value="${candidate.geometry.location}">${candidate.name }</option>
-				</c:forEach>
-				</select>
-				<button type="submit" class="btn btn-secondary">submit</button>
-		</form>
+<!-- 	<div> -->
+<!-- 		<form method="post" action="/places"> -->
+<!-- 			<select name="location"> -->
+<%-- 				<c:forEach var="candidate" items="${candidates}"> --%>
+<%-- 					<option value="${candidate.geometry.location}">${candidate.name }</option> --%>
+<%-- 				</c:forEach> --%>
+<!-- 				</select> -->
+<!-- 				<button type="submit" class="btn btn-secondary">submit</button> -->
+<!-- 		</form> -->
 
-	</div>
+<!-- 	</div> -->
 
 	<!--  <table> -->
 	<!--   <tr> -->
@@ -61,7 +61,7 @@
 
 	<h3>My Google Maps Demo</h3>
 	<!--The div element for the map -->
-	<div id="map"></div>
+	<div id="map" style=" height: 400px;width: 100%;"></div>
 	<!-- Replace the value of the key parameter with your own API key. -->
 
 
@@ -86,7 +86,7 @@ function initMap() {
 </script>
 
 	<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQBAPP61snKjU7C8Gma0DXzZ_YkJ9wsLk&callback=initMap">
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNgPo3oGDoG2aLV7bxJeNDZNbP5CXd_aI&callback=initMap">
 </script>
 	<!-- AIzaSyAQBAPP61snKjU7C8Gma0DXzZ_YkJ9wsLk -->
 

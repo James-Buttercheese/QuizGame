@@ -34,7 +34,7 @@ public class PlacesAPI {
 	@Value("${placesKey}")
 	private String placesKey;
 
-	public List<Result> getPlaces() { 
+	public List<Result> getDetroit() { 
 
 		String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=42.3293,-83.0398&radius=1500&type=restaurant&key="+placesKey;
 		
@@ -44,6 +44,39 @@ public class PlacesAPI {
 		
 
 		return candidates;
+	}
+	
+	public List<Result> getChicago() { 
+
+		String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=41.8827,-87.6233&radius=1500&type=restaurant&key="+placesKey;
+		
+		Places response = rt.getForObject(url, Places.class);
+		
+		List<Result> candidates = response.getResults();
+		
+
+		return candidates;
+	}
+	public List<Result> getNewYork() { 
+
+		String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=40.7484,-73.9857&radius=1500&type=restaurant&key="+placesKey;
+		
+		Places response = rt.getForObject(url, Places.class);
+		
+		List<Result> candidates = response.getResults();
+		
+
+		return candidates;
+	}
+	
+	public Result getById(String id) { 
+
+		String url = "https://maps.googleapis.com/maps/api/place/details/json?placeid="+id+"&key="+placesKey;
+		Places response = rt.getForObject(url, Places.class);
+		
+		Result result = response.getResult();
+		
+		return result;
 	}
 	
 }
