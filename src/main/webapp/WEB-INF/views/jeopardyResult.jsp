@@ -18,7 +18,7 @@
 	<div class="card" style="width: 18rem;">
 		<ul class="list-group list-group-flush">
 			<li class="list-group-item">Category: ${category}</li>
-			<li class="list-group-item">Difficulty: ${difficulty}</li>
+			<li class="list-group-item">Difficulty: ${diffName}</li>
 		</ul>
 	</div>
 
@@ -48,6 +48,12 @@
 				</c:choose></li>
 		</c:forEach>
 	</ul>
-<a href="/jeopardy" class="btn btn-secondary">Home</a>
+	
+<form action="/summary">
+<input type="hidden" value="${mapId}" name="mapId"/>
+<input type="hidden" value="${correct}" name="correct"/>
+<button type="submit" class="btn btn-secondary">Next</button>
+</form>
+	
 </body>
 </html>
