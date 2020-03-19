@@ -219,9 +219,8 @@ public class PlacesController {
 			Player p = new Player();
 			p.setEnergy(15);
 			p.setWinCount(0);
-
 			sesh.setAttribute("player", p);
-			 player = (Player)sesh.getAttribute("player");
+			player = (Player) sesh.getAttribute("player");
 		}
 		List<Pin> pins = pindao.findByGameMapId(id);
 		List<String> placeIds = new ArrayList<>();
@@ -233,7 +232,6 @@ public class PlacesController {
 
 		for (String pid : placeIds) {
 			Result result = placesApi.getById(pid);
-
 			results.add(result.toString());
 		}
 		if (player.getWinCount() == 3) {

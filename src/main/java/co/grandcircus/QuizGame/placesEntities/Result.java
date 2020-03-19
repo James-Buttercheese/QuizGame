@@ -62,7 +62,12 @@ public class Result {
 	}
 	@Override
 	public String toString() {
-		return "{rating:" + rating + ",place_id:" + "'"+ place_id + "'" + ",lat:" + geometry.getLocation().getLat() + ",lng:" + geometry.getLocation().getLng() + "}";
+		
+		this.name = name.replace(" ", "_");
+		this.name = name.replace("'", "");
+		
+		
+		return "{rating:" + rating + ",name:"+ "'"+ name + "'" +",place_id:" + "'"+ place_id + "'" + ",lat:" + geometry.getLocation().getLat() + ",lng:" + geometry.getLocation().getLng() + "}";
 	}
 
 }

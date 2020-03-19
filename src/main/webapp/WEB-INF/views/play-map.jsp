@@ -51,7 +51,7 @@ function initMap() {
   var rencen = results[0];
  
   var map = new google.maps.Map(
-	      document.getElementById('map'), {zoom: 15, center: rencen});
+	      document.getElementById('map'), {zoom: 14, center: rencen});
   
   var result;
   
@@ -61,6 +61,19 @@ function initMap() {
 	  var location = {lat: result.lat, lng: result.lng};
 	  var marker = new google.maps.Marker({position: location,
 		  map: map,
+		  label: {
+			    text: result.name + " Rating: " + result.rating,
+			    color: "#black",
+			    fontSize: "12px",
+			    fontWeight: "bold"
+			  }, 
+		  icon: {
+			    path: google.maps.SymbolPath.CIRCLE,
+			    fillColor: "red",
+			    strokeColor: "skyblue",
+			    fillOpacity: .5,
+			    scale: 10
+			  },
 		  title: result.place_id});
 	  marker.addListener('click', function() {
 		  window.location.assign('/jeopardy?placeId='+this.getTitle()+"&mapId="+mid);
