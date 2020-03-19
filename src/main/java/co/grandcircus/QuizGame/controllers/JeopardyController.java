@@ -32,7 +32,7 @@ public class JeopardyController {
 	private static String diffName;
 //	private static Integer difficulty;
 	private static List<String> answers; // maybe not
-	private static boolean isBoss = false;
+	public static boolean isBoss;
 
 	@Autowired
 	private HttpSession sesh;
@@ -60,6 +60,7 @@ public class JeopardyController {
 
 		// System.out.println(rating);
 		Integer difficulty = 0;
+		isBoss = false;
 		if (player.getWinCount() == 3) {
 			isBoss = true;
 			diffName = "Boss";
