@@ -150,6 +150,8 @@ public class JeopardyController {
 		mav.addObject("diffName", diffName);
 
 		System.out.println(mapId);
+		
+		System.out.println("Is boss?" + isBoss);
 
 		mav.addObject("mapId", mapId);
 
@@ -261,6 +263,9 @@ public class JeopardyController {
 	public ModelAndView summary(@RequestParam(name="mapId",required=false) Long mapId, @RequestParam("correct") String correct,
 			@SessionAttribute(name = "player", required = false) Player player) {
 
+		
+		
+		
 		ModelAndView mav = new ModelAndView("summary");
 		if (player.getEnergy() == 0) {
 			mav.addObject("energy", player.getEnergy());

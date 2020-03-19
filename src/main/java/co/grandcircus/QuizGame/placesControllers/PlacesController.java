@@ -231,7 +231,9 @@ public class PlacesController {
 		}
 
 		for (String pid : placeIds) {
+			System.out.println(pid);
 			Result result = placesApi.getById(pid);
+			System.out.println(result);
 			results.add(result.toString());
 		}
 		if (player.getWinCount() == 3) {

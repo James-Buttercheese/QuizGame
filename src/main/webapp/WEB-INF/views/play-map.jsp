@@ -26,8 +26,9 @@
 
 
 	<h3>My Google Maps Demo</h3>
-	<c:if test="${not empty battle}">
-		<a href="/jeopardy"><button>${battle}</button></a>
+	<c:if test="${boss.equals('Boss')}">
+	
+		<a href="/jeopardy"><button>Boss</button></a>
 	</c:if>
 	<!--The div element for the map -->
 	<div id="map" style="height: 400px; width: 100%;"></div>
