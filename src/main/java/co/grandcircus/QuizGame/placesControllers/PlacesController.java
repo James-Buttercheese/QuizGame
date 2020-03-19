@@ -219,15 +219,19 @@ public class PlacesController {
 	@RequestMapping("play-map")
 	public ModelAndView play(@RequestParam(name="mapId") Long id, 
 			@SessionAttribute(name="player", required = false)Player player) {
+		
 		ModelAndView mav = new ModelAndView("play-map");
 		
 		if (player == null) {
 		Player p = new Player();
 		p.setEnergy(15);
 		p.setWinCount(0);
-		
-		sesh.setAttribute("player", player);
+		sesh.setAttribute("player", p);
 		}
+		
+		Player pppp = (Player) sesh.getAttribute("player");
+		System.out.println(pppp.toString());
+		
 
 		List<Pin> pins = pindao.findByGameMapId(id);
 		List<String> placeIds = new ArrayList<>();
@@ -240,6 +244,7 @@ public class PlacesController {
 		
 		for(String pid : placeIds) {
 			Result result = placesApi.getById(pid);
+			System.out.println(result);
 			
 			results.add(result.toString());
 		}

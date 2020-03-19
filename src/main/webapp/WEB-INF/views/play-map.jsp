@@ -58,6 +58,19 @@ function initMap() {
 	  var location = {lat: result.lat, lng: result.lng};
 	  var marker = new google.maps.Marker({position: location,
 		  map: map,
+		  label: {
+			    text: result.name + " Rating: " + result.rating,
+			    color: "#black",
+			    fontSize: "12px",
+			    fontWeight: "bold"
+			  }, 
+		  icon: {
+			    path: google.maps.SymbolPath.CIRCLE,
+			    fillColor: "red",
+			    strokeColor: "skyblue",
+			    fillOpacity: .5,
+			    scale: 10
+			  },
 		  title: result.place_id});
 	  marker.addListener('click', function() {
 		  window.location.assign('/jeopardy?placeId='+this.getTitle()+"&mapId="+mid);
@@ -71,7 +84,7 @@ function initMap() {
 </script>
 
 	<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoKh-kJKt_kzcKnELtFqh2n0G-E2dvwfk&callback=initMap">
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNgPo3oGDoG2aLV7bxJeNDZNbP5CXd_aI&callback=initMap">
 </script>
 
 </body>
