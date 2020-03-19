@@ -162,37 +162,46 @@ public class JeopardyController {
 			// @RequestParam("question") String question,
 			// @RequestParam("correctAnswer") String correctAnswer,
 			// @RequestParam("answers") String[] answers,
-			@RequestParam("answer") String answer, @RequestParam("mapId") Long mapId, @SessionAttribute(name = "player", required=false) Player player) {
-		
-		// Compute points here
-		Integer energy = player.getEnergy();
+			@RequestParam("answer") String answer, @RequestParam("mapId") Long mapId,
+			@SessionAttribute(name = "player", required = false) Player player) {
+		Integer energy = 0;
 		String correct = "";
-		if (answer.equals(correctAnswer)) {
-			correct = "You won!";
-			if (diffName.equals("Easy")) {
-				energy += 5;
-				player.setEnergy(energy);
-				System.out.println();
-			} else if (diffName.equals("Medium")) {
-				energy += 10;
-				player.setEnergy(energy);
+		// Compute points here
+		if (player != null) {
+			System.out.println(player.toString());
+			energy = player.getEnergy();
+
+			if (answer.equals(correctAnswer)) {
+				correct = "You won!";
+				if (diffName.equals("Easy")) {
+					energy += 5;
+					player.setEnergy(energy);
+				} else if (diffName.equals("Medium")) {
+					energy += 10;
+					player.setEnergy(energy);
+				} else {
+					System.out.println(player.toString());
+					energy += 15;
+					player.setEnergy(energy);
+				}
 			} else {
-				energy += 15;
-				player.setEnergy(energy);
+				correct = "You lost!";
+				if (diffName.equals("Easy")) {
+					energy -= 15;
+					player.setEnergy(energy);
+
+				} else if (diffName.equals("Medium")) {
+					energy -= 10;
+					player.setEnergy(energy);
+				} else {
+					energy -= 5;
+					player.setEnergy(energy);
+					System.out.println(player.toString());
+				}
 			}
 		} else {
-			correct = "You lost!";
-			if (diffName.equals("Easy")) {
-				energy -= 5;
-				player.setEnergy(energy);
-
-			} else if (diffName.equals("Medium")) {
-				energy -= 10;
-				player.setEnergy(energy);
-			} else {
-				energy -= 15;
-				player.setEnergy(energy);
-			}
+			correct = "null :(";
+			System.out.println("null :(");
 		}
 
 		System.out.println("Second Category: " + category); // sometimes this gets null
@@ -229,6 +238,7 @@ public class JeopardyController {
 		mav.addObject("question", question);
 		mav.addObject("answers", answers);
 		mav.addObject("correctAnswer", correctAnswer);
+		System.out.println(player.toString());
 
 		return mav;
 	}

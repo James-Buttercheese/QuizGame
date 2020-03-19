@@ -226,7 +226,7 @@ public class PlacesController {
 		p.setEnergy(15);
 		p.setWinCount(0);
 		
-		sesh.setAttribute("player", player);
+		sesh.setAttribute("player", p);
 		}
 
 		List<Pin> pins = pindao.findByGameMapId(id);

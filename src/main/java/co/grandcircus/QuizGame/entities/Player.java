@@ -3,7 +3,7 @@ package co.grandcircus.QuizGame.entities;
 import java.io.Serializable;
 
 public class Player implements Serializable{
-	private final static long serialVersionUID=1l;
+	private final static long serialVersionUID=1L;
 	
 	private Integer energy;
 	private Integer winCount;
@@ -24,5 +24,8 @@ public class Player implements Serializable{
 	public String toString() {
 		return "Player [energy=" + energy + ", winCount=" + winCount + "]";
 	}
-	
+	public Player() {
+	energy = 15;
+	winCount = 0;
+	}
 }
