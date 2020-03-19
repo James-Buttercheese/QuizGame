@@ -36,6 +36,8 @@ public class PlacesController {
 
 	@Autowired
 	private PlacesAPI placesApi;
+	
+	//private static boolean isBoss;
 
 	@RequestMapping("/places")
 	public ModelAndView places(@RequestParam(name = "lat", required = false) Double lat,
@@ -219,6 +221,7 @@ public class PlacesController {
 			Player p = new Player();
 			p.setEnergy(15);
 			p.setWinCount(0);
+			//JeopardyController.isBoss = false;
 			sesh.setAttribute("player", p);
 			player = (Player) sesh.getAttribute("player");
 		}

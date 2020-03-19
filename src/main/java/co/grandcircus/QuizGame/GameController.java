@@ -27,9 +27,12 @@ public class GameController {
 	@Autowired
 	private HttpSession sesh;
 	
+	private static boolean isBoss;
+	
 	@RequestMapping("/")
 	public ModelAndView mainMenu() {
 		sesh.invalidate();
+		isBoss = false;
 		List<GameMap> maps = mapdao.findAll();
 		return new ModelAndView("main-menu", "maps", maps);
 	}
