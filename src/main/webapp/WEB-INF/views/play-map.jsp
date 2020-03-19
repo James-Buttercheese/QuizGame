@@ -48,7 +48,7 @@ function initMap() {
   var rencen = results[0];
  
   var map = new google.maps.Map(
-	      document.getElementById('map'), {zoom: 15, center: rencen});
+	      document.getElementById('map'), {zoom: 14, center: rencen});
   
   var result;
   
