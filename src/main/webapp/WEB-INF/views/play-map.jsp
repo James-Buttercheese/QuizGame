@@ -14,8 +14,9 @@
 
 	<h3>Select a destination to travel to:</h3>
 	<c:if test="${boss.equals('Boss')}">
-	
-		<a href="/jeopardy"><button>Boss</button></a>
+
+		<a href="/jeopardy"><button>Boss Battle</button></a>
+
 	</c:if>
 	<!--The div element for the map -->
 	<div id="map" style="height: 400px; width: 100%;"></div>
@@ -24,28 +25,73 @@
 	<!-- <script>var locations = ${locations}</script> -->
 
 
-
+<c:set var="winCount" scope="session" value="${player.winCount}" />
+<h4>${ winCount }</h4>
 
 
 	<script>
-
-// var locations = (${locations});
+	
+var winCount = (${winCount});
 var results = (${results});
 var mid = (${mid});
+
+console.log(winCount);
 
 function initMap() {
 
 	
-  var rencen = results[0];
+  var start = ${start};
+  var end = ${end};
  
   var map = new google.maps.Map(
-	      document.getElementById('map'), {zoom: 14, center: rencen});
+	      document.getElementById('map'), {zoom: 14, center: start});
   
   var result;
+  var counter = 0;
+  
+  var location = {lat: start.lat, lng: start.lng};
+  var start = new google.maps.Marker({position: location,
+	  map: map,
+	  label: {
+		    text: "Start",
+		    color: "#black",
+		    fontSize: "18px",
+		    fontWeight: "bold"
+		  }, 
+	  icon: {
+		    path: google.maps.SymbolPath.CIRCLE,
+		    fillColor: "green",
+		    strokeColor: "green",
+		    fillOpacity: 1.0,
+		    scale: 15
+		  }});
+  
+  if (winCount >= 3) {
+  var location = {lat: end.lat, lng: end.lng};
+  var end = new google.maps.Marker({position: location,
+	  map: map,
+	  label: {
+		    text: "Boss",
+		    color: "#black",
+		    fontSize: "18px",
+		    fontWeight: "bold"
+		  }, 
+	  icon: {
+		    path: google.maps.SymbolPath.CIRCLE,
+		    fillColor: "Red",
+		    strokeColor: "Red",
+		    fillOpacity: 1.0,
+		    scale: 15
+		  }});
+  end.addListener('click', function() {
+	  window.location.assign('/boss');
+	  
+    });
+  }
   
   for (result of results) { 
 	  
-	  	
+	 if (counter > 2) {
 	  var location = {lat: result.lat, lng: result.lng};
 	  var marker = new google.maps.Marker({position: location,
 		  map: map,
@@ -67,8 +113,9 @@ function initMap() {
 		  window.location.assign('/jeopardy?placeId='+this.getTitle()+"&mapId="+mid);
 		  
         });
+  }
 
-	  
+	counter ++;  
   } 
 }
 
