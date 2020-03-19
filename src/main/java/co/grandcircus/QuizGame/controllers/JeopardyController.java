@@ -1,4 +1,4 @@
-package co.grandcircus.QuizGame.jeopardyController;
+package co.grandcircus.QuizGame.controllers;
 
 import java.util.ArrayList;
 import java.util.HashSet;
