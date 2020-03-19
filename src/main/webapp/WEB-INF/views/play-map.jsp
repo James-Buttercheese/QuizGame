@@ -23,11 +23,14 @@
 </head>
 <body>
 	<%@ include file="partials/header.jsp"%>
-	
-	
-		<h3>My Google Maps Demo</h3>
+
+
+	<h3>My Google Maps Demo</h3>
+	<c:if test="${not empty battle}">
+		<a href="/jeopardy"><button>${battle}</button></a>
+	</c:if>
 	<!--The div element for the map -->
-	<div id="map" style=" height: 400px;width: 100%;"></div>
+	<div id="map" style="height: 400px; width: 100%;"></div>
 	<!-- Replace the value of the key parameter with your own API key. -->
 
 	<!-- <script>var locations = ${locations}</script> -->
@@ -71,7 +74,7 @@ function initMap() {
 </script>
 
 	<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoKh-kJKt_kzcKnELtFqh2n0G-E2dvwfk&callback=initMap">
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNgPo3oGDoG2aLV7bxJeNDZNbP5CXd_aI&callback=initMap">
 </script>
 
 </body>

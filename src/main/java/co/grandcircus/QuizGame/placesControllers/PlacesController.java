@@ -30,7 +30,7 @@ public class PlacesController {
 
 	@Autowired
 	private GameMapRepo mapdao;
-	
+
 	@Autowired
 	private PinRepo pindao;
 
@@ -55,7 +55,6 @@ public class PlacesController {
 			mav.addObject("lat", 42.3293);
 			mav.addObject("lng", -83.0398);
 		}
-		
 
 		return mav;
 
@@ -100,12 +99,11 @@ public class PlacesController {
 		locations.add(location6);
 		locations.add(location7);
 
-
 		mav.addObject("locations", locations);
 
 		return mav;
 	}
-	
+
 //	@RequestMapping("/mapping")
 //	public ModelAndView maps() {
 //
@@ -148,107 +146,103 @@ public class PlacesController {
 	}
 
 	@PostMapping("create")
-	public ModelAndView createPost(@RequestParam(name="city", required = false)String city,
-			@RequestParam(value="locale", required=false) List<String> ids) {
-		
-		ModelAndView mav = new ModelAndView("create");
-		
-		if ((city != null) && (!city.isEmpty())) {
-		if (city.equalsIgnoreCase("detroit")) {
-			List<Result> candidates = placesApi.getDetroit();
-			mav.addObject("candidates", candidates);
-			
-			
-		} else if (city.equalsIgnoreCase("chicago")) {
-			List<Result> candidates = placesApi.getChicago();
-			mav.addObject("candidates", candidates);
-		
-			
-		} else if (city.equalsIgnoreCase("newYork")) {
-			List<Result> candidates = placesApi.getNewYork();
-			mav.addObject("candidates", candidates);
-		
-		}
-		}
-		
+	public ModelAndView createPost(@RequestParam(name = "city", required = false) String city,
+			@RequestParam(value = "locale", required = false) List<String> ids) {
 
-		
+		ModelAndView mav = new ModelAndView("create");
+
+		if ((city != null) && (!city.isEmpty())) {
+			if (city.equalsIgnoreCase("detroit")) {
+				List<Result> candidates = placesApi.getDetroit();
+				mav.addObject("candidates", candidates);
+
+			} else if (city.equalsIgnoreCase("chicago")) {
+				List<Result> candidates = placesApi.getChicago();
+				mav.addObject("candidates", candidates);
+
+			} else if (city.equalsIgnoreCase("newYork")) {
+				List<Result> candidates = placesApi.getNewYork();
+				mav.addObject("candidates", candidates);
+
+			}
+		}
+
 		if (ids != null) {
 			GameMap map = new GameMap();
-			List<String> locales= new ArrayList<>();
+			List<String> locales = new ArrayList<>();
 			List<Result> results = new ArrayList<>();
 			List<Pin> locations = new ArrayList<>();
-			List<String> strings= new ArrayList<>();
-			
-			
+			List<String> strings = new ArrayList<>();
+
 			System.out.println(ids);
-			
-			for(String id : ids) {
-			Result result = placesApi.getById(id);
-			
-			results.add(result);
-			locales.add(result.getGeometry().getLocation().toString());
-			
+
+			for (String id : ids) {
+				Result result = placesApi.getById(id);
+
+				results.add(result);
+				locales.add(result.getGeometry().getLocation().toString());
+
 			}
 			mav.addObject("locations", locales);
-			
-			map.setStart(new Pin(results.get(0).getGeometry().getLocation().toString(), map, results.get(0).getPlace_id()));
-	
-			map.setEnd(new Pin(results.get(results.size()-1).getGeometry().getLocation().toString(), map, results.get(results.size()-1).getPlace_id()));
-			results.remove(results.size()-1);
-			
+
+			map.setStart(
+					new Pin(results.get(0).getGeometry().getLocation().toString(), map, results.get(0).getPlace_id()));
+
+			map.setEnd(new Pin(results.get(results.size() - 1).getGeometry().getLocation().toString(), map,
+					results.get(results.size() - 1).getPlace_id()));
+			results.remove(results.size() - 1);
+
 			for (Result result : results) {
-				locations.add(new Pin(result.getGeometry().getLocation().toString(), map, result.getPlace_id()));	
+				locations.add(new Pin(result.getGeometry().getLocation().toString(), map, result.getPlace_id()));
 				strings.add(result.toString());
 			}
-			
+
 			map.setLocations(locations);
 			mapdao.save(map);
-			
+
 			mav.addObject("results", strings);
-			
+
 			System.out.println(results.get(0).toString());
 			System.out.println(locales.get(0).toString());
-			
+
 		}
-		
-		
+
 		return mav;
 	}
 
 	@RequestMapping("play-map")
-	public ModelAndView play(@RequestParam(name="mapId") Long id, 
-			@SessionAttribute(name="player", required = false)Player player) {
+	public ModelAndView play(@RequestParam(name = "mapId") Long id,
+			@SessionAttribute(name = "player", required = false) Player player) {
 		ModelAndView mav = new ModelAndView("play-map");
-		
-		if (player == null) {
-		Player p = new Player();
-		p.setEnergy(15);
-		p.setWinCount(0);
-		
-		sesh.setAttribute("player", p);
-		}
 
+		if (player == null) {
+			Player p = new Player();
+			p.setEnergy(15);
+			p.setWinCount(0);
+
+			sesh.setAttribute("player", p);
+			 player = (Player)sesh.getAttribute("player");
+		}
 		List<Pin> pins = pindao.findByGameMapId(id);
 		List<String> placeIds = new ArrayList<>();
-		List<String> results= new ArrayList<>();
-		
-		
+		List<String> results = new ArrayList<>();
+
 		for (Pin pin : pins) {
 			placeIds.add(pin.getPlace_id());
 		}
-		
-		for(String pid : placeIds) {
+
+		for (String pid : placeIds) {
 			Result result = placesApi.getById(pid);
-			
+
 			results.add(result.toString());
 		}
-		
+		if (player.getWinCount() == 3) {
+			mav.addObject("boss", "Boss");
+		}
 		mav.addObject("results", results);
 		mav.addObject("mid", id);
-		
+
 		return mav;
 	}
-	
 
 }

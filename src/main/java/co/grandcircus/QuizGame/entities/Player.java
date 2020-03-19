@@ -24,8 +24,5 @@ public class Player implements Serializable{
 	public String toString() {
 		return "Player [energy=" + energy + ", winCount=" + winCount + "]";
 	}
-	public Player() {
-	energy = 15;
-	winCount = 0;
-	}
+	
 }

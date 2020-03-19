@@ -32,6 +32,7 @@ public class JeopardyController {
 	private static String diffName;
 //	private static Integer difficulty;
 	private static List<String> answers; // maybe not
+	private static boolean isBoss = false;
 
 	@Autowired
 	private HttpSession sesh;
@@ -48,45 +49,51 @@ public class JeopardyController {
 //	}
 
 	@RequestMapping("/jeopardy")
-	public ModelAndView game(@RequestParam("placeId") String placeId, // string?
-			@RequestParam("mapId") Long mapId) {
+	public ModelAndView game(@RequestParam(name = "placeId", required = false) String placeId, // string?
+			@RequestParam(name = "mapId", required = false) Long mapId,
+			@SessionAttribute(name = "player", required = false) Player player) {
 
 		/// jeopardy?placeId=A&mapId=B
-
+		ModelAndView mav = new ModelAndView("jeopardyGame");
 		Result result = papi.getById(placeId);
 		Double rating = result.getRating();
 
 		// System.out.println(rating);
-
 		Integer difficulty = 0;
-		diffName = "";
-
-		if (rating <= 0.625) {
-			difficulty = 100;
-			diffName = "Easy";
-		} else if (rating <= 1.25) {
-			difficulty = 200;
-			diffName = "Easy";
-		} else if (rating <= 1.875) {
-			difficulty = 300;
-			diffName = "Easy";
-		} else if (rating <= 2.5) {
-			difficulty = 400;
-			diffName = "Medium";
-		} else if (rating <= 3.125) {
-			difficulty = 500;
-			diffName = "Medium";
-		} else if (rating <= 3.75) {
-			difficulty = 600;
-			diffName = "Medium";
-		} else if (rating <= 4.375) {
-			difficulty = 800;
-			diffName = "Hard";
-		} else if (rating <= 5) {
+		if (player.getWinCount() == 3) {
+			isBoss = true;
+			diffName = "Boss";
 			difficulty = 1000;
-			diffName = "Hard";
-		}
+		} else {
+			diffName = "";
 
+			if (rating <= 0.625) {
+				difficulty = 100;
+				diffName = "Easy";
+			} else if (rating <= 1.25) {
+				difficulty = 100;
+				diffName = "Easy";
+			} else if (rating <= 1.875) {
+				difficulty = 100;
+				diffName = "Easy";
+			} else if (rating <= 2.5) {
+				difficulty = 100;
+				diffName = "Easy";
+			} else if (rating <= 3.125) {
+				difficulty = 100;
+				diffName = "Easy";
+			} else if (rating <= 3.75) {
+				difficulty = 100;
+				diffName = "Easy";
+			} else if (rating <= 4.375) {
+				difficulty = 500;
+				diffName = "Medium";
+			} else if (rating <= 5) {
+				difficulty = 1000;
+				diffName = "Hard";
+			}
+
+		}
 		Integer randomOffset = jeopApi.generateRandomOffsetByDifficulty(difficulty);
 
 		Clue[] allClues = jeopApi.findByDifficulty(difficulty, randomOffset);
@@ -134,7 +141,6 @@ public class JeopardyController {
 		correctAnswer = mainClue.getAnswer();
 //		difficulty = mainClue.getValue();
 
-		ModelAndView mav = new ModelAndView("jeopardyGame");
 		mav.addObject("mainClue", mainClue);
 		System.out.println("First Category: " + category);
 		System.out.println("First Question: " + question);
@@ -162,27 +168,35 @@ public class JeopardyController {
 			// @RequestParam("question") String question,
 			// @RequestParam("correctAnswer") String correctAnswer,
 			// @RequestParam("answers") String[] answers,
-			@RequestParam("answer") String answer, @RequestParam("mapId") Long mapId,
+			@RequestParam("answer") String answer, @RequestParam(name = "mapId", required = false) Long mapId,
 			@SessionAttribute(name = "player", required = false) Player player) {
 		Integer energy = 0;
+		Integer wins = 0;
 		String correct = "";
 		// Compute points here
 		if (player != null) {
 			System.out.println(player.toString());
 			energy = player.getEnergy();
+			wins = player.getWinCount();
 
 			if (answer.equals(correctAnswer)) {
 				correct = "You won!";
 				if (diffName.equals("Easy")) {
 					energy += 5;
+					wins += 1;
 					player.setEnergy(energy);
+					player.setWinCount(wins);
 				} else if (diffName.equals("Medium")) {
 					energy += 10;
+					wins += 1;
 					player.setEnergy(energy);
+					player.setWinCount(wins);
 				} else {
 					System.out.println(player.toString());
+					wins += 1;
 					energy += 15;
 					player.setEnergy(energy);
+					player.setWinCount(wins);
 				}
 			} else {
 				correct = "You lost!";
@@ -244,12 +258,23 @@ public class JeopardyController {
 	}
 
 	@RequestMapping("/summary")
-	public ModelAndView summary(@RequestParam("mapId") Long mapId, @RequestParam("correct") String correct) {
+	public ModelAndView summary(@RequestParam(name="mapId",required=false) Long mapId, @RequestParam("correct") String correct,
+			@SessionAttribute(name = "player", required = false) Player player) {
 
 		ModelAndView mav = new ModelAndView("summary");
-		mav.addObject("mapId", mapId);
-		mav.addObject("correct", correct);
-		System.out.println("MapId: " + mapId);
+		if (player.getEnergy() == 0) {
+			mav.addObject("energy", player.getEnergy());
+			mav.addObject("wins", player.getWinCount());
+			mav.addObject("correct", correct);
+			mav.addObject("gameOver", "Game Over.");
+			mav.addObject("isBoss", isBoss);
+		} else {
+			mav.addObject("mapId", mapId);
+			mav.addObject("energy", player.getEnergy());
+			mav.addObject("wins", player.getWinCount());
+			mav.addObject("correct", correct);
+			mav.addObject("isBoss", isBoss);
+		}
 		return mav;
 
 	}

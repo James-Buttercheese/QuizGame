@@ -2,6 +2,8 @@ package co.grandcircus.QuizGame;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +24,12 @@ public class GameController {
 	
 	@Autowired
 	private GameMapRepo mapdao;
-		
+	@Autowired
+	private HttpSession sesh;
+	
 	@RequestMapping("/")
 	public ModelAndView mainMenu() {
+		sesh.invalidate();
 		List<GameMap> maps = mapdao.findAll();
 		return new ModelAndView("main-menu", "maps", maps);
 	}
