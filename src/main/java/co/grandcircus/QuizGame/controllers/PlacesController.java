@@ -1,4 +1,4 @@
-package co.grandcircus.QuizGame.placesControllers;
+package co.grandcircus.QuizGame.controllers;
 
 import java.util.ArrayList;
 import java.util.List;

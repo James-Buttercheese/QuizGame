@@ -5,27 +5,14 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Watch Out!</title>
-<link rel="icon" type="image/png"
-	href="https://i2.wp.com/awakedetroit.com/wp-content/uploads/2019/04/cropped-Favicon.png?ssl=1">
-<link
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-	crossorigin="anonymous">
-<link
-	href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/flatly/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-yrfSO0DBjS56u5M+SjWTyAHujrkiYVtRYh2dtB3yLQtUz3bodOeialO59u5lUCFF"
-	crossorigin="anonymous">
-<link rel="stylesheet" href="/style.css">
-<link rel="stylesheet" href="../style.css">
+<title>Map</title>
+	<%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
 	<%@ include file="partials/header.jsp"%>
 
 
-	<h3>My Google Maps Demo</h3>
+	<h3>Select a destination to travel to:</h3>
 	<c:if test="${boss.equals('Boss')}">
 	
 		<a href="/jeopardy"><button>Boss</button></a>

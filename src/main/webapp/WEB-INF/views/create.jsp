@@ -6,31 +6,16 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Create</title>
-<link
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-	crossorigin="anonymous">
-<link
-	href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/flatly/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-yrfSO0DBjS56u5M+SjWTyAHujrkiYVtRYh2dtB3yLQtUz3bodOeialO59u5lUCFF"
-	crossorigin="anonymous">
-<link rel="stylesheet" href="/style.css">
-<link rel="stylesheet" href="../style.css">
+	<%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
-
 <%@ include file="partials/header.jsp"%>
-
-
-
 	<div>
 		<h4>Which City would You like to base your map in?</h4>
 		<form method="post" action="/create">
 			<select name="city">
 				<option value="detroit">Detroit</option>
-				<option value="chicago">Cicago</option>
+				<option value="chicago">Chicago</option>
 				<option value="newYork">New York</option>
 			</select>
 			<button type="submit" class="btn btn-secondary">submit</button>
@@ -51,7 +36,7 @@
 	</div>
 
 
-	<h3>My Google Maps Demo</h3>
+	<h3>My Map</h3>
 	<!--The div element for the map -->
 	<div id="map" style=" height: 400px;width: 100%;"></div>
 	<!-- Replace the value of the key parameter with your own API key. -->
