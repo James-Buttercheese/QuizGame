@@ -43,13 +43,18 @@ public class PlacesController {
 	@RequestMapping("create")
 	public ModelAndView create() { //sends you to the create .jsp
 		ModelAndView mav = new ModelAndView("create");
+		
+		List<GameMap> maps = mapdao.findAll();
+		mav.addObject("maps", maps);
 
 		return mav;
 	}
 
 	@PostMapping("create") //post map for the create jsp, stuff happens
 	public ModelAndView createPost(@RequestParam(name = "city", required = false) String city,
-			@RequestParam(value = "locale", required = false) List<String> ids) {
+			@RequestParam(value = "locale", required = false) List<String> ids,
+			@RequestParam(value = "name", required = false) String name,
+			@RequestParam(value = "mapId", required = false) Long mapId) {
 
 		ModelAndView mav = new ModelAndView("create");
 
@@ -71,7 +76,13 @@ public class PlacesController {
 
 		if (ids != null) { //takes list of locations chosen by user creates the map,
 			//stores it in the db, and sends it to be seen
+			
+
 			GameMap map = new GameMap();
+			if (mapId != null) {
+				map = mapdao.findById(mapId).orElse(null);
+				pindao.deleteByGameMapId(mapId);
+			}
 			List<String> locales = new ArrayList<>();
 			List<Result> results = new ArrayList<>();
 			List<Pin> locations = new ArrayList<>();
@@ -99,10 +110,29 @@ public class PlacesController {
 			}
 
 			map.setLocations(locations);
+			if (!name.isEmpty()) {
+			map.setName(name);
+			}
 			mapdao.save(map); //saves to db
 
 			mav.addObject("results", strings);
 
+		}
+		
+		if (mapId != null) {
+			
+			List<Pin> locations = pindao.findByGameMapId(mapId);
+			List<Result> candidates = placesApi.getByStart(locations.get(0).getPlace_id());
+			List<Result> locales = new ArrayList<>();
+			
+			for (Pin location : locations) {				
+				locales.add(placesApi.getById(location.getPlace_id()));
+			}
+			
+			mav.addObject("candidates", candidates);
+			mav.addObject("locations", locales);
+			mav.addObject("id", mapId);
+			
 		}
 
 		return mav;

@@ -14,7 +14,7 @@
 	<form action="/play-map">
 		<select name="mapId">
 			<c:forEach items="${maps}" var="map">
-				<option value="${map.id}">${map.id}</option>
+				<option value="${map.id}">${map.name}</option>
 			</c:forEach>
 		</select>
 		<button type="submit">Play Map</button>
