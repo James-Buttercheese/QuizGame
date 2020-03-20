@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import co.grandcircus.QuizGame.PlacesAPI;
 import co.grandcircus.QuizGame.entities.GameMap;
+import co.grandcircus.QuizGame.entities.PiD;
 import co.grandcircus.QuizGame.entities.Pin;
 import co.grandcircus.QuizGame.entities.Player;
 import co.grandcircus.QuizGame.placesEntities.Result;
@@ -113,16 +114,22 @@ public class PlacesController {
 		ModelAndView mav = new ModelAndView("play-map");
 
 		if (player == null) { //starts session if one doesn't exist
+			List<PiD> visited = new ArrayList<>();
+			String startId = pindao.findByGameMapId(id).get(0).getPlace_id();
+			visited.add(new PiD(startId));
 			Player p = new Player();
 			p.setEnergy(15);
 			p.setWinCount(0);
+			p.setVisited(visited);
 			//JeopardyController.isBoss = false;
 			sesh.setAttribute("player", p);
 			player = (Player) sesh.getAttribute("player");
 		}
+		
 		List<Pin> pins = pindao.findByGameMapId(id);
 		List<String> placeIds = new ArrayList<>();
 		List<String> results = new ArrayList<>();
+		List<PiD> visited = player.getVisited();
 		String start = "";
 		String end = "";
 
@@ -148,6 +155,7 @@ public class PlacesController {
 		mav.addObject("mid", id);
 		mav.addObject("start", start);
 		mav.addObject("end", end);
+		mav.addObject("visited", visited);
 
 		return mav;
 	}
