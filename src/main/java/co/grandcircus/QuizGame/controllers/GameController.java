@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,23 +39,26 @@ public class GameController {
 		List<GameMap> maps = mapdao.findAll();
 		return new ModelAndView("main-menu", "maps", maps);
 	}
-
-	@RequestMapping("/play")
-	public ModelAndView places() {
-		List<Result> candidates = papi.getDetroit();
-
-		return new ModelAndView("game-map", "candidates", candidates);
+	
+	
+	
+//Added for logging in/signing up; Make user from db Serializable(?)
+	
+	@RequestMapping("/login")
+	public ModelAndView login() {
+		
+		return new ModelAndView("login");
 	}
-
-	@RequestMapping("/fight")
-	public ModelAndView battleMenu() {
-		ModelAndView mav = new ModelAndView("battle");
-
-		return mav;
-	}
-	@RequestMapping("/{user.username}")
-	public ModelAndView userHome(@RequestParam("user.username") String username) {
+	@PostMapping("/login")
+	public ModelAndView loginAuth() {
 		
 		return null;
 	}
+	@RequestMapping("/user-create")
+	public ModelAndView signup() {
+		
+		return null;
+	}
+
+	
 }

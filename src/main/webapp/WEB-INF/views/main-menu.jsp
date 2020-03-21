@@ -9,8 +9,15 @@
 	<%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
-	<h1>Countries and Cats</h1>
-	<a href="/create">Create Map</a>
+	<h1>Conquests and Cats</h1>
+	
+	
+	<!-- LOGIN AND SIGN UP HAVEN'T BEEN FULLY IMPLEMENTED YET -->
+	<a href="/login"><button>User Log In</button></a>
+	<a href="/user-create"><button>Create a User</button></a>
+	
+	
+	<a href="/create"><button>Create Map</button></a>
 	<form action="/play-map">
 		<select name="mapId">
 			<c:forEach items="${maps}" var="map">

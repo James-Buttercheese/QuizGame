@@ -6,13 +6,13 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Map</title>
-	<%@ include file="partials/style-tags.jsp"%>
+<%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
 	<%@ include file="partials/header.jsp"%>
 
 
-	<h3>Select a destination to travel to:</h3>
+	<h3>Select a destination to conquer:</h3>
 	<c:if test="${boss.equals('Boss')}">
 
 		<a href="/jeopardy"><button>Boss Battle</button></a>
@@ -23,12 +23,19 @@
 	<!-- Replace the value of the key parameter with your own API key. -->
 
 	<!-- <script>var locations = ${locations}</script> -->
+	<table>
+		<th>
+			<tr><h4>Name: || Level:</h4></tr>
+		</th>
+		<ul>
+			<li><h6>Areas Conquered: ${ winCount }/3</h6></li>
+			<li><h6>Energy:</h6></li>
+			<li><h6>Items in Bag:</h6></li>
+		</ul>
 
-
-<c:set var="winCount" scope="session" value="${player.winCount}" />
-<h4>${ winCount }</h4>
-
-
+		<h4>Your Quest:</h4>
+	</table>
+	<c:set var="winCount" scope="session" value="${player.winCount}" />
 	<script>
 	
 var winCount = (${winCount});
