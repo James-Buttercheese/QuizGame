@@ -6,7 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Map</title>
-	<%@ include file="partials/style-tags.jsp"%>
+<%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
 	<%@ include file="partials/header.jsp"%>
@@ -25,15 +25,15 @@
 	<!-- <script>var locations = ${locations}</script> -->
 
 
-<c:set var="winCount" scope="session" value="${player.winCount}" />
-<h4>${ winCount }</h4>
-
+	<c:set var="winCount" scope="session" value="${player.winCount}" />
+	<c:set var="visited" scope="session" value="${player.visited}" />
 
 	<script>
 	
 var winCount = (${winCount});
 var results = (${results});
 var mid = (${mid});
+var visited = (${visited});
 
 console.log(winCount);
 
@@ -90,8 +90,30 @@ function initMap() {
   }
   
   for (result of results) { 
-	  
+	  var counter2 = false;
 	 if (counter > 2) {
+		 for (visit of visited) {
+			 console.log(result.place_id + " " + visit.id)
+			 if (result.place_id === visit.id){
+				 counter2=true
+			 }
+		 }
+	if (counter2 === true) {
+		
+		var location = {lat: result.lat, lng: result.lng};
+		  var seen = new google.maps.Marker({position: location,
+			  map: map, 
+			  icon: {
+				    path: google.maps.SymbolPath.CIRCLE,
+				    fillColor: "red",
+				    strokeColor: "purple",
+				    fillOpacity: .5,
+				    Opacity: .5,
+				    scale: 10
+				  },
+			  title: "Visited"});
+		
+	} else {		 
 	  var location = {lat: result.lat, lng: result.lng};
 	  var marker = new google.maps.Marker({position: location,
 		  map: map,
@@ -113,8 +135,8 @@ function initMap() {
 		  window.location.assign('/jeopardy?placeId='+this.getTitle()+"&mapId="+mid);
 		  
         });
-  }
-
+  		}
+	 }
 	counter ++;  
   } 
 }

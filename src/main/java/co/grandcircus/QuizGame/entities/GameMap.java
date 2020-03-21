@@ -22,9 +22,34 @@ public class GameMap {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "gameMap")
 	private List<Pin> locations;
+	
+	private String name;
 
 
 	
+
+	public GameMap(Pin startLoc, Pin endLoc, User user, List<Pin> locations, String name) {
+		super();
+		this.startLoc = startLoc;
+		this.endLoc = endLoc;
+		this.user = user;
+		this.locations = locations;
+		this.name = name;
+	}
+
+
+
+	public String getName() {
+		return name;
+	}
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 
 	public GameMap(Pin startLoc, Pin endLoc, User user, List<Pin> locations) {
 		super();
@@ -84,8 +109,8 @@ public class GameMap {
 
 	@Override
 	public String toString() {
-		return "Map [id=" + id + ", start=" + startLoc + ", end=" + endLoc + ", user=" + user + ", locations=" + locations
-				+ "]";
+		return "GameMap [id=" + id + ", startLoc=" + startLoc + ", endLoc=" + endLoc + ", user=" + user + ", locations="
+				+ locations + ", name=" + name + "]";
 	}
 
 }

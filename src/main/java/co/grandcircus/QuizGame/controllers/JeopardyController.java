@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import co.grandcircus.QuizGame.JeopardyAPI;
 import co.grandcircus.QuizGame.PlacesAPI;
+import co.grandcircus.QuizGame.entities.PiD;
 import co.grandcircus.QuizGame.entities.Player;
 import co.grandcircus.QuizGame.jeopardyEntities.Clue;
 import co.grandcircus.QuizGame.placesEntities.Result;
@@ -57,6 +58,10 @@ public class JeopardyController {
 		ModelAndView mav = new ModelAndView("jeopardyGame");
 		Result result = papi.getById(placeId);
 		Double rating = result.getRating();
+		
+		if (placeId != null) {
+			player.getVisited().add(new PiD(placeId));
+		}
 
 		// System.out.println(rating);
 		Integer difficulty = 0;
@@ -181,6 +186,7 @@ public class JeopardyController {
 			System.out.println(player.toString());
 			energy = player.getEnergy();
 			wins = player.getWinCount();
+		
 
 			if (answer.equals(correctAnswer)) {
 				correct = "You won!";
@@ -203,18 +209,7 @@ public class JeopardyController {
 				}
 			} else {
 				correct = "You lost!";
-				if (diffName.equals("Easy")) {
-					energy -= 15;
-					player.setEnergy(energy);
-
-				} else if (diffName.equals("Medium")) {
-					energy -= 10;
-					player.setEnergy(energy);
-				} else {
-					energy -= 5;
-					player.setEnergy(energy);
-					System.out.println(player.toString());
-				}
+				
 			}
 		} else {
 			correct = "null :(";
@@ -263,9 +258,16 @@ public class JeopardyController {
 	@RequestMapping("/summary")
 	public ModelAndView summary(@RequestParam(name="mapId",required=false) Long mapId, @RequestParam("correct") String correct,
 			@SessionAttribute(name = "player", required = false) Player player) {
-
+		Double dist = 0.;
 		
-		
+		if (player != null) {
+		dist = getDifference(player);
+		}
+		if (dist != 0) {
+			int energy = (int) (dist * 10);
+			System.out.println(energy);
+			player.setEnergy(player.getEnergy()-energy);
+		}
 		
 		ModelAndView mav = new ModelAndView("summary");
 		if (player.getEnergy() == 0) {
@@ -283,6 +285,28 @@ public class JeopardyController {
 		}
 		return mav;
 
+	}
+	
+	public double getDifference(@SessionAttribute(name="player", required = false)Player player) {
+		
+		if (player == null) {
+			return 0.0;
+		}
+		
+		String startId = player.getVisited().get(player.getVisited().size()-2).getId();
+		String endId = player.getVisited().get(player.getVisited().size()-1).getId();
+		Double startLat = papi.getById(startId).getGeometry().getLocation().getLat();
+		Double startLng = papi.getById(startId).getGeometry().getLocation().getLng();
+		Double endLat = papi.getById(endId).getGeometry().getLocation().getLat();
+		Double endLng = papi.getById(endId).getGeometry().getLocation().getLng();
+		
+		double theta = startLng - endLng;
+		double dist = Math.sin(Math.toRadians(startLat)) * Math.sin(Math.toRadians(endLat)) + Math.cos(Math.toRadians(startLat)) * Math.cos(Math.toRadians(endLat)) * Math.cos(Math.toRadians(theta));
+		dist = Math.acos(dist);
+		dist = Math.toDegrees(dist);
+		dist = dist * 60 * 1.1515;
+		
+		return dist;
 	}
 
 }
