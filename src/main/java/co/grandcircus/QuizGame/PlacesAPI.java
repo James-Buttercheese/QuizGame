@@ -78,5 +78,18 @@ public class PlacesAPI {
 		
 		return result;
 	}
+
+	public List<Result> getByStart(String id) {
+		Result result = getById(id);
+		Double lat = result.getGeometry().getLocation().getLat();
+		Double lng = result.getGeometry().getLocation().getLng();
+		
+		String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+lat+","+lng+"&radius=1500&type=restaurant&key="+placesKey;
+		Places response = rt.getForObject(url, Places.class);
+		
+		List<Result> candidates = response.getResults();
+		
+		return candidates;
+	}
 	
 }

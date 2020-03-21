@@ -23,24 +23,52 @@
 	<!-- Replace the value of the key parameter with your own API key. -->
 
 	<!-- <script>var locations = ${locations}</script> -->
-	<table>
-		<th>
-			<tr><h4>Name: || Level:</h4></tr>
-		</th>
-		<ul>
-			<li><h6>Areas Conquered: ${ winCount }/3</h6></li>
-			<li><h6>Energy:</h6></li>
-			<li><h6>Items in Bag:</h6></li>
-		</ul>
 
-		<h4>Your Quest:</h4>
+
+	<!-- USER INFORMATION -->
+	<table style="width: 100%">
+		<tr>
+			<th><h4>Name:  Level: </h4></th>
+			<th><h4>        </h4></th>
+			<th><h4>Your Quest</h4></th>
+		</tr>
+
+		<tr>
+			<td>
+				<ul>
+					<li><h6>Areas Conquered: ${player.winCount}/3</h6></li>
+					<li><h6>Energy:</h6></li>
+					<li><h6>
+							Items in Bag:
+							<!-- Do we need items/merchants? -->
+						</h6></li>
+				</ul>
+			</td>
+			<td>        </td>
+			<td><p>
+					Purr as loud as possible, be the most annoying cat that you can,
+					and, knock everything off the table. My slave human didn't give me
+					any food so i pooped on the floor attempt to leap between furniture
+					but woefully miscalibrate and bellyflop onto the floor; what's your
+					problem? i meant to do that now i shall wash myself intently so
+					stick butt in face, and hack up furballs you have cat to be kitten
+					me right meow. Kitty pounce, trip, faceplant you didn't see that no
+					you didn't definitely didn't lick, lick, lick, and preen away the
+					embarrassment do i like standing on litter cuz i sits when i have
+					spaces, my cat buddies have no litter i live in luxury cat life
+					there's a forty year old lady there <strong>let us feast.</strong>
+				</p></td>
+		</tr>
 	</table>
 	<c:set var="winCount" scope="session" value="${player.winCount}" />
+	<c:set var="visited" scope="session" value="${player.visited}" />
+
 	<script>
 	
 var winCount = (${winCount});
 var results = (${results});
 var mid = (${mid});
+var visited = (${visited});
 
 console.log(winCount);
 
@@ -97,8 +125,30 @@ function initMap() {
   }
   
   for (result of results) { 
-	  
+	  var counter2 = false;
 	 if (counter > 2) {
+		 for (visit of visited) {
+			 console.log(result.place_id + " " + visit.id)
+			 if (result.place_id === visit.id){
+				 counter2=true
+			 }
+		 }
+	if (counter2 === true) {
+		
+		var location = {lat: result.lat, lng: result.lng};
+		  var seen = new google.maps.Marker({position: location,
+			  map: map, 
+			  icon: {
+				    path: google.maps.SymbolPath.CIRCLE,
+				    fillColor: "red",
+				    strokeColor: "purple",
+				    fillOpacity: .5,
+				    Opacity: .5,
+				    scale: 10
+				  },
+			  title: "Visited"});
+		
+	} else {		 
 	  var location = {lat: result.lat, lng: result.lng};
 	  var marker = new google.maps.Marker({position: location,
 		  map: map,
@@ -120,8 +170,8 @@ function initMap() {
 		  window.location.assign('/jeopardy?placeId='+this.getTitle()+"&mapId="+mid);
 		  
         });
-  }
-
+  		}
+	 }
 	counter ++;  
   } 
 }

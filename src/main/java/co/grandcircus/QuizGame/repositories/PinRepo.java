@@ -9,4 +9,6 @@ import co.grandcircus.QuizGame.entities.Pin;
 public interface PinRepo extends JpaRepository<Pin, Long>  {
 
 	List<Pin> findByGameMapId(Long id);
+	
+	void deleteByGameMapId(Long id);
 }
