@@ -12,7 +12,7 @@ public class User {
 	private long id;
 
 	private String username;
-	private Integer pin;
+	private String pin;
 	
 	@OneToMany(mappedBy="user")
 	private List<GameMap> maps;
@@ -36,16 +36,19 @@ public class User {
 		this.username = username;
 	}
 
-	public Integer getPin() {
+	public String getPin() {
 		return pin;
 	}
 
-	public void setPin(Integer pin) {
+	public void setPin(String pin) {
 		this.pin = pin;
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", pin=" + pin + "]";
+		return "User [id=" + id + ", username=" + username + ", pin=" + pin + ", maps=" + maps + ", items=" + items
+				+ "]";
 	}
+
+	
 }

@@ -3,6 +3,7 @@ package co.grandcircus.QuizGame.controllers;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -15,25 +16,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import co.grandcircus.QuizGame.CatAPI;
 import co.grandcircus.QuizGame.JeopardyAPI;
 import co.grandcircus.QuizGame.PlacesAPI;
+import co.grandcircus.QuizGame.catEntities.Breed;
+import co.grandcircus.QuizGame.catEntities.CatResponse;
+import co.grandcircus.QuizGame.entities.Card;
+import co.grandcircus.QuizGame.entities.Cards;
 import co.grandcircus.QuizGame.entities.PiD;
 import co.grandcircus.QuizGame.entities.Player;
 import co.grandcircus.QuizGame.jeopardyEntities.Clue;
 import co.grandcircus.QuizGame.placesEntities.Result;
+import co.grandcircus.QuizGame.repositories.PinRepo;
+import co.grandcircus.QuizGame.repositories.UserRepo;
 
 @Controller
 public class JeopardyController {
 
 	// Problem with \' on the answers
+	// Problem with images on the questions
 
 	private static String category;
 	private static String question;
 	private static String correctAnswer;
 	private static String diffName;
-//	private static Integer difficulty;
-	private static List<String> answers; // maybe not
-	public static boolean isBoss;
+	private static Integer difficulty;
+	private static List<String> answers;
+	public static boolean isBoss; // see if change public
+	// maybe mapId?
 
 	@Autowired
 	private HttpSession sesh;
@@ -44,97 +54,91 @@ public class JeopardyController {
 	@Autowired
 	private PlacesAPI papi;
 
-//	@RequestMapping("/jeopardy")
-//	public ModelAndView home() {	
-//		return new ModelAndView("jeopardyHome");
-//	}
+	@Autowired
+	private CatAPI capi;
+
+	@Autowired
+	private UserRepo userdao;
+
+	@Autowired
+	private PinRepo pinrepo;
 
 	@RequestMapping("/jeopardy")
-	public ModelAndView game(@RequestParam(name = "placeId", required = false) String placeId, // string?
+	public ModelAndView game(@RequestParam(name = "placeId", required = false) String placeId,
 			@RequestParam(name = "mapId", required = false) Long mapId,
+			@RequestParam(name = "userId", required = false) Long userId,
 			@SessionAttribute(name = "player", required = false) Player player) {
 
-		/// jeopardy?placeId=A&mapId=B
 		ModelAndView mav = new ModelAndView("jeopardyGame");
+		mav.addObject("userId", userId);
+
 		Result result = papi.getById(placeId);
 		Double rating = result.getRating();
-		
+
+		difficulty = 0;
+		Integer[] difficultiesE = new Integer[2];
+		Integer[] difficultiesMH = new Integer[3];
+		Random rand = new Random();
+		Integer randNum = null;
+
 		if (placeId != null) {
 			player.getVisited().add(new PiD(placeId));
 		}
 
-		// System.out.println(rating);
-		Integer difficulty = 0;
 		isBoss = false;
+
 		if (player.getWinCount() == 3) {
-			isBoss = true;
-			diffName = "Boss";
-			difficulty = 1000;
+//			isBoss = true;
+//			diffName = "Boss";
+//			difficulty = 1000;			
+			return new ModelAndView("redirect:/boss-battle");
 		} else {
 			diffName = "";
-
-			if (rating <= 0.625) {
-				difficulty = 100;
+			if (rating < 4.2) {
+				difficultiesE[0] = 100;
+				difficultiesE[1] = 200;
+				randNum = rand.nextInt(difficultiesE.length);
+				difficulty = difficultiesE[randNum];
 				diffName = "Easy";
-			} else if (rating <= 1.25) {
-				difficulty = 100;
-				diffName = "Easy";
-			} else if (rating <= 1.875) {
-				difficulty = 100;
-				diffName = "Easy";
-			} else if (rating <= 2.5) {
-				difficulty = 100;
-				diffName = "Easy";
-			} else if (rating <= 3.125) {
-				difficulty = 100;
-				diffName = "Easy";
-			} else if (rating <= 3.75) {
-				difficulty = 100;
-				diffName = "Easy";
-			} else if (rating <= 4.375) {
-				difficulty = 500;
+			} else if (rating < 4.4) {
+				difficultiesMH[0] = 300;
+				difficultiesMH[1] = 400;
+				difficultiesMH[2] = 500;
+				randNum = rand.nextInt(difficultiesMH.length);
+				difficulty = difficultiesMH[randNum];
 				diffName = "Medium";
-			} else if (rating <= 5) {
-				difficulty = 1000;
+			} else if (rating <= 5.0) {
+				difficultiesMH[0] = 600;
+				difficultiesMH[1] = 800;
+				difficultiesMH[2] = 1000;
+				randNum = rand.nextInt(difficultiesMH.length);
+				difficulty = difficultiesMH[randNum];
 				diffName = "Hard";
 			}
 
 		}
-		Integer randomOffset = jeopApi.generateRandomOffsetByDifficulty(difficulty);
 
-		Clue[] allClues = jeopApi.findByDifficulty(difficulty, randomOffset);
-
-		Clue mainClue = jeopApi.generateRandomClue(allClues);
-		while (mainClue.getQuestion().isEmpty()) {
+		Clue[] allClues = jeopApi.findByCategoryAndDifficulty(difficulty);
+		Clue mainClue = null;
+		do {
 			mainClue = jeopApi.generateRandomClue(allClues);
-		}
+		} while (mainClue.getQuestion().isEmpty());
 
 		Integer categoryId = mainClue.getCategory_id();
-//		Integer categoryId = 2578;
-		System.out.println("Category Id: " + categoryId);
 
-		Clue[] cluesInCategory = jeopApi.findByCategory(categoryId); // dont use difficulty
-//		System.out.println("Number of clues in cat: " + cluesInCategory.length);
+		Clue[] cluesInCategory = jeopApi.findByCategory(categoryId);
 
-//		List<Clue> randomClues = new ArrayList<>();
 		Set<String> randomAnswers = new HashSet<>();
 		randomAnswers.add(mainClue.getAnswer());
-//		System.out.println(mainClue.getAnswer());
 
 		for (int i = 0; i < 20; i++) {
 			Clue randomClue = jeopApi.generateRandomClue(cluesInCategory);
-//			if (!randomClues.contains(randomClue)) {   The Api has duplicate clues in different ids
 			if (!randomAnswers.contains(randomClue.getAnswer()) && !randomClue.getAnswer().isEmpty()) {
-//				randomClues.add(randomClue);
 				randomAnswers.add(randomClue.getAnswer());
 			}
 			if (randomAnswers.size() == 5) {
 				break;
 			}
-		}
-
-		for (String randomAnswer : randomAnswers) {
-			System.out.println("Answer :" + randomAnswer);
 		}
 
 		answers = new ArrayList<>();
@@ -145,167 +149,280 @@ public class JeopardyController {
 		category = mainClue.getCategory().getTitle();
 		question = mainClue.getQuestion();
 		correctAnswer = mainClue.getAnswer();
-//		difficulty = mainClue.getValue();
+
+		System.out.println("Answer on Request: " + answers);
+		System.out.println("Correct Answer on Request: " + correctAnswer);
 
 		mav.addObject("mainClue", mainClue);
-		System.out.println("First Category: " + category);
-		System.out.println("First Question: " + question);
-		System.out.println("First Difficulty: " + difficulty);
-//		mav.addObject("randomClues", randomClues);
 		mav.addObject("answers", answers);
 		mav.addObject("diffName", diffName);
-
-		System.out.println(mapId);
-		
-		System.out.println("Is boss?" + isBoss);
-
-		mav.addObject("mapId", mapId);
-
-//		System.out.println("First round of answers: ");
-//		for (String answer: answers) {
-//			System.out.println(answer);
-//		}
+		mav.addObject("mapId", mapId); // maybe not pass it?
 
 		return mav;
 
 	}
 
 	@PostMapping("/jeopardy")
-	public ModelAndView result(// @RequestParam("category") String category,
-			@RequestParam("difficulty") String difficulty,
-			// @RequestParam("question") String question,
-			// @RequestParam("correctAnswer") String correctAnswer,
-			// @RequestParam("answers") String[] answers,
-			@RequestParam("answer") String answer, @RequestParam(name = "mapId", required = false) Long mapId,
-			@SessionAttribute(name = "player", required = false) Player player) {
+	public ModelAndView result(@RequestParam("answer") String answer,
+			@RequestParam(name = "mapId", required = false) Long mapId, // maybe up top
+			@RequestParam(name = "userId", required = false) Long userId,
+			@SessionAttribute(name = "player", required = false) Player player,
+			@SessionAttribute(name = "cards", required = false) Cards cards// ,
+	/* @SessionAttribute(name = "cardsNames", required = false) Cards cardsNames */) {
+
+		ModelAndView mav = new ModelAndView("jeopardyResult");
+		mav.addObject("userId", userId);
+
 		Integer energy = 0;
 		Integer wins = 0;
 		String correct = "";
-		// Compute points here
+		Card card = null;
+
+		System.out.println("Answer on Post: " + answer);
+		System.out.println("Correct Answer on Post: " + correctAnswer);
+
 		if (player != null) {
-			System.out.println(player.toString());
 			energy = player.getEnergy();
 			wins = player.getWinCount();
-		
 
-			if (answer.equals(correctAnswer)) {
+			if (answer.equals(correctAnswer.split("\"")[0])) { // For correct answers with "
 				correct = "You won!";
+				wins++;
+				player.setWinCount(wins);
+
+				do {
+					card = capi.generateCard(difficulty);
+
+					// System.out.println("Card: " + card);
+
+				} while (cards.getCatCardsNames().contains(card.getName())); // may fall in inf loop if game is too long
+				cards.addCard(card);
+				cards.addCardName(card.getName());
+
+				// System.out.println(cards.getCatCardsNames());
+
 				if (diffName.equals("Easy")) {
 					energy += 5;
-					wins += 1;
-					player.setEnergy(energy);
-					player.setWinCount(wins);
 				} else if (diffName.equals("Medium")) {
 					energy += 10;
-					wins += 1;
-					player.setEnergy(energy);
-					player.setWinCount(wins);
 				} else {
-					System.out.println(player.toString());
-					wins += 1;
 					energy += 15;
-					player.setEnergy(energy);
-					player.setWinCount(wins);
 				}
+				player.setEnergy(energy);
 			} else {
 				correct = "You lost!";
-				
+				if (diffName.equals("Easy")) {
+					energy -= 15;
+				} else if (diffName.equals("Medium")) {
+					energy -= 10;
+				} else {
+					energy -= 5;
+					player.setEnergy(energy);
+				}
+				player.setEnergy(energy);
 			}
 		} else {
 			correct = "null :(";
-			System.out.println("null :(");
 		}
 
-		System.out.println("Second Category: " + category); // sometimes this gets null
-		System.out.println("Second Question: " + question); // sometimes this gets null. Sometimes gets a different
-															// question
-		System.out.println("Second Difficulty: " + difficulty);
-
-		System.out.println("Second round of answers: ");
-		for (String ans : answers) {
-			System.out.println(ans);
+		if (card != null) {
+			mav.addObject("card", card);
 		}
 
-		System.out.println("Correct Answer: " + correctAnswer); // sometimes this gets null <i>Movin\' Out</i>
+//		System.out.println("card on result: " + card);
 
-		System.out.println(answers.get(0)); // [<i>Movin\' Out</i>
-		System.out.println(answers.get(answers.indexOf(answers.get(answers.size() - 1)))); // waiting for this error
-																							// here! //sometimes this
-																							// gets null (in the example
-																							// above)
-
-		// answers.set(0, answers.get(0).substring(1));
-		// answers.set(answers.size()-1, answers.get(answers.size()-1).substring(0,
-		// answers.size()-1));
-
-		System.out.println(mapId);
-
-		ModelAndView mav = new ModelAndView("jeopardyResult");
-
-		mav.addObject("mapId", mapId);
-		mav.addObject("correct", correct);
+		mav.addObject("question", question);
+		mav.addObject("correctAnswer", correctAnswer);
+		mav.addObject("answers", answers); //
 		mav.addObject("diffName", diffName);
 		mav.addObject("category", category);
-		mav.addObject("difficulty", difficulty);
-		mav.addObject("question", question);
-		mav.addObject("answers", answers);
-		mav.addObject("correctAnswer", correctAnswer);
-		System.out.println(player.toString());
+		mav.addObject("correct", correct); // maybe put it as a static variable
+		mav.addObject("mapId", mapId); // maybe not pass it?
 
 		return mav;
 	}
 
 	@RequestMapping("/summary")
-	public ModelAndView summary(@RequestParam(name="mapId",required=false) Long mapId, @RequestParam("correct") String correct,
-			@SessionAttribute(name = "player", required = false) Player player) {
+	public ModelAndView summary(@RequestParam(name = "mapId", required = false) Long mapId,
+			@RequestParam("correct") String correct, // maybe not
+			@RequestParam(name = "userId", required = false) Long userId,
+			@RequestParam(name = "cardId", required = false) String cardId,
+			@SessionAttribute(name = "player", required = false) Player player,
+			@SessionAttribute(name = "cards", required = false) Cards cards) {
+
 		Double dist = 0.;
-		
+
 		if (player != null) {
-		dist = getDifference(player);
+			dist = getDifference(player);
 		}
 		if (dist != 0) {
 			int energy = (int) (dist * 10);
 			System.out.println(energy);
-			player.setEnergy(player.getEnergy()-energy);
+			player.setEnergy(player.getEnergy() - energy);
 		}
-		
+
 		ModelAndView mav = new ModelAndView("summary");
-		if (player.getEnergy() == 0) {
-			mav.addObject("energy", player.getEnergy());
-			mav.addObject("wins", player.getWinCount());
-			mav.addObject("correct", correct);
+		mav.addObject("userId", userId);
+
+		if (player.getEnergy() <= 0) {
 			mav.addObject("gameOver", "Game Over.");
-			mav.addObject("isBoss", isBoss);
+
 		} else {
 			mav.addObject("mapId", mapId);
-			mav.addObject("energy", player.getEnergy());
-			mav.addObject("wins", player.getWinCount());
-			mav.addObject("correct", correct);
-			mav.addObject("isBoss", isBoss);
 		}
+
+//		System.out.println("cardid on summary: " + cardId);
+//		System.out.println("All cards: " + cards.getCatCards());
+//		System.out.println("Length: " + cards.getCatCards().size());
+
+		if (cardId != null) {
+			mav.addObject("cardName", capi.findBreed(cardId).getBreeds().get(0).getName());
+
+			mav.addObject("cardName", capi.findBreed(cardId).getBreeds().get(0).getName());
+			mav.addObject("cardTemperament", capi.findBreed(cardId).getBreeds().get(0).getTemperament());
+			mav.addObject("cardOrigin", capi.findBreed(cardId).getBreeds().get(0).getOrigin());
+			mav.addObject("cardDescription", capi.findBreed(cardId).getBreeds().get(0).getDescription());
+			mav.addObject("cardUrl", capi.findBreed(cardId).getUrl());
+			mav.addObject("cardWidth", capi.findBreed(cardId).getWidth() * 0.3);
+			mav.addObject("cardHeight", capi.findBreed(cardId).getHeight() * 0.3);
+		}
+
+		CatResponse space = capi.findCatInSpace();
+		mav.addObject("lostUrl", space.getUrl());
+		mav.addObject("lostWidth", space.getWidth() * 0.5);
+		mav.addObject("lostHeight", space.getWidth() * 0.5);
+
+		mav.addObject("isBoss", isBoss);
+		mav.addObject("correct", correct);
+		mav.addObject("energy", player.getEnergy());
+		mav.addObject("wins", player.getWinCount());
+
 		return mav;
+	}
+
+	@RequestMapping("/boss-battle")
+	public ModelAndView boss(@SessionAttribute(name = "cards", required = false) Cards cards,
+			@RequestParam(name = "tied", required = false) String tied) {
+
+		List<Card> myCatCards = cards.getCatCards();
+
+//		System.out.println(myCatCards);
+
+		Card bossCard = capi.generateBossCard();
+
+		ModelAndView mav = new ModelAndView("boss");
+		mav.addObject("myCatCards", myCatCards);
+		mav.addObject("bossCard", bossCard);
+		mav.addObject("bossWidth", bossCard.getWidth() * 0.3);
+		mav.addObject("bossHeight", bossCard.getHeight() * 0.3);
+
+		if (tied != null) {
+			mav.addObject("tied", tied);
+		}
+
+		return mav;
+	}
+
+	@PostMapping("/boss-battle")
+	public ModelAndView boss(@RequestParam("battleCardId") String battleCardId,
+			@RequestParam("bossCardId") String bossCardId, @RequestParam("feature") String feature) {
+		CatResponse catResponseUser = capi.findBreed(battleCardId);
+		Breed breedUser = catResponseUser.getBreeds().get(0);
+
+		CatResponse catResponseBoss = capi.findBreed(bossCardId);
+		Breed breedBoss = catResponseBoss.getBreeds().get(0);
+
+		Integer pointUser = 0;
+		Integer pointBoss = 0;
+
+		switch (feature) {
+		case "adaptability":
+			pointUser = breedUser.getAdaptability();
+			pointBoss = breedBoss.getAdaptability();
+			break;
+		case "affection_level":
+			pointUser = breedUser.getAffection_level();
+			pointBoss = breedBoss.getAffection_level();
+			break;
+		case "child_friendly":
+			pointUser = breedUser.getChild_friendly();
+			pointBoss = breedBoss.getChild_friendly();
+			break;
+		case "dog_friendly":
+			pointUser = breedUser.getDog_friendly();
+			pointBoss = breedBoss.getDog_friendly();
+			break;
+		case "energy_level":
+			pointUser = breedUser.getEnergy_level();
+			pointBoss = breedBoss.getEnergy_level();
+			break;
+		case "grooming":
+			pointUser = breedUser.getGrooming();
+			pointBoss = breedBoss.getGrooming();
+			break;
+		case "intelligence":
+			pointUser = breedUser.getIntelligence();
+			pointBoss = breedBoss.getIntelligence();
+			break;
+		case "shedding_level":
+			pointUser = breedUser.getShedding_level();
+			pointBoss = breedBoss.getShedding_level();
+			break;
+		case "social_needs":
+			pointUser = breedUser.getSocial_needs();
+			pointBoss = breedBoss.getSocial_needs();
+			break;
+		case "stranger_friendly":
+			pointUser = breedUser.getStranger_friendly();
+			pointBoss = breedBoss.getStranger_friendly();
+			break;
+		case "vocalisation":
+			pointUser = breedUser.getVocalisation();
+			pointBoss = breedBoss.getVocalisation();
+			break;
+		}
+
+		System.out.println("Point User: " + pointUser);
+		System.out.println("Point Boss: " + pointBoss);
+
+		String result = "";
+		if (pointUser > pointBoss) {
+			result = "You won! Your " + feature + ": " + pointUser + " Boss " + feature + ": " + pointBoss;
+		} else if (pointUser < pointBoss) {
+			result = "You lost! Your " + feature + ": " + pointUser + " Boss " + feature + ": " + pointBoss;
+			;
+		} else {
+			return new ModelAndView("redirect:/boss-battle", "tied", "You tied!");
+		}
+
+		// mav.addObject("cat", breed);
+		// mav.addObject("bossCardId", bossCardId);
+
+		return new ModelAndView("finale", "result", result);
 
 	}
-	
-	public double getDifference(@SessionAttribute(name="player", required = false)Player player) {
-		
+
+	public double getDifference(@SessionAttribute(name = "player", required = false) Player player) {
+
 		if (player == null) {
 			return 0.0;
 		}
-		
-		String startId = player.getVisited().get(player.getVisited().size()-2).getId();
-		String endId = player.getVisited().get(player.getVisited().size()-1).getId();
+
+		String startId = player.getVisited().get(player.getVisited().size() - 2).getId();
+		String endId = player.getVisited().get(player.getVisited().size() - 1).getId();
 		Double startLat = papi.getById(startId).getGeometry().getLocation().getLat();
 		Double startLng = papi.getById(startId).getGeometry().getLocation().getLng();
 		Double endLat = papi.getById(endId).getGeometry().getLocation().getLat();
 		Double endLng = papi.getById(endId).getGeometry().getLocation().getLng();
-		
+
 		double theta = startLng - endLng;
-		double dist = Math.sin(Math.toRadians(startLat)) * Math.sin(Math.toRadians(endLat)) + Math.cos(Math.toRadians(startLat)) * Math.cos(Math.toRadians(endLat)) * Math.cos(Math.toRadians(theta));
+		double dist = Math.sin(Math.toRadians(startLat)) * Math.sin(Math.toRadians(endLat))
+				+ Math.cos(Math.toRadians(startLat)) * Math.cos(Math.toRadians(endLat))
+						* Math.cos(Math.toRadians(theta));
 		dist = Math.acos(dist);
 		dist = Math.toDegrees(dist);
 		dist = dist * 60 * 1.1515;
-		
+
 		return dist;
 	}
 

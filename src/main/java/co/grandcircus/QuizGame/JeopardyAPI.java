@@ -1,5 +1,7 @@
 package co.grandcircus.QuizGame;
 
+import java.util.Random;
+
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -12,8 +14,6 @@ import co.grandcircus.QuizGame.jeopardyEntities.Clue;
 @Component
 public class JeopardyAPI {
 	
-	
-	// There's information missing from the API. Empty questions.
 	
 	private RestTemplate rt;
 
@@ -75,9 +75,8 @@ public class JeopardyAPI {
 		// But if there are, offset is required
 		
 		
-//		String url = "http://jservice.io/api/category?id=" + id;
-//		Category response = rt.getForObject(url, Category.class);
-//		return response.getClues();	
+		
+		
 		String url = "http://jservice.io/api/clues?category=" + id;
 		Clue[] clue = rt.getForObject(url, Clue[].class);
 		return clue;
@@ -97,10 +96,24 @@ public class JeopardyAPI {
 	}
 	
 	
-	public Clue[] findByCategoryAndDifficulty(Integer difficulty, Integer id) {
+	public Clue[] findByCategoryAndDifficulty(Integer difficulty) {
 		
-		String url = "http://jservice.io/api/clues?value=" + difficulty + "&category=" + id;
-		Clue[] clue = rt.getForObject(url, Clue[].class);
+		Integer[] categoriesId = {15073, 15914, 16066, 16386, 16936, 17370, 18295, 6, 488, 2289, 2523, 2606, 2943, 3320, 3496, 
+				4010, 4526, 5606, 5791, 6720, 6753, 7048, 7434, 8753, 9494, 9841, 10515, 10831, 11322, 1047, 11595, 13383, 3084,
+				4980, 6320, 6861, 7018, 7530, 9971};
+		
+		Random rand = new Random();
+		
+		Clue[] clue = null;
+		
+		do {
+		int randomNumber = rand.nextInt(categoriesId.length);	
+		int randomCategory = categoriesId[randomNumber];		
+		
+		String url = "http://jservice.io/api/clues?value=" + difficulty + "&category=" + randomCategory;
+		clue = rt.getForObject(url, Clue[].class);
+		} while(clue.length == 0);
+		
 		return clue;
 		
 	}

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import co.grandcircus.QuizGame.PlacesAPI;
+import co.grandcircus.QuizGame.entities.Card;
+import co.grandcircus.QuizGame.entities.Cards;
 import co.grandcircus.QuizGame.entities.GameMap;
 import co.grandcircus.QuizGame.entities.PiD;
 import co.grandcircus.QuizGame.entities.Pin;
@@ -21,6 +23,7 @@ import co.grandcircus.QuizGame.entities.Player;
 import co.grandcircus.QuizGame.placesEntities.Result;
 import co.grandcircus.QuizGame.repositories.GameMapRepo;
 import co.grandcircus.QuizGame.repositories.PinRepo;
+import co.grandcircus.QuizGame.repositories.UserRepo;
 
 @Controller
 public class PlacesController {
@@ -33,6 +36,9 @@ public class PlacesController {
 
 	@Autowired
 	private PinRepo pindao;
+	
+	@Autowired
+	private UserRepo userdao;
 
 	@Autowired
 	private PlacesAPI placesApi;
@@ -41,11 +47,12 @@ public class PlacesController {
 
 	
 	@RequestMapping("create")
-	public ModelAndView create() { //sends you to the create .jsp
+	public ModelAndView create(@RequestParam(value="userId", required=false) Long userId) { //sends you to the create .jsp
 		ModelAndView mav = new ModelAndView("create");
-		
-		List<GameMap> maps = mapdao.findAll();
+//		List<GameMap> maps = mapdao.findAll(); //
+		List<GameMap> maps = mapdao.findByUserId(userId); //
 		mav.addObject("maps", maps);
+		mav.addObject("userId", userId);
 
 		return mav;
 	}
@@ -54,9 +61,11 @@ public class PlacesController {
 	public ModelAndView createPost(@RequestParam(name = "city", required = false) String city,
 			@RequestParam(value = "locale", required = false) List<String> ids,
 			@RequestParam(value = "name", required = false) String name,
-			@RequestParam(value = "mapId", required = false) Long mapId) {
+			@RequestParam(value = "mapId", required = false) Long mapId,
+			@RequestParam(value="userId", required=false) Long userId) {
 
 		ModelAndView mav = new ModelAndView("create");
+		mav.addObject("userId", userId);
 
 		if ((city != null) && (!city.isEmpty())) { // searches for places based on chosen city
 			if (city.equalsIgnoreCase("detroit")) {
@@ -113,6 +122,9 @@ public class PlacesController {
 			if (!name.isEmpty()) {
 			map.setName(name);
 			}
+			
+			map.setUser(userdao.findById(userId).orElse(null));
+			
 			mapdao.save(map); //saves to db
 
 			mav.addObject("results", strings);
@@ -133,15 +145,24 @@ public class PlacesController {
 			mav.addObject("locations", locales);
 			mav.addObject("id", mapId);
 			
+	
 		}
+		
+//		List<GameMap> maps = mapdao.findAll();       //????
+		List<GameMap> maps = mapdao.findByUserId(userId);
+		mav.addObject("maps", maps);
+		
 
 		return mav;
 	}
 
 	@RequestMapping("play-map") //generates the map that the player will use to play the game
 	public ModelAndView play(@RequestParam(name = "mapId") Long id,
-			@SessionAttribute(name = "player", required = false) Player player) {
+			@RequestParam(name="userId", required=false) Long userId,
+			@SessionAttribute(name = "player", required = false) Player player,
+			@SessionAttribute(name = "cards", required = false) Cards cards) {
 		ModelAndView mav = new ModelAndView("play-map");
+		mav.addObject("userId", userId);
 
 		if (player == null) { //starts session if one doesn't exist
 			List<PiD> visited = new ArrayList<>();
@@ -155,6 +176,25 @@ public class PlacesController {
 			sesh.setAttribute("player", p);
 			player = (Player) sesh.getAttribute("player");
 		}
+		
+		if (cards == null) {
+			List<Card> catCards = new ArrayList<>();
+			Cards car = new Cards();
+			car.setCatCards(catCards);
+			sesh.setAttribute("cards", car);
+			
+			List<String> catCardsNames = new ArrayList<>(); //??
+			car.setCatCardsNames(catCardsNames); //???
+			
+			
+			cards = (Cards) sesh.getAttribute("cards");	
+			
+			
+			//sesh.setAttribute("cardsNames", car);
+			//cards = (Cards) sesh.getAttribute("cardsNames");
+		}
+		
+		
 		
 		List<Pin> pins = pindao.findByGameMapId(id);
 		List<String> placeIds = new ArrayList<>();

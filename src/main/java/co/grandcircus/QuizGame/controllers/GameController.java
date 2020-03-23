@@ -14,8 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 import co.grandcircus.QuizGame.JeopardyAPI;
 import co.grandcircus.QuizGame.PlacesAPI;
 import co.grandcircus.QuizGame.entities.GameMap;
-import co.grandcircus.QuizGame.placesEntities.Result;
+import co.grandcircus.QuizGame.entities.User;
 import co.grandcircus.QuizGame.repositories.GameMapRepo;
+import co.grandcircus.QuizGame.repositories.UserRepo;
 @Controller
 public class GameController {
 
@@ -27,38 +28,96 @@ public class GameController {
 	
 	@Autowired
 	private GameMapRepo mapdao;
+	
 	@Autowired
 	private HttpSession sesh;
+	
+	@Autowired
+	private UserRepo userdao;
 	
 	private static boolean isBoss;
 	
 	@RequestMapping("/")
-	public ModelAndView mainMenu() {
+	public ModelAndView mainMenu(@RequestParam(name="message", required=false) String message) {
 		sesh.invalidate();
 		isBoss = false;
 		List<GameMap> maps = mapdao.findAll();
-		return new ModelAndView("main-menu", "maps", maps);
+		
+		ModelAndView mav = new ModelAndView("main-menu");
+		mav.addObject("maps", maps);
+		
+//		System.out.println(message);
+		
+		if (message != null) {
+			mav.addObject("message", message);
+		}
+		return mav;
+//		return new ModelAndView("main-menu", "maps", maps);
 	}
-	
 	
 	
 //Added for logging in/signing up; Make user from db Serializable(?)
 	
 	@RequestMapping("/login")
-	public ModelAndView login() {
-		
+	public ModelAndView login() {	
 		return new ModelAndView("login");
 	}
+	
 	@PostMapping("/login")
-	public ModelAndView loginAuth() {
+	public ModelAndView loginAuth(@RequestParam("username") String username,
+			@RequestParam("pin") String pin) {
+		List<User> users = userdao.findAll();
+		Long userId = null;
+			
+		for (User user : users) {
+			if (user.getUsername().equals(username)) {
+				if (user.getPin().equals(pin)) {
+					userId = user.getId();
+					break;
+				}
+			}
+		}
+		if (userId != null) {	
+			ModelAndView mav = new ModelAndView("main-menu-afterlogin");;			
+			mav.addObject("maps",mapdao.findByUserId(userId));
+			mav.addObject("userId",userId);
+			return mav;
+		}
 		
-		return null;
+		
+		ModelAndView mav = new ModelAndView("redirect:/", "message", "Inexistent User/Username or password incorrect");
+		return mav;
+		
+//		return new ModelAndView("redirect:/");
 	}
+	
 	@RequestMapping("/user-create")
 	public ModelAndView signup() {
-		
-		return null;
+		return new ModelAndView("createUser");
 	}
-
+	
+	@PostMapping("/user-create")
+	public ModelAndView signup(User user, @RequestParam("username") String username) {
+		String message="";
+		//User check = userdao.findByUsername(username);
+		
+		if (userdao.findByUsername(username) != null) {
+			if (username.equals(userdao.findByUsername(username).getUsername())) {
+				message = "Username already exists";
+			}
+		} else {
+			System.out.println("hello");
+			userdao.save(user);
+			message = "User added. Please login";
+		}
+		
+		return new ModelAndView("redirect:/", "message", message);
+		
+//		ModelAndView mav = new ModelAndView("redirect:/");
+//		mav.addObject("message", "User added. Please login");
+//		return mav;
+	}
+	
+	
 	
 }

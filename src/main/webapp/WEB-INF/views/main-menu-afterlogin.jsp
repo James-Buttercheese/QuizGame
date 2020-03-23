@@ -11,23 +11,22 @@
 <body>
 	<h1>Conquests and Cats</h1>
 	
-	<c:if test = "${not empty message}">
-         <p>${message}</p>
-	</c:if>
 	
 	<!-- LOGIN AND SIGN UP HAVEN'T BEEN FULLY IMPLEMENTED YET -->
-	<a href="/login"><button>User Log In</button></a>
-	<a href="/user-create"><button>Create a User</button></a>
 	
+	<form action="/create">
+	<input type="hidden" name="userId" value="${userId}"/>
+	<button type="submit">Create Map</button>
+	</form>
 	
-	<%-- <a href="/create"><button>Create Map</button></a>
 	<form action="/play-map">
 		<select name="mapId">
 			<c:forEach items="${maps}" var="map">
 				<option value="${map.id}">${map.name}</option>
 			</c:forEach>
 		</select>
+		<input type="hidden" value="${userId}" name="userId"/>
 		<button type="submit">Play Map</button>
-	</form> --%>
+	</form>
 </body>
 </html>

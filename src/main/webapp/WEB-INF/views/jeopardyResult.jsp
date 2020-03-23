@@ -48,6 +48,10 @@
 <form action="/summary">
 <input type="hidden" value="${mapId}" name="mapId"/>
 <input type="hidden" value="${correct}" name="correct"/>
+<input type="hidden" value="${userId}" name="userId"/>
+<c:if test="${not empty card}">
+<input type="hidden" value="${card.id}" name="cardId"/>
+</c:if>
 <button type="submit" class="btn btn-secondary">Next</button>
 </form>
 	

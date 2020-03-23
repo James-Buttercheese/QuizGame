@@ -23,17 +23,19 @@
 				<option value="chicago">Chicago</option>
 				<option value="newYork">New York</option>
 			</select>
+			<input type="hidden" value="${userId}" name="userId"/>
 			<button type="submit" class="btn btn-secondary">submit</button>
 		</form>
-		<h4>Or would you like to edit a map?</h4>
+		<%-- <h4>Or would you like to edit a map?</h4>
 		<form method="post" action="/create">
 			<select name="mapId">
 			<c:forEach var = "map" items = "${maps}">
 				<option value="${map.id}">${map.name}</option>
 				</c:forEach>
 			</select>
+			<input type="hidden" value="${userId}" name="userId"/>
 			<button type="submit" class="btn btn-secondary">submit</button>
-		</form>
+		</form> --%>
 	</div>
 </c:if>
 </c:if>
@@ -46,23 +48,40 @@
 				Locations:
 				<c:forEach var="candidate" items="${candidates}">
 					<label><input type="checkbox" name="locale"
-						value="${candidate.place_id}">${candidate.name }</label>
+						value="${candidate.place_id}">${candidate.name } ${candidate.rating}</label>
 				</c:forEach>
 				
 			</p>
 			<input type="text" value="name" name="name"/>
 			<input type="hidden" value="${mapId}" name="mapId"/>
+			<input type="hidden" value="${userId}" name="userId"/>
 			<button type="submit" class="btn btn-secondary">submit</button>
 		</form>
 	</div>
+	
+	
+	
 </c:if>
 <c:if test = "${not empty locations}">
+
+	<form action="/play-map">
+		<select name="mapId">
+			<c:forEach items="${maps}" var="map">
+				<option value="${map.id}">${map.name}</option>
+			</c:forEach>
+		</select>
+		<input type="hidden" value="${userId}" name="userId"/>
+		<button type="submit">Play Map</button>
+	</form>
+
+
 	<h3>My Map</h3>
 	<!--The div element for the map -->
 	<div id="map" style=" height: 400px;width: 100%;"></div>
 	<!-- Replace the value of the key parameter with your own API key. -->
 </c:if>
 	<!-- <script>var locations = ${locations}</script> -->
+	
 
 
 

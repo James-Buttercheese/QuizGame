@@ -68,6 +68,7 @@
 var winCount = (${winCount});
 var results = (${results});
 var mid = (${mid});
+var userId = (${userId}); 
 var visited = (${visited});
 
 console.log(winCount);
@@ -119,7 +120,7 @@ function initMap() {
 		    scale: 15
 		  }});
   end.addListener('click', function() {
-	  window.location.assign('/boss');
+	  window.location.assign('/boss-battle');
 	  
     });
   }
@@ -167,7 +168,8 @@ function initMap() {
 			  },
 		  title: result.place_id});
 	  marker.addListener('click', function() {
-		  window.location.assign('/jeopardy?placeId='+this.getTitle()+"&mapId="+mid);
+		  window.location.assign('/jeopardy?placeId='+this.getTitle()+"&mapId="+mid+"&userId="+userId);
+/* 		  window.location.assign('/jeopardy?placeId='+this.getTitle()+"&mapId="+mid); */
 		  
         });
   		}

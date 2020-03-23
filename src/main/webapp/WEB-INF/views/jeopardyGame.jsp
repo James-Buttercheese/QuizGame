@@ -36,6 +36,7 @@
 					<%-- <input type="hidden" value="${mainClue.question}" name="question" /> --%>
 					<%-- <input type="hidden" value="${mainClue.answer}" name="correctAnswer" /> --%>
 					<%-- <input type="hidden" value="${answers}" name="answers" /> --%>
+					<input type="hidden" value="${userId}" name="userId" />	
 					<input type="hidden" value="${answer}" name="answer" />	
 					<button type="submit" class="list-group-item list-group-item-action"><p style="text-align: center">${answer}</p></button>
 				</form>

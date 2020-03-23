@@ -9,8 +9,8 @@ public class Item {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String name;
-	private String status;
+	private String cardName;    //maybe not but we'll see
+//	private String status;
 
 	@ManyToOne (cascade = CascadeType.ALL)
 	private User user;
@@ -23,21 +23,21 @@ public class Item {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getCardName() {
+		return cardName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setCard(String cardName) {
+		this.cardName = cardName;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
+//	public String getStatus() {
+//		return status;
+//	}
+//
+//	public void setStatus(String status) {
+//		this.status = status;
+//	}
 
 	public User getUser() {
 		return user;
@@ -49,7 +49,9 @@ public class Item {
 
 	@Override
 	public String toString() {
-		return "Item [id=" + id + ", name=" + name + ", status=" + status + ", user=" + user + "]";
+		return "Item [id=" + id + ", cardName=" + cardName + ", user=" + user + "]";
 	}
+
+	
 
 }
