@@ -29,6 +29,7 @@
 	</form>
 	
 	<form action="/play-map">
+		<c:if test="${!maps.equals(null)}">
 		<select name="mapId">
 			<c:forEach items="${maps}" var="map">
 				<option value="${map.id}">${map.name}</option>
@@ -36,6 +37,9 @@
 		</select>
 		<input type="hidden" value="${userId}" name="userId"/>
 		<button type="submit">Play Map</button>
+		</c:if>
 	</form>
+	
+	
 </body>
 </html>
