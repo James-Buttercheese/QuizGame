@@ -5,67 +5,121 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Battle: End!</title>
 <%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
 
-	<h2>${correct}</h2>
-	
 	<c:choose>
-    <c:when test="${correct=='You won!'}">
-        <p>Your new card:</p>
-		<div class="card" style="width: ${cardWidth}pt;">
-			<img src="${cardUrl}" width="${cardWidth}pt" height="${cardHeight}pt" class="card-img-top" alt="...">
-			<div class="card-body">
-				<h5 class="card-title" style="text-align:center; font-weight:bold;">${cardName}</h5>
-				<p class="card-text">${cardTemperament}</p>
+		<c:when test="${correct=='You won!'}">
+			<div class="alert alert-success" role="alert">
+				<h4 class="alert-heading text-center">Well done!</h4>
+
+				<hr>
+				<c:choose>
+					<c:when test="${wins==0}">
+						<p>That was purrfect! You've conquered your first bit of land.</p>
+					</c:when>
+					<c:otherwise>
+						<p>That was purrfect! You've conquered yet another location
+							flawlessly.</p>
+					</c:otherwise>
+				</c:choose>
+
+				<hr>
+				<ul>
+					<li><p>
+							<strong>A ${cardName} has joined your party!</strong>
+						</p></li>
+					<li><p>
+							<strong>You currently have ${energy} points of energy.</strong>
+							Don't let it get to zero!
+						</p></li>
+					<li><p>
+							<strong>You've conquered ${wins} area <c:if
+									test="${wins>1 || wins<1}">s </c:if>
+							</strong>total. Keep up the good work!
+						</p></li>
+				</ul>
 			</div>
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item">Description: ${cardDescription}</li>
-				<li class="list-group-item">Origin: ${cardOrigin }</li>
-			</ul>
-		</div>
-    </c:when>    
-    <c:otherwise>
-        <p>Are you spacing out? That's incorrect!</p>
-        <img src="${lostUrl}" width="${lostWidth}pt" height="${lostHeight}pt"/>
-        <br />
-    </c:otherwise>
+			<div class="card bg-primary border-danger text-white"
+				style="max-width: 18rem; margin-left: auto; margin-right: auto;">
+				<div class="card-header">
+					<h4 class="card-title">${cardName}</h4>
+					<p class="card-title text-right">${cardTemperament}</p>
+				</div>
+				<img src="${cardUrl}" class="card-img-top"
+					style="max-width: 16rem; margin-left: auto; margin-right: auto;">
+				<div class="card-body">
+					<p class="card-text">${cardDescription}</p>
+				</div>
+				<div class="card-footer">
+					<small class="text-muted text-center">${cardOrigin}</small>
+				</div>
+			</div>
+			<br />
+			<form action="/play-map">
+				<input type="hidden" value="${mapId}" name="mapId" /> <input
+					type="hidden" value="${userId}" name="userId" />
+				<h2>
+					<button type="submit" class="btn btn-success btn-outline-light">Map</button>
+				</h2>
+			</form>
+		</c:when>
+
+		<c:otherwise>
+			<c:choose>
+				<c:when test="${not empty gameOver}">
+					<div class="alert alert-danger" role="alert">
+						<h4 class="alert-heading text-center">Are you spacing out?
+							That's incorrect!</h4>
+						<hr>
+						<h5>
+							<strong>Game Over</strong>
+						</h5>
+						<small class="text-center">You ran out of energy points!
+							Please play again.</small>
+					</div>
+
+					<img src="${lostUrl}" width="${lostWidth}pt"
+						height="${lostHeight}pt" />
+					<br />
+					<h2>
+						<a href="/" class="btn btn-danger btn-outline-light">Main Menu</a>
+					</h2>
+				</c:when>
+				<c:otherwise>
+					<div class="alert alert-danger" role="alert">
+						<h4 class="alert-heading text-center">Are you spacing out?
+							That's incorrect!</h4>
+						<hr>
+						<ul>
+							<li><p>
+									<strong>You currently have ${energy} points of energy.</strong>
+									Be careful, and try not to let it get to zero!
+								</p></li>
+							<li><p>
+									<strong>You've conquered ${wins} area<c:if
+											test="${wins>1 || wins<1}">s </c:if>total.
+									</strong> Don't lose focus!
+								</p></li>
+						</ul>
+					</div>
+					<img src="${lostUrl}" width="${lostWidth}pt"
+						height="${lostHeight}pt" />
+					<br />
+					<form action="/play-map">
+						<input type="hidden" value="${mapId}" name="mapId" /> <input
+							type="hidden" value="${userId}" name="userId" />
+						<h2>
+							<button type="submit" class="btn btn-danger btn-outline-light">Map</button>
+						</h2>
+					</form>
+				</c:otherwise>
+			</c:choose>
+
+		</c:otherwise>
 	</c:choose>
-	
-<%-- 	<c:if test="${correct=='You won!'}">
-		<p>Your new card:</p>
-		<div class="card" style="width: ${cardWidth}pt;">
-			<img src="${cardUrl}" width="${cardWidth}pt" height="${cardHeight}pt" class="card-img-top" alt="...">
-			<div class="card-body">
-				<h5 class="card-title" style="text-align:center; font-weight:bold;">${cardName}</h5>
-				<p class="card-text">${cardTemperament}</p>
-			</div>
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item">Description: ${cardDescription}</li>
-				<li class="list-group-item">Origin: ${cardOrigin }</li>
-			</ul>
-		</div>
-
-	</c:if> --%>
-
-	<h4>Current Energy: ${energy}</h4>
-	<h4>Total Wins: ${wins}</h4>
-	<c:if test="${not empty gameOver}">
-		<h2>${gameOver}</h2>
-		<c:if test="${isBoss}">
-			<h2>You Fought The Boss!</h2>
-		</c:if>
-		<a href="/"><button>Main Menu</button></a>
-	</c:if>
-	<c:if test="${empty gameOver}">
-		<form action="/play-map">
-			<input type="hidden" value="${mapId}" name="mapId" /> <input
-				type="hidden" value="${userId}" name="userId" />
-			<button type="submit">Back to Map</button>
-		</form>
-	</c:if>
-
+	<%@ include file="partials/script-tags.jsp"%>
 </body>
 </html>
