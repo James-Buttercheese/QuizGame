@@ -78,7 +78,7 @@
 
 
 		<input type="hidden" value="${bossCard.id}" name="bossCardId" />
-		<%-- <input type="hidden" value="${userId}" name="userId"/> --%>
+		<input type="hidden" value="${userId}" name="userId"/>
 		<button type="submit">I choose you!</button>
 	</form>
 

@@ -120,7 +120,7 @@ function initMap() {
 		    scale: 15
 		  }});
   end.addListener('click', function() {
-	  window.location.assign('/boss-battle');
+	  window.location.assign('/boss-battle?userId='+userId);
 	  
     });
   }

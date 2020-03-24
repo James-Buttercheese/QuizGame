@@ -17,13 +17,12 @@ import co.grandcircus.QuizGame.PlacesAPI;
 import co.grandcircus.QuizGame.entities.Card;
 import co.grandcircus.QuizGame.entities.Cards;
 import co.grandcircus.QuizGame.entities.GameMap;
-import co.grandcircus.QuizGame.entities.Item;
 import co.grandcircus.QuizGame.entities.PiD;
 import co.grandcircus.QuizGame.entities.Pin;
 import co.grandcircus.QuizGame.entities.Player;
+import co.grandcircus.QuizGame.entities.User;
 import co.grandcircus.QuizGame.placesEntities.Result;
 import co.grandcircus.QuizGame.repositories.GameMapRepo;
-import co.grandcircus.QuizGame.repositories.ItemRepo;
 import co.grandcircus.QuizGame.repositories.PinRepo;
 import co.grandcircus.QuizGame.repositories.UserRepo;
 
@@ -197,6 +196,12 @@ public class PlacesController {
 			@SessionAttribute(name = "cards", required = false) Cards cards) {
 		ModelAndView mav = new ModelAndView("play-map");
 		mav.addObject("userId", userId);
+		
+		if (userId != null) {
+			User user = userdao.findById(userId).orElse(null);
+			user.setPlayed(user.getPlayed()+1);
+			userdao.save(user);
+		}
 
 		if (player == null) { //starts session if one doesn't exist
 			List<PiD> visited = new ArrayList<>();

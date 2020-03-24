@@ -1,6 +1,7 @@
 package co.grandcircus.QuizGame.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -135,6 +136,29 @@ public class GameController {
 //		ModelAndView mav = new ModelAndView("redirect:/");
 //		mav.addObject("message", "User added. Please login");
 //		return mav;
+	}
+	
+	@RequestMapping("/leaderboard") 
+	public ModelAndView leaderboard() {
+		
+		List<User> users = userdao.findByOrderByScoreDesc();
+		
+		return new ModelAndView("leaderboard", "players", users);
+	}
+	
+	@RequestMapping("/wins") 
+	public ModelAndView winsLeaderboard() {
+		
+		List<User> users = userdao.findByOrderByWinsDesc();
+		
+		return new ModelAndView("leaderboard", "players", users);
+	}
+	@RequestMapping("/played") 
+	public ModelAndView playedLeaderboard() {
+		
+		List<User> users = userdao.findByOrderByPlayedDesc();
+		
+		return new ModelAndView("leaderboard", "players", users);
 	}
 	
 	
