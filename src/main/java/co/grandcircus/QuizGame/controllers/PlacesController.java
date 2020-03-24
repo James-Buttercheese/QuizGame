@@ -66,6 +66,8 @@ public class PlacesController {
 
 		ModelAndView mav = new ModelAndView("create");
 		mav.addObject("userId", userId);
+		
+//		System.out.println(mapId + " " + userId);
 
 		if ((city != null) && (!city.isEmpty())) { // searches for places based on chosen city
 			if (city.equalsIgnoreCase("detroit")) {
@@ -90,8 +92,14 @@ public class PlacesController {
 			GameMap map = new GameMap();
 			if (mapId != null) {
 				map = mapdao.findById(mapId).orElse(null);
-				pindao.deleteByGameMapId(mapId);
-			}
+//				pindao.deleteByGameMapId(mapId);
+				List <Pin> pins = pindao.findByGameMapId(mapId);
+				for (Pin pin : pins) {
+					pin.setMap(null);
+				}
+				
+				
+			} 
 			List<String> locales = new ArrayList<>();
 			List<Result> results = new ArrayList<>();
 			List<Pin> locations = new ArrayList<>();
@@ -104,7 +112,9 @@ public class PlacesController {
 				locales.add(result.getGeometry().getLocation().toString());// creates a list of latlngs for temp map
 
 			}
+			if (mapId == null) {
 			mav.addObject("locations", locales);
+			}
 
 			map.setStart( // sets starting point for map
 					new Pin(results.get(0).getGeometry().getLocation().toString(), map, results.get(0).getPlace_id()));
@@ -125,13 +135,14 @@ public class PlacesController {
 			
 			map.setUser(userdao.findById(userId).orElse(null));
 			
-			mapdao.save(map); //saves to db
+			mapdao.save(map);//saves to db
 
 			mav.addObject("results", strings);
 
 		}
 		
 		if (mapId != null) {
+			
 			
 			List<Pin> locations = pindao.findByGameMapId(mapId);
 			List<Result> candidates = placesApi.getByStart(locations.get(0).getPlace_id());

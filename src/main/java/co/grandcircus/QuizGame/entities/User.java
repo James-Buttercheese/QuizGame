@@ -1,11 +1,17 @@
 package co.grandcircus.QuizGame.entities;
 
-import java.util.*;
+import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
-public class User {
+public class User implements Serializable {
+	private final static long serialVersionUID=1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
