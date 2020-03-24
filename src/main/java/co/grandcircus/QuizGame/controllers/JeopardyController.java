@@ -334,7 +334,8 @@ public class JeopardyController {
 
 	@RequestMapping("/boss-battle")
 	public ModelAndView boss(@SessionAttribute(name = "cards", required = false) Cards cards,
-			@RequestParam(name = "tied", required = false) String tied) {
+			@RequestParam(name = "tied", required = false) String tied,
+			@RequestParam(name = "userId", required = false) Long userId) {
 
 		List<Card> myCatCards = cards.getCatCards();
 
@@ -347,6 +348,10 @@ public class JeopardyController {
 		mav.addObject("bossCard", bossCard);
 		mav.addObject("bossWidth", bossCard.getWidth() * 0.3);
 		mav.addObject("bossHeight", bossCard.getHeight() * 0.3);
+		
+		if (userId != null) {
+			mav.addObject("userId", userId);
+		}
 
 		if (tied != null) {
 			mav.addObject("tied", tied);
@@ -357,7 +362,10 @@ public class JeopardyController {
 
 	@PostMapping("/boss-battle")
 	public ModelAndView boss(@RequestParam("battleCardId") String battleCardId,
-			@RequestParam("bossCardId") String bossCardId, @RequestParam("feature") String feature) {
+			@RequestParam("bossCardId") String bossCardId, 
+			@RequestParam("feature") String feature,
+			@RequestParam(name = "userId", required = false) Long userId,
+			@SessionAttribute(name = "player", required = false) Player player) {
 		CatResponse catResponseUser = capi.findBreed(battleCardId);
 		Breed breedUser = catResponseUser.getBreeds().get(0);
 
@@ -420,11 +428,26 @@ public class JeopardyController {
 		String result = "";
 		if (pointUser > pointBoss) {
 			result = "You won! Your " + feature + ": " + pointUser + " Boss " + feature + ": " + pointBoss;
+			if(userId != null) {
+			if(player != null) {
+				User user = userdao.findById(userId).orElse(null);
+				user.setScore(user.getScore()+player.getEnergy());
+				user.setWins(user.getWins()+1);
+				userdao.save(user);
+			}
+			}
+			
+			
 		} else if (pointUser < pointBoss) {
 			result = "You lost! Your " + feature + ": " + pointUser + " Boss " + feature + ": " + pointBoss;
 			;
 		} else {
-			return new ModelAndView("redirect:/boss-battle", "tied", "You tied!");
+			ModelAndView mav = new ModelAndView("redirect:/boss-battle");
+			mav.addObject("tied", "You tied!");
+			if (userId != null) {
+				mav.addObject("userId", userId);
+			}	
+			return mav;
 		}
 
 		// mav.addObject("cat", breed);

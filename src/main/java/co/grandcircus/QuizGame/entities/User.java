@@ -25,6 +25,52 @@ public class User implements Serializable {
 	
 	@OneToMany(mappedBy="user")
 	private List<Item> items;
+	
+	private Long score;
+	private Long wins;
+	private Long played;
+	
+	
+	
+	
+	
+
+	public User(String username, String pin) {
+		super();
+		this.username = username;
+		this.pin = pin;
+	}
+
+	public User() {
+		super();
+		score = 0L;
+		wins = 0L;
+		played = 0L;
+	}
+
+	public Long getScore() {
+		return score;
+	}
+
+	public void setScore(Long score) {
+		this.score = score;
+	}
+
+	public Long getWins() {
+		return wins;
+	}
+
+	public void setWins(Long wins) {
+		this.wins = wins;
+	}
+
+	public Long getPlayed() {
+		return played;
+	}
+
+	public void setPlayed(Long played) {
+		this.played = played;
+	}
 
 	public long getId() {
 		return id;
@@ -53,7 +99,7 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", pin=" + pin + ", maps=" + maps + ", items=" + items
-				+ "]";
+				+ ", score=" + score + ", wins=" + wins + ", played=" + played + "]";
 	}
 
 	

@@ -26,6 +26,7 @@
 			</li> -->
 			<li class="nav-item"><a class="nav-link" href="/how">How to play</a></li>
 			<li class="nav-item"><a class="nav-link" href="/bts">Behind the scenes</a></li>
+			<li class="nav-item"><a class="nav-link" href="/leaderboard">Leaderboard</a></li>
 		</ul>
 	</div>
 </nav>
