@@ -14,8 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 import co.grandcircus.QuizGame.JeopardyAPI;
 import co.grandcircus.QuizGame.PlacesAPI;
 import co.grandcircus.QuizGame.entities.GameMap;
+import co.grandcircus.QuizGame.entities.Item;
 import co.grandcircus.QuizGame.entities.User;
 import co.grandcircus.QuizGame.repositories.GameMapRepo;
+import co.grandcircus.QuizGame.repositories.ItemRepo;
 import co.grandcircus.QuizGame.repositories.UserRepo;
 @Controller
 public class GameController {
@@ -34,6 +36,9 @@ public class GameController {
 	
 	@Autowired
 	private UserRepo userdao;
+	
+	@Autowired
+	private ItemRepo itemrepo;
 	
 	private static boolean isBoss;
 	
@@ -55,6 +60,15 @@ public class GameController {
 //		return new ModelAndView("main-menu", "maps", maps);
 	}
 	
+	@RequestMapping("/how")
+	public ModelAndView how() {
+		return new ModelAndView("how");
+	}
+	
+	@RequestMapping("/bts")
+	public ModelAndView bts() {
+		return new ModelAndView("bts");
+	}
 	
 //Added for logging in/signing up; Make user from db Serializable(?)
 	
@@ -78,7 +92,12 @@ public class GameController {
 			}
 		}
 		if (userId != null) {	
-			ModelAndView mav = new ModelAndView("main-menu-afterlogin");;			
+			ModelAndView mav = new ModelAndView("main-menu-afterlogin");
+			List<Item> cardsInDb = itemrepo.findByUserId(userId);
+			
+			//System.out.println(cardsInDb.size());
+			
+			mav.addObject("items", cardsInDb);
 			mav.addObject("maps",mapdao.findByUserId(userId));
 			mav.addObject("userId",userId);
 			return mav;

@@ -147,7 +147,7 @@ public class CatAPI {
 		
 		List<String> bossBreeds = new ArrayList<>(Arrays.asList("sing","sava", "bomb", "amis", "sphy", "soma", "ebur",
 				"toyg","orie", "ocic", "munc", "manx", "kuri", "beng", "tang", "snow", "siam", "bure", "tvan",
-				"ycho","tonk", "jbob", "cymr", "ctiff", "bali"));
+				"ycho","tonk", "jbob", "cymr", "ctif", "bali"));
 
 		String breedId = "";
 		Random rand = new Random();

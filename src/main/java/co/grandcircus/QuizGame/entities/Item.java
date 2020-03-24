@@ -14,6 +14,7 @@ public class Item {
 
 	@ManyToOne (cascade = CascadeType.ALL)
 	private User user;
+//	private User user;
 
 	public Long getId() {
 		return id;

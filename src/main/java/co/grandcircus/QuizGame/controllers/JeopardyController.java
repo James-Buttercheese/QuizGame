@@ -23,10 +23,13 @@ import co.grandcircus.QuizGame.catEntities.Breed;
 import co.grandcircus.QuizGame.catEntities.CatResponse;
 import co.grandcircus.QuizGame.entities.Card;
 import co.grandcircus.QuizGame.entities.Cards;
+import co.grandcircus.QuizGame.entities.Item;
 import co.grandcircus.QuizGame.entities.PiD;
 import co.grandcircus.QuizGame.entities.Player;
+import co.grandcircus.QuizGame.entities.User;
 import co.grandcircus.QuizGame.jeopardyEntities.Clue;
 import co.grandcircus.QuizGame.placesEntities.Result;
+import co.grandcircus.QuizGame.repositories.ItemRepo;
 import co.grandcircus.QuizGame.repositories.PinRepo;
 import co.grandcircus.QuizGame.repositories.UserRepo;
 
@@ -62,6 +65,11 @@ public class JeopardyController {
 
 	@Autowired
 	private PinRepo pinrepo;
+	
+	@Autowired
+	private ItemRepo itemrepo;
+	
+	
 
 	@RequestMapping("/jeopardy")
 	public ModelAndView game(@RequestParam(name = "placeId", required = false) String placeId,
@@ -87,12 +95,12 @@ public class JeopardyController {
 
 		isBoss = false;
 
-		if (player.getWinCount() == 3) {
-//			isBoss = true;
-//			diffName = "Boss";
-//			difficulty = 1000;			
-			return new ModelAndView("redirect:/boss-battle");
-		} else {
+//		if (player.getWinCount() == 3) {
+////			isBoss = true;
+////			diffName = "Boss";
+////			difficulty = 1000;			
+//			return new ModelAndView("redirect:/boss-battle");
+//		} else {
 			diffName = "";
 			if (rating < 4.2) {
 				difficultiesE[0] = 100;
@@ -116,13 +124,19 @@ public class JeopardyController {
 				diffName = "Hard";
 			}
 
-		}
+//		}
 
 		Clue[] allClues = jeopApi.findByCategoryAndDifficulty(difficulty);
 		Clue mainClue = null;
 		do {
 			mainClue = jeopApi.generateRandomClue(allClues);
 		} while (mainClue.getQuestion().isEmpty());
+		
+		
+//		System.out.println("amanda".replaceAll("\\\\", ""));
+//		System.out.println("ama\'nda".replaceAll("\\\\", ""));
+		
+		mainClue.setQuestion(mainClue.getQuestion().replaceAll("\\\\", ""));
 
 		Integer categoryId = mainClue.getCategory_id();
 
@@ -143,8 +157,10 @@ public class JeopardyController {
 
 		answers = new ArrayList<>();
 		for (String randomAnswer : randomAnswers) {
+			randomAnswer = randomAnswer.replaceAll("\\\\", "");
 			answers.add(randomAnswer);
 		}
+		
 
 		category = mainClue.getCategory().getTitle();
 		question = mainClue.getQuestion();
@@ -196,6 +212,22 @@ public class JeopardyController {
 					// System.out.println("Card: " + card);
 
 				} while (cards.getCatCardsNames().contains(card.getName())); // may fall in inf loop if game is too long
+				
+				List<Item> cardsInDb = itemrepo.findByUserId(userId);
+				List<String> cardsInDbNames = new ArrayList<>();
+				for (Item cd : cardsInDb) {
+					cardsInDbNames.add(cd.getCardName());    //may cause slow
+				}
+				
+				Item item = new Item();
+				item.setCard(card.getName());
+				User user = userdao.getOne(userId);
+				item.setUser(user);
+				
+				if (!cardsInDbNames.contains(item.getCardName())) {
+					itemrepo.save(item);
+				}
+				
 				cards.addCard(card);
 				cards.addCardName(card.getName());
 

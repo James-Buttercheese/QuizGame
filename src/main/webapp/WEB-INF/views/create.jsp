@@ -12,6 +12,12 @@
 <%@ include file="partials/header.jsp"%>
 
 
+<c:if test="${not empty mapMessage}">
+<p>${mapMessage}</p>
+</c:if>
+
+
+
 
 <c:if test="${empty candidates}">
 <c:if test="${empty locations }">
@@ -52,12 +58,18 @@
 				</c:forEach>
 				
 			</p>
-			<input type="text" value="name" name="name"/>
+			<!-- <input type="text" value="name" name="name"/> -->
+			<input type="text" name="name"/>
 			<input type="hidden" value="${mapId}" name="mapId"/>
 			<input type="hidden" value="${userId}" name="userId"/>
 			<button type="submit" class="btn btn-secondary">submit</button>
 		</form>
 	</div>
+	
+	
+
+	
+	
 	
 	
 	
@@ -88,11 +100,11 @@
 
 
 	<script>
-
+	
+	
 var locations = (${locations});
 
-function initMap() {
-
+	function initMap() {
 	
   var rencen = locations[0];
  

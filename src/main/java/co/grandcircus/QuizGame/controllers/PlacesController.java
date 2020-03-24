@@ -17,11 +17,13 @@ import co.grandcircus.QuizGame.PlacesAPI;
 import co.grandcircus.QuizGame.entities.Card;
 import co.grandcircus.QuizGame.entities.Cards;
 import co.grandcircus.QuizGame.entities.GameMap;
+import co.grandcircus.QuizGame.entities.Item;
 import co.grandcircus.QuizGame.entities.PiD;
 import co.grandcircus.QuizGame.entities.Pin;
 import co.grandcircus.QuizGame.entities.Player;
 import co.grandcircus.QuizGame.placesEntities.Result;
 import co.grandcircus.QuizGame.repositories.GameMapRepo;
+import co.grandcircus.QuizGame.repositories.ItemRepo;
 import co.grandcircus.QuizGame.repositories.PinRepo;
 import co.grandcircus.QuizGame.repositories.UserRepo;
 
@@ -43,14 +45,22 @@ public class PlacesController {
 	@Autowired
 	private PlacesAPI placesApi;
 	
+	
+	
 	//private static boolean isBoss;
 
 	
 	@RequestMapping("create")
-	public ModelAndView create(@RequestParam(value="userId", required=false) Long userId) { //sends you to the create .jsp
+	public ModelAndView create(@RequestParam(value="userId", required=false) Long userId,
+			@RequestParam(value="mapMessage", required=false) String mapMessage) { //sends you to the create .jsp
 		ModelAndView mav = new ModelAndView("create");
 //		List<GameMap> maps = mapdao.findAll(); //
 		List<GameMap> maps = mapdao.findByUserId(userId); //
+		
+		
+//		System.out.println(mapMessage);
+		
+		mav.addObject("mapMessage", mapMessage);
 		mav.addObject("maps", maps);
 		mav.addObject("userId", userId);
 
@@ -119,8 +129,21 @@ public class PlacesController {
 			}
 
 			map.setLocations(locations);
-			if (!name.isEmpty()) {
+			
+			List<GameMap> mapsInDb = mapdao.findByUserId(userId);
+			List<String> mapsNamesInDb = new ArrayList<>();
+			for (GameMap gm : mapsInDb) {
+				mapsNamesInDb.add(gm.getName());
+			}
+			
+			
+			if (!name.isEmpty() && !mapsNamesInDb.contains(name)) {            //
 			map.setName(name);
+			} else {
+				ModelAndView mv = new ModelAndView("redirect:/create");
+				mv.addObject("userId", userId);
+				mv.addObject("mapMessage","empty/existent map name");
+				return mv;
 			}
 			
 			map.setUser(userdao.findById(userId).orElse(null));

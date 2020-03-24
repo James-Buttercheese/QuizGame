@@ -14,6 +14,15 @@
 	
 	<!-- LOGIN AND SIGN UP HAVEN'T BEEN FULLY IMPLEMENTED YET -->
 	
+	<h5>Cards you have collected</h5>
+	<select>
+			<c:forEach items="${items}" var="item">
+				<option >${item.cardName}</option>
+			</c:forEach>
+	</select>
+	
+	
+	
 	<form action="/create">
 	<input type="hidden" name="userId" value="${userId}"/>
 	<button type="submit">Create Map</button>
