@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Main Menu</title>
+<title>User Menu</title>
 <%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
@@ -19,8 +19,9 @@
 	<%-- 	<h1>Welcome to Conquests and Cats, ${name}</h1>
 	<p>You have ${numCards} cards in your collection</p> --%>
 
-
-	<div class="card" style="width: 30rem;">
+	<div class="container">
+	<!-- <div class="card" style="width: 30rem;"> -->
+	<div class="card"">
 		<div class="card-body">
 			<h5 class="card-title">Welcome, ${name} Kitty</h5>
 			<h6 class="card-subtitle mb-2 text-muted"
@@ -95,6 +96,7 @@
 			
 
 		</div>
+	</div>
 	</div>
 
 

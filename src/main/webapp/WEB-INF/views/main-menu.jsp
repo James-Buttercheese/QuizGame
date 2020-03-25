@@ -10,6 +10,7 @@
 <meta charset="UTF-8">
 <title>Main Menu</title>
 <%@ include file="partials/style-tags.jsp"%>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 
@@ -48,7 +49,7 @@
 			tabindex="-1" aria-disabled="true">Disabled</a></li>
 	</ul> -->
 	
-		<ul class="nav nav-pills nav-fill navbar navbar-light bg-light">
+	<ul class="nav nav-pills nav-fill navbar navbar-light bg-light">
 <!-- 		<li class="nav-item"><a class="nav-link active" href="/" style="font-size:20px">Conquests and Cats</a>
 		</li> -->
 		<li class="nav-item"><a class="nav-link" href="/user-create">Register</a></li>
@@ -78,8 +79,9 @@
 	
 
 
-
-<div class="card" style="width: 50rem;" id="instructions">
+<div class="container">
+<!-- <div class="card" style="width: 50rem;" id="instructions"> -->
+<div class="card" id="instructions">
 
 <div class="card-header">
     Instructions
@@ -105,10 +107,13 @@
 
 </ul>
 </div>
+</div>
 
 <br/>
 	
- <footer class="navbar-light bg-light">
+ <footer class="navbar-light bg-light" style="position: absolute;
+  bottom: 0;
+  width: 100%;">
   <p>© 2020 Copyright</p>
   <p style="line-height: 0.2;">Application by:</p>
   <p style="margin-bottom:0;"><a href="https://github.com/amandabcampos" target="_blank">Amanda Campos</a> | 

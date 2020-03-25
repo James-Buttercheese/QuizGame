@@ -55,11 +55,13 @@
 
 	<c:if test="${empty candidates}">
 		<c:if test="${empty locations }">
-			<div class="card" style="width: 40rem;">
+		<div class="container">
+			<!-- <div class="card" style="width: 40rem;"> -->
+			<div class="card">
 				<div class="card-header">City</div>
 				<!-- h4>Which City would You like to base your map in?</h4> -->
 				<form method="post" action="/create">
-					<div style="margin:auto;width: 50%;">
+					<div style="margin:auto;width: 40%;">
 					<div class="form-check form-check-inline" style="margin-top:10px;">
 					
 						<input class="form-check-input" type="radio"
@@ -101,9 +103,11 @@
 					<button type="submit" class="btn btn-secondary">submit</button>
 				</form>
 			</div>
+			</div>
 		</c:if>
 		
-		 <footer class="navbar-light bg-light" style="position: absolute;
+		
+ <footer class="navbar-light bg-light" style="position: absolute;
   bottom: 0;
   width: 100%;">
   <p>© 2020 Copyright</p>
@@ -120,7 +124,9 @@
 	
 	
 	<c:if test="${not empty candidates}">
-		<div class="card" style="width: 40rem;">
+	<div class="container">
+<!-- 		<div class="card" style="width: 40rem;"> -->
+		<div class="card">
 		
 				<div class="card-header">Restaurants</div>
 		
@@ -131,9 +137,12 @@
 				<ul class="list-group list-group-flush">
 <!-- 					<li>Locations:</li> -->
 					<c:forEach var="candidate" items="${candidates}">
-						<li class="list-group-item"><label><input type="checkbox" name="locale"
+						<!-- <li class="list-group-item"> -->
+						<br/>
+						<label><input type="checkbox" name="locale"
 								value="${candidate.place_id}"> ${candidate.name } <b>Rating</b>
-								${candidate.rating}</label></li>
+								${candidate.rating}</label>
+								<!-- </li> -->
 					</c:forEach>
 
 				</ul>
@@ -150,6 +159,7 @@
 			
 			
 			<!-- <button onclick="runTest()" class="btn btn-secondary">submit</button> -->
+		</div>
 		</div>
 
 
@@ -172,7 +182,9 @@
 		</form>
 	</div> --%>
 	
- <footer class="navbar-light bg-light">
+ <footer class="navbar-light bg-light" style="position: absolute;
+  bottom: 0;
+  width: 100%;">
   <p>© 2020 Copyright</p>
   <p style="line-height: 0.2;">Application by:</p>
   <p style="margin-bottom:0;"><a href="https://github.com/amandabcampos" target="_blank">Amanda Campos</a> | 
@@ -184,22 +196,47 @@
 
 
 
-	</c:if>
+ 	</c:if>
 	<c:if test="${not empty locations}">
 
-		<form action="/play-map">
+<%-- 		<form action="/play-map">
 			<select name="mapId">
 				<c:forEach items="${maps}" var="map">
 					<option value="${map.id}">${map.name}</option>
 				</c:forEach>
 			</select> <input type="hidden" value="${userId}" name="userId" />
-			<button type="submit">Play Map</button>
-		</form>
+			<button type="submit" class="user-submit">Play Map</button>
+		</form>  --%>
+		<div class="container">
+		<form action="/play-map">
+				<c:if test="${!maps.equals(null)}">
 
+					<div class="form-group">
+					<br/>
+						<h6 class="card-subtitle mb-2 text-muted"
+							style="text-align: center; font-family: Courier, monospace;">Your
+							Maps:</h6>
+						<select multiple class="form-control"
+							id="exampleFormControlSelect2" name="mapId">
+							<c:forEach items="${maps}" var="map">
+								<option value="${map.id}">${map.name}</option>
+							</c:forEach>
+						</select> <input type="hidden" value="${userId}" name="userId" /> <br />
+						<div style="text-align: center;">
+							<button type="submit" class="user-submit">Play Map</button>
 
-		<h3>My Map</h3>
+						</div>
+
+					</div>
+				</c:if>
+			</form>
+			</div>
+		
+
+		<!-- <h3>My Map</h3> -->
 		<!--The div element for the map -->
-		<div id="map" style="height: 400px; width: 100%;"></div>
+		<!-- <div id="map" style="height: 400px; width: 100%;"></div> -->
+		<div id="map" class="container"></div>
 		<!-- Replace the value of the key parameter with your own API key. -->
 
 		

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Leaderboard</title>
 <!-- Favicon It's a coffee cup right now. Change it to whatever you want-->
 <link rel="icon" type="image/png"
 	href="https://i2.wp.com/awakedetroit.com/wp-content/uploads/2019/04/cropped-Favicon.png?ssl=1">
@@ -61,24 +61,41 @@
 	
 	
 
-
+	<div class="container">
+	<br/>
 	<table class="table striped-table">
+	<thead>
 		<tr>
-			<th>Player</th>
-			<th><a class="nav-link" href="/leaderboard">Total Score</a></th>
-			<th><a class="nav-link" href="/wins">Games Won</a></th>
-			<th><a class="nav-link" href="/played">Questions Answered</a></th>
+			<!-- <th class="nav-link">Player</th> -->
+			<th scope="col"><a class="nav-link">Player Username</a></th>
+			<th scope="col"><a class="nav-link" href="/leaderboard">Total Score</a></th>
+			<th scope="col"><a class="nav-link" href="/wins">Games Won</a></th>
+			<th scope="col"><a class="nav-link" href="/played">Questions Answered</a></th>
 		</tr>
+		</thead>
+		<tbody>
 		<c:forEach var="player" items="${players}">
 			<tr>
-				<td>${player.username}</td>
-				<td>${player.score}</td>
-				<td>${player.wins}</td>
-				<td>${player.played}</td>
+				<th scope="row" align="center">${player.username}</th>
+				<td align="center">${player.score}</td>
+				<td align="center">${player.wins}</td>
+				<td align="center">${player.played}</td>
 			</tr>
 		</c:forEach>
+		</tbody>
 
 	</table>
+	</div>
+	
+	 <footer class="navbar-light bg-light" style="position: absolute;
+  bottom: 0;
+  width: 100%;">
+  <p>© 2020 Copyright</p>
+  <p style="line-height: 0.2;">Application by:</p>
+  <p style="margin-bottom:0;"><a href="https://github.com/amandabcampos" target="_blank">Amanda Campos</a> | 
+  <a href="https://github.com/James-Buttercheese" target="_blank">James McDowell</a> | 
+  <a href="https://github.com/jlcenters" target="_blank">Jillian Centers</a></p>
+</footer>
 
 
 </body>

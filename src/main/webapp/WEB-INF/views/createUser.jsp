@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Register</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
@@ -35,28 +35,37 @@
 	
 	
 
-
+<div class="container">
 	<form method="post">
-		<div class="card" style="width: 40rem;">
+<!-- 		<div class="card" style="width: 40rem;"> -->
+		<div class="card">
 			<div class="card-header">Registration</div>
 
-			<ul class="list-group list-group-flush">
+			<!-- <ul class="list-group list-group-flush"> -->
 
-				<li class="list-group-item"><label for="username">Kitty Name
+				<!-- <li class="list-group-item"> -->
+				<br/>
+				<label for="username">Kitty Name
 						<input type="text" class="form-control" id="username"
 						name="username" required>
-				</label></li>
+				</label>
+				<!-- </li> -->
 
-				<li class="list-group-item"><label for="password">Purr-sword
+				<!-- <li class="list-group-item"> -->
+				<label for="password">Purr-sword
 					<input type="password" class="form-control" id="password"
-					name="pin" required></label></li>
+					name="pin" required></label>
+					<!-- </li> -->
 			
-			
-			<li class="list-group-item"><button type="submit" class="user-submit">Register</button></li>
+			<br/>
+			<!-- <li class="list-group-item"> -->
+			<button type="submit" class="user-submit">Register</button>
+			<!-- </li> -->
 			
 			</ul>
 		</div>
 	</form>
+	</div>
 
 	<!-- <form method="post">
   <div class="form-group">

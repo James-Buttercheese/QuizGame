@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Behind The Scenes</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
@@ -24,6 +24,7 @@
 		<li class="nav-item"><a class="nav-link" href="/leaderboard">Leaderboard</a></li>
 	</ul>
 
+<div class="container">
 <div id="bts-table">
 <table class="table">
   <thead>
@@ -111,6 +112,7 @@
   </tbody>
 </table>
 </div>
+</div>
 
 
 <!-- 	<h3>Behind the scenes:</h3>
@@ -167,13 +169,16 @@
 		amongst the most powerful cards. Boss cards will continue to get
 		generated in the case of ties.</p>
  -->
- <footer class="navbar-light bg-light">
+ <footer class="navbar-light bg-light" style="position: absolute;
+  bottom: 0;
+  width: 100%;">
   <p>© 2020 Copyright</p>
   <p style="line-height: 0.2;">Application by:</p>
   <p style="margin-bottom:0;"><a href="https://github.com/amandabcampos" target="_blank">Amanda Campos</a> | 
   <a href="https://github.com/James-Buttercheese" target="_blank">James McDowell</a> | 
   <a href="https://github.com/jlcenters" target="_blank">Jillian Centers</a></p>
 </footer>
+ 
  
  
 
