@@ -159,6 +159,8 @@ public class PlacesController {
 				ModelAndView mv = new ModelAndView("redirect:/create");
 				mv.addObject("userId", userId);
 				mv.addObject("mapMessage","Map name existent or empty.");
+				String pkey = placesKey;
+				mv.addObject("apikey", pkey);
 				return mv;
 			}
 			
@@ -200,7 +202,8 @@ public class PlacesController {
 //		List<GameMap> maps = mapdao.findAll();       //????
 		List<GameMap> maps = mapdao.findByUserId(userId);
 		mav.addObject("maps", maps);
-		
+		String pkey = placesKey;
+		mav.addObject("apikey", pkey);
 
 		return mav;
 	}
@@ -288,7 +291,9 @@ public class PlacesController {
 		mav.addObject("start", start);
 		mav.addObject("end", end);
 		mav.addObject("visited", visited);
-		mav.addObject("apikey", placesKey);
+		
+		String pkey = placesKey;
+		mav.addObject("apikey", pkey);
 
 		return mav;
 	}

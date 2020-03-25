@@ -275,7 +275,7 @@
 		
 	</c:if>
 	<!-- <script>var locations = ${locations}</script> -->
-	<%-- =======
+	<%--
 			</select> <input type="hidden" value="${userId}" name="userId" />
 			<button type="submit">Play Map</button>
 		</form>
@@ -286,14 +286,7 @@
 		<div id="map" style="height: 400px; width: 100%;"></div>
 		<!-- Replace the value of the key parameter with your own API key. -->
 	</c:if> --%>
-<!-- 	
- <footer class="navbar-light bg-light">
-  <p>© 2020 Copyright</p>
-  <p style="line-height: 0.2;">Application by:</p>
-  <p style="margin-bottom:0;"><a href="https://github.com/amandabcampos">Amanda Campos</a> | 
-  <a href="https://github.com/James-Buttercheese">James McDowell</a> | 
-  <a href="https://github.com/jlcenters">Jillian Centers</a></p>
-</footer> -->
+
 	
 
 	<script>
@@ -341,7 +334,8 @@ var locations = (${locations});
 
 
 	<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhSCRIHC_0IdQCQIRlbSf1zc5xACcIIqE&callback=initMap">
+		src="https://maps.googleapis.com/maps/api/js?key=${apikey}&callback=initMap">
+
 </script>
 
 </body>
