@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +44,9 @@ public class PlacesController {
 
 	@Autowired
 	private PlacesAPI placesApi;
+	
+	@Value("${placesKey}")
+	private String placesKey;
 	
 	
 	
@@ -163,10 +167,15 @@ public class PlacesController {
 			mapdao.save(map);//saves to db
 
 			mav.addObject("results", strings);
+		
 
 		}
 		
-		if (mapId != null) {
+		if (mapId != null  && ids != null) {
+			mav.addObject("mapMessage", "Your map was successfully updated.");
+		}
+		
+		if (mapId != null  && ids == null) {
 			
 			System.out.println("hello3");
 			
@@ -279,6 +288,7 @@ public class PlacesController {
 		mav.addObject("start", start);
 		mav.addObject("end", end);
 		mav.addObject("visited", visited);
+		mav.addObject("apikey", placesKey);
 
 		return mav;
 	}

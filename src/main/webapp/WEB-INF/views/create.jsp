@@ -9,7 +9,7 @@
 <%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
-	<%-- <%@ include file="partials/header.jsp"%> --%>
+	<%@ include file="partials/header.jsp"%>
 
 
 	<ul
