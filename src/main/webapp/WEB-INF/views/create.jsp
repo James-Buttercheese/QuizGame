@@ -272,7 +272,7 @@ var locations = (${locations});
 
 
 	<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNgPo3oGDoG2aLV7bxJeNDZNbP5CXd_aI&callback=initMap">
+		src="https://maps.googleapis.com/maps/api/js?key=${apikey}&callback=initMap">
 </script>
 
 </body>

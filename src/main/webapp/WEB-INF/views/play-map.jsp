@@ -73,11 +73,6 @@
 	<c:set var="visited" scope="session" value="${player.visited}" />
 
 	<script>
-var source = "https://maps.googleapis.com/maps/api/js?key="+${apikey}+"&callback=initMap"
-var key = ${apikey};
-
-console.log(source);
-console.log(key);
 	
 var winCount = (${winCount});
 var results = (${results});
@@ -196,7 +191,7 @@ function initMap() {
 
 	<script 
 	async defer
-			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABreDYk8Gk_L1VlsrUkBYRs1JYLs84ObE&callback=initMap">
+			src="https://maps.googleapis.com/maps/api/js?key=${apikey}&callback=initMap">
 </script>
 
 </body>
