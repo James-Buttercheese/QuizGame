@@ -37,7 +37,7 @@
 							style="text-align: center; font-family: Courier, monospace;">Your
 							Maps:</h6>
 						<select multiple class="form-control"
-							id="exampleFormControlSelect2" name="mapId">
+							id="exampleFormControlSelect2" name="mapId" required>
 							<c:forEach items="${maps}" var="map">
 								<option value="${map.id}">${map.name}</option>
 							</c:forEach>
@@ -72,7 +72,7 @@
 			
 				<input type="hidden" name="userId" value="${userId}" />
 				<div style="text-align: center;">
-				<button type="submit" class="user-submit">Create Map</button>
+				<button type="submit" class="user-submit">Create or Edit Map</button>
 				</div>
 			</form>
 			
@@ -124,9 +124,16 @@
   <a href="https://github.com/jlcenters" target="_blank">Jillian Centers</a></p>
 </footer>
 
-
-
-
+<script>
+function runTest() {
+	if (document.querySelectorAll("input[type='checkbox']:checked").length >= 5){
+		console.log(document.querySelectorAll("input[type='checkbox']:checked").length);
+		document.getElementById("createform").submit(); 
+	} else {
+		window.alert("You will need at least 5 locations for the map to be beatable.");
+	}
+}
+</script>
 
 </body>
 </html>

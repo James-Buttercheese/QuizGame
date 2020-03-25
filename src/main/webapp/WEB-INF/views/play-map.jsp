@@ -10,6 +10,7 @@
 </head>
 <body>
 	<%@ include file="partials/header.jsp"%>
+<%-- 	<%@ include file="partials/script-tags.jsp"%> --%>
 
 
 	<h3>Select a destination to conquer:</h3>
@@ -72,6 +73,11 @@
 	<c:set var="visited" scope="session" value="${player.visited}" />
 
 	<script>
+var source = "https://maps.googleapis.com/maps/api/js?key="+${apikey}+"&callback=initMap"
+var key = ${apikey};
+
+console.log(source);
+console.log(key);
 	
 var winCount = (${winCount});
 var results = (${results});
@@ -187,9 +193,10 @@ function initMap() {
 }
 
 </script>
-	<%@ include file="partials/script-tags.jsp"%>
-	<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNgPo3oGDoG2aLV7bxJeNDZNbP5CXd_aI&callback=initMap">
+
+	<script 
+	async defer
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABreDYk8Gk_L1VlsrUkBYRs1JYLs84ObE&callback=initMap">
 </script>
 
 </body>

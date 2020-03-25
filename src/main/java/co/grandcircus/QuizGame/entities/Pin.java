@@ -89,7 +89,7 @@ public class Pin {
 	@Override
 	public String toString() {
 
-		return "Pin [id=" + id + ", latLong=" + latLong + ", gamemap=" + gameMap + ", place_id=" + place_id + "]";
+		return "Pin [id=" + id + ", latLong=" + latLong + ", place_id=" + place_id + "]";
 
 	}
 

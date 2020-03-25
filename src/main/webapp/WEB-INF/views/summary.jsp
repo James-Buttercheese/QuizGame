@@ -120,6 +120,6 @@
 
 		</c:otherwise>
 	</c:choose>
-	<%@ include file="partials/script-tags.jsp"%>
+<%-- 	<%@ include file="partials/script-tags.jsp"%> --%>
 </body>
 </html>
