@@ -10,6 +10,7 @@
 </head>
 <body>
 	<%@ include file="partials/header.jsp"%>
+<%-- 	<%@ include file="partials/script-tags.jsp"%> --%>
 
 
 	<h3>Select a destination to conquer:</h3>
@@ -203,8 +204,11 @@ function initMap() {
 
 </script>
 	<%@ include file="partials/script-tags.jsp"%>
-	<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhSCRIHC_0IdQCQIRlbSf1zc5xACcIIqE&callback=initMap">
+
+
+	<script 
+	async defer
+			src="https://maps.googleapis.com/maps/api/js?key=${apikey}&callback=initMap">
 </script>
 
 </body>

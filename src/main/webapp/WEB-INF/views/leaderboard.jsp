@@ -7,13 +7,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
 <%@ include file="partials/style-tags.jsp"%>
+<title>Leaderboard</title>
 </head>
 <body>
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<!--  -->
+<!-- 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		
 		<h1 class="navbar-brand">Conquests and Cats</h1>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarColor03" aria-controls="navbarColor03"
@@ -32,26 +32,55 @@
 				<li class="nav-item"><a class="nav-link" href="/leaderboard">Leaderboard</a></li>
 			</ul>
 		</div>
-	</nav>
+	</nav> -->
+	
+			<ul class="nav nav-pills nav-fill navbar navbar-light bg-light">
+<!-- 		<li class="nav-item"><a class="nav-link active" href="/" style="font-size:20px">Conquests and Cats</a>
+		</li> -->
+		<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+		<li class="nav-item"><a class="nav-link" href="/user-create">Register</a></li>
+		<li class="nav-item"><a class="nav-link" href="/login">Login</a></li>	
+		<li class="nav-item"><a class="nav-link" href="/bts">Behind The Scenes</a></li>
+		
+		</ul>
+	
+	
 
-
+	<div class="container">
+	<br/>
 	<table class="table striped-table">
+	<thead>
 		<tr>
-			<th>Player</th>
-			<th><a class="nav-link" href="/leaderboard">Total Score</a></th>
-			<th><a class="nav-link" href="/wins">Games Won</a></th>
-			<th><a class="nav-link" href="/played">Questions Answered</a></th>
+			<!-- <th class="nav-link">Player</th> -->
+			<th scope="col"><a class="nav-link">Player Username</a></th>
+			<th scope="col"><a class="nav-link" href="/leaderboard">Total Score</a></th>
+			<th scope="col"><a class="nav-link" href="/wins">Games Won</a></th>
+			<th scope="col"><a class="nav-link" href="/played">Questions Answered</a></th>
 		</tr>
+		</thead>
+		<tbody>
 		<c:forEach var="player" items="${players}">
 			<tr>
-				<td>${player.username}</td>
-				<td>${player.score}</td>
-				<td>${player.wins}</td>
-				<td>${player.played}</td>
+				<th scope="row" align="center">${player.username}</th>
+				<td align="center">${player.score}</td>
+				<td align="center">${player.wins}</td>
+				<td align="center">${player.played}</td>
 			</tr>
 		</c:forEach>
+		</tbody>
 
 	</table>
+	</div>
+	
+	 <footer class="navbar-light bg-light" style="position: absolute;
+  bottom: 0;
+  width: 100%;">
+  <p>© 2020 Copyright</p>
+  <p style="line-height: 0.2;">Application by:</p>
+  <p style="margin-bottom:0;"><a href="https://github.com/amandabcampos" target="_blank">Amanda Campos</a> | 
+  <a href="https://github.com/James-Buttercheese" target="_blank">James McDowell</a> | 
+  <a href="https://github.com/jlcenters" target="_blank">Jillian Centers</a></p>
+</footer>
 
 	<%@ include file="partials/script-tags.jsp"%>
 </body>

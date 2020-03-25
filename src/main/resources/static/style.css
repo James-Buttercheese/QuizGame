@@ -5,7 +5,107 @@
   width: 100%;  /* The width is the width of the web page */
  }
  
+ .container {
+  max-width: 800px
+}
+ 
+ 
  p{
  text-align:center;
  
  }
+ 
+ .nav-link{
+ color:grey;
+ }
+ 
+.card{
+  margin: auto;
+/*   width: 50%; */
+/*   width: 50rem; */
+   border: 0px solid #f5da41;
+  padding: 10px;
+}
+
+#instructions{
+	margin: auto;
+/*   width: 50%; */
+/*   width: 50rem; */
+  border: 1px solid #f5da41;
+  padding: 10px;
+}
+
+.card-header{
+	text-align: center;
+	font-family: "Courier New", Courier, monospace;
+	font-weight: bold;
+/* 	background:url('http://www.sonoquilibrium.com/wp-content/uploads/2014/11/3134971.jpg'); */
+}
+
+.list-group-item{
+	font-family: "Courier New", Courier, monospace;
+}
+
+#title{
+	text-align: center; 
+	font-family:"Lucida Console", Monaco, monospace
+}
+
+.nav-link{
+	font-family:"Lucida Console", Monaco, monospace
+}
+#bts-table{
+/*  	max-width: 800px;  */
+	margin: auto;
+/*   width: 50%; */
+/*   	width: 100rem; */
+/*   	border: 1px solid #f5da41; */
+  	padding: 10px;	
+} 
+td{
+	font-family: "Courier New", Courier, monospace;
+}
+th{
+	font-family: "Courier New", Courier, monospace;
+	font-size: 20px;
+}
+thead{
+	background-color: #f5da41;
+ }
+#header-bts{
+	text-align:center;
+}
+
+.user-submit{
+	width: 250px;
+	background-color:#f5da41;
+	border-radius: 12px;
+	box-shadow: 0 1px 5px 0 rgba(0,0,0,0.1), 0 1px 5px 0 rgba(0,0,0,0.1);
+	font-weight: bold;
+	font-family: "Courier New", Courier, monospace;
+} 
+.message{
+	text-align:center;
+	font-family: "Courier New", Courier, monospace;
+	font-size: 20px;
+	
+}
+
+.card-title{
+	text-align: center;
+	font-family: "Courier New", Courier, monospace;
+	font-weight: bold;
+}
+
+body{
+	position: relative;
+	min-height: 100vh;
+	padding-bottom: 100px;
+	box-sizing: border-box;
+}
+
+label{
+	font-family: "Courier New", Courier, monospace;
+}
+
+

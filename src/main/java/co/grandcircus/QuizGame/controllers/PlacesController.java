@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +45,9 @@ public class PlacesController {
 	@Autowired
 	private PlacesAPI placesApi;
 	
+	@Value("${placesKey}")
+	private String placesKey;
+	
 	
 	
 	//private static boolean isBoss;
@@ -79,6 +83,9 @@ public class PlacesController {
 //		System.out.println(mapId + " " + userId);
 
 		if ((city != null) && (!city.isEmpty())) { // searches for places based on chosen city
+			
+			System.out.println("hello1");
+			
 			if (city.equalsIgnoreCase("detroit")) {
 				List<Result> candidates = placesApi.getDetroit();
 				mav.addObject("candidates", candidates);
@@ -96,7 +103,7 @@ public class PlacesController {
 
 		if (ids != null) { //takes list of locations chosen by user creates the map,
 			//stores it in the db, and sends it to be seen
-			
+			System.out.println("hello2");
 
 			GameMap map = new GameMap();
 			if (mapId != null) {
@@ -151,7 +158,9 @@ public class PlacesController {
 			} else {
 				ModelAndView mv = new ModelAndView("redirect:/create");
 				mv.addObject("userId", userId);
-				mv.addObject("mapMessage","empty/existent map name");
+				mv.addObject("mapMessage","Map name existent or empty.");
+				String pkey = placesKey;
+				mv.addObject("apikey", pkey);
 				return mv;
 			}
 			
@@ -160,10 +169,19 @@ public class PlacesController {
 			mapdao.save(map);//saves to db
 
 			mav.addObject("results", strings);
+		
 
 		}
 		
-		if (mapId != null) {
+		if (mapId != null  && ids != null) {
+			mav.addObject("mapMessage", "Your map was successfully updated.");
+		}
+		
+		if (mapId != null  && ids == null) {
+			
+			System.out.println("hello3");
+			
+			//missing one parameter that's going to take to "another"view
 			
 			
 			List<Pin> locations = pindao.findByGameMapId(mapId);
@@ -184,7 +202,8 @@ public class PlacesController {
 //		List<GameMap> maps = mapdao.findAll();       //????
 		List<GameMap> maps = mapdao.findByUserId(userId);
 		mav.addObject("maps", maps);
-		
+		String pkey = placesKey;
+		mav.addObject("apikey", pkey);
 
 		return mav;
 	}
@@ -194,11 +213,18 @@ public class PlacesController {
 			@RequestParam(name="userId", required=false) Long userId,
 			@SessionAttribute(name = "player", required = false) Player player,
 			@SessionAttribute(name = "cards", required = false) Cards cards) {
+		
+		
 		ModelAndView mav = new ModelAndView("play-map");
 		mav.addObject("userId", userId);
 		
 		if (userId != null) {
 			User user = userdao.findById(userId).orElse(null);
+			
+			System.out.println("hi");
+			System.out.println(userId);
+			System.out.println(user);
+			
 			user.setPlayed(user.getPlayed()+1);
 			userdao.save(user);
 		}
@@ -265,7 +291,11 @@ public class PlacesController {
 		mav.addObject("start", start);
 		mav.addObject("end", end);
 		mav.addObject("visited", visited);
-		mav.addObject("cats", cards);
+//needed for party list - Jill
+		mav.addObject("cats", cards);		
+		String pkey = placesKey;
+		mav.addObject("apikey", pkey);
+
 		return mav;
 	}
 	
