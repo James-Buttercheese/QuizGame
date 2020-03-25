@@ -60,10 +60,10 @@ public class GameController {
 //		return new ModelAndView("main-menu", "maps", maps);
 	}
 	
-	@RequestMapping("/how")
-	public ModelAndView how() {
-		return new ModelAndView("how");
-	}
+//	@RequestMapping("/how")
+//	public ModelAndView how() {
+//		return new ModelAndView("how");
+//	}
 	
 	@RequestMapping("/bts")
 	public ModelAndView bts() {
@@ -73,8 +73,12 @@ public class GameController {
 //Added for logging in/signing up; Make user from db Serializable(?)
 	
 	@RequestMapping("/login")
-	public ModelAndView login() {	
-		return new ModelAndView("login");
+	public ModelAndView login(@RequestParam(name="message", required=false) String message) {	
+		ModelAndView mav = new ModelAndView("login");
+		if (message != null) {
+			mav.addObject("message", message);
+		}
+		return mav;
 	}
 	
 	@PostMapping("/login")
@@ -96,7 +100,8 @@ public class GameController {
 			List<Item> cardsInDb = itemrepo.findByUserId(userId);
 			
 			//System.out.println(cardsInDb.size());
-			
+			mav.addObject("name", username.substring(0,1).toUpperCase() + username.substring(1));
+			mav.addObject("numCards", cardsInDb.size());
 			mav.addObject("items", cardsInDb);
 			mav.addObject("maps",mapdao.findByUserId(userId));
 			mav.addObject("userId",userId);
@@ -104,33 +109,42 @@ public class GameController {
 		}
 		
 		
-		ModelAndView mav = new ModelAndView("redirect:/", "message", "Inexistent User/Username or password incorrect");
+		ModelAndView mav = new ModelAndView("redirect:/login", "message", "Unregistred User | Incorrect information.");
 		return mav;
 		
 //		return new ModelAndView("redirect:/");
 	}
 	
 	@RequestMapping("/user-create")
-	public ModelAndView signup() {
-		return new ModelAndView("createUser");
+	public ModelAndView signup(@RequestParam(name="message", required=false) String message) {
+		ModelAndView mav = new ModelAndView("createUser");
+		if (message != null) {
+			mav.addObject("message", message);
+		}
+		return mav;
 	}
 	
 	@PostMapping("/user-create")
 	public ModelAndView signup(User user, @RequestParam("username") String username) {
-		String message="";
+		//String message="";
 		//User check = userdao.findByUsername(username);
 		
 		if (userdao.findByUsername(username) != null) {
 			if (username.equals(userdao.findByUsername(username).getUsername())) {
-				message = "Username already exists";
+				ModelAndView mav = new ModelAndView("redirect:/user-create");
+				mav.addObject("message", "Username exists.");
+				return mav;
 			}
 		} else {
 			System.out.println("hello");
 			userdao.save(user);
-			message = "User added. Please login";
+			ModelAndView mav = new ModelAndView("redirect:/login");
+			mav.addObject("message","Successfull registration. Login.");
+			return mav;
 		}
 		
-		return new ModelAndView("redirect:/", "message", message);
+		return null;
+//		return new ModelAndView("redirect:/user-create", "message", message);
 		
 //		ModelAndView mav = new ModelAndView("redirect:/");
 //		mav.addObject("message", "User added. Please login");

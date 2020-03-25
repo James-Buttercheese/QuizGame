@@ -80,6 +80,9 @@ public class PlacesController {
 //		System.out.println(mapId + " " + userId);
 
 		if ((city != null) && (!city.isEmpty())) { // searches for places based on chosen city
+			
+			System.out.println("hello1");
+			
 			if (city.equalsIgnoreCase("detroit")) {
 				List<Result> candidates = placesApi.getDetroit();
 				mav.addObject("candidates", candidates);
@@ -97,7 +100,7 @@ public class PlacesController {
 
 		if (ids != null) { //takes list of locations chosen by user creates the map,
 			//stores it in the db, and sends it to be seen
-			
+			System.out.println("hello2");
 
 			GameMap map = new GameMap();
 			if (mapId != null) {
@@ -152,7 +155,7 @@ public class PlacesController {
 			} else {
 				ModelAndView mv = new ModelAndView("redirect:/create");
 				mv.addObject("userId", userId);
-				mv.addObject("mapMessage","empty/existent map name");
+				mv.addObject("mapMessage","Map name existent or empty.");
 				return mv;
 			}
 			
@@ -165,6 +168,10 @@ public class PlacesController {
 		}
 		
 		if (mapId != null) {
+			
+			System.out.println("hello3");
+			
+			//missing one parameter that's going to take to "another"view
 			
 			
 			List<Pin> locations = pindao.findByGameMapId(mapId);
@@ -195,6 +202,8 @@ public class PlacesController {
 			@RequestParam(name="userId", required=false) Long userId,
 			@SessionAttribute(name = "player", required = false) Player player,
 			@SessionAttribute(name = "cards", required = false) Cards cards) {
+		
+		
 		ModelAndView mav = new ModelAndView("play-map");
 		mav.addObject("userId", userId);
 
