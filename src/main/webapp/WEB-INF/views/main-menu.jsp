@@ -22,9 +22,19 @@
 	</button>
 
 	<div class="collapse navbar-collapse" id="navbarColor03">
+<<<<<<< HEAD
 		<ul class="nav nav-pills nav-fill">			
  			<li class="nav-item"><a class="nav-link" href="/how">How to play</a></li>
 			<li class="nav-item"><a class="nav-link" href="/bts">Behind the scenes</a></li> 
+=======
+		<ul class="navbar-nav mr-auto">
+			<!-- <li class="nav-item"><a class="nav-link" href="/play">New Game</a></li> -->
+			<!--  <li class="nav-item"><a class="nav-link" href="/">Load Game</a></li>-->
+			<!-- <li class="nav-item"><a class="nav-link" href="/">User Home</a>
+			</li> -->
+<!-- 			<li class="nav-item"><a class="nav-link" href="/how">How to play</a></li>
+			<li class="nav-item"><a class="nav-link" href="/bts">Behind the scenes</a></li>
+			<li class="nav-item"><a class="nav-link" href="/leaderboard">Leaderboard</a></li>
 		</ul>
 	</div>
 </nav> -->
@@ -44,6 +54,7 @@
 		<li class="nav-item"><a class="nav-link" href="/user-create">Register</a></li>
 		<li class="nav-item"><a class="nav-link" href="/login">Login</a></li>	
 		<li class="nav-item"><a class="nav-link" href="/bts">Behind The Scenes</a></li>
+		<li class="nav-item"><a class="nav-link" href="/leaderboard">Leaderboard</a></li>
 <!-- 		<li class="nav-item"><a class="nav-link disabled" href="#"
 			tabindex="-1" aria-disabled="true">Disabled</a></li> -->
 	</ul>

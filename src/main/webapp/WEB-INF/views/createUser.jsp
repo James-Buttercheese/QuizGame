@@ -22,6 +22,7 @@
 		<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
 		<li class="nav-item"><a class="nav-link" href="/login">Login</a></li>	
 		<li class="nav-item"><a class="nav-link" href="/bts">Behind The Scenes</a></li>
+		<li class="nav-item"><a class="nav-link" href="/leaderboard">Leaderboard</a></li>
 <!-- 		<li class="nav-item"><a class="nav-link disabled" href="#"
 			tabindex="-1" aria-disabled="true">Disabled</a></li> -->
 	</ul>

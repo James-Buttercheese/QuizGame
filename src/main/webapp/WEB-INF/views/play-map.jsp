@@ -13,11 +13,19 @@
 
 
 	<h3>Select a destination to conquer:</h3>
+
 	<c:if test="${boss.equals('Boss')}">
-
-		<a href="/jeopardy"><button>Boss Battle</button></a>
-
+		<div class="alert alert-warning alert-dismissible fade show"
+			role="alert">
+			<strong>How catastrophic!</strong> The ruler of this land is
+			challenging you. Are you ready to accept?
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
 	</c:if>
+
 	<!--The div element for the map -->
 	<div id="map" style="height: 400px; width: 100%;"></div>
 	<!-- Replace the value of the key parameter with your own API key. -->
@@ -28,8 +36,8 @@
 	<!-- USER INFORMATION -->
 	<table style="width: 100%">
 		<tr>
-			<th><h4>Name:  Level: </h4></th>
-			<th><h4>        </h4></th>
+			<th><h4>Name: Level:</h4></th>
+			<th><h4></h4></th>
 			<th><h4>Your Quest</h4></th>
 		</tr>
 
@@ -44,7 +52,7 @@
 						</h6></li>
 				</ul>
 			</td>
-			<td>        </td>
+			<td></td>
 			<td><p>
 					Purr as loud as possible, be the most annoying cat that you can,
 					and, knock everything off the table. My slave human didn't give me
@@ -120,7 +128,7 @@ function initMap() {
 		    scale: 15
 		  }});
   end.addListener('click', function() {
-	  window.location.assign('/boss-battle');
+	  window.location.assign('/boss-battle?userId='+userId);
 	  
     });
   }
@@ -179,7 +187,7 @@ function initMap() {
 }
 
 </script>
-
+	<%@ include file="partials/script-tags.jsp"%>
 	<script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNgPo3oGDoG2aLV7bxJeNDZNbP5CXd_aI&callback=initMap">
 </script>

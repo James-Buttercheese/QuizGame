@@ -21,6 +21,7 @@
 		<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
 		<li class="nav-item"><a class="nav-link" href="/user-create">Register</a></li>
 		<li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+		<li class="nav-item"><a class="nav-link" href="/leaderboard">Leaderboard</a></li>
 	</ul>
 
 <div id="bts-table">

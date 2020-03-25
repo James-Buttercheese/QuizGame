@@ -6,22 +6,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Watch Out!</title>
-	<%@ include file="partials/style-tags.jsp"%>
+<%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
 
-<div class="card" style="width: 18rem;">
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Category: ${mainClue.category.title}</li>
-    <li class="list-group-item">Difficulty: ${diffName}</li>
-  </ul>
-</div>
+	<div class="card" style="width: 18rem;">
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item">Category: ${mainClue.category.title}</li>
+			<li class="list-group-item">Difficulty: ${diffName}</li>
+		</ul>
+	</div>
 
-<br/>
+	<br />
 
-<div class="alert alert-primary" role="alert">
-   <p style="text-align: center">${mainClue.question}</p>
-</div>
+	<div class="alert alert-primary" role="alert">
+		<p style="text-align: center">${mainClue.question}</p>
+	</div>
 
 
 
@@ -36,9 +36,12 @@
 					<%-- <input type="hidden" value="${mainClue.question}" name="question" /> --%>
 					<%-- <input type="hidden" value="${mainClue.answer}" name="correctAnswer" /> --%>
 					<%-- <input type="hidden" value="${answers}" name="answers" /> --%>
-					<input type="hidden" value="${userId}" name="userId" />	
-					<input type="hidden" value="${answer}" name="answer" />	
-					<button type="submit" class="list-group-item list-group-item-action"><p style="text-align: center">${answer}</p></button>
+					<input type="hidden" value="${userId}" name="userId" /> <input
+						type="hidden" value="${answer}" name="answer" />
+					<button type="submit"
+						class="list-group-item list-group-item-action">
+						<p style="text-align: center">${answer}</p>
+					</button>
 				</form>
 			</li>
 		</c:forEach>
@@ -46,6 +49,6 @@
 
 
 
-
+	<%@ include file="partials/script-tags.jsp"%>
 </body>
 </html>
