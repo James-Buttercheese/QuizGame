@@ -9,17 +9,17 @@
 <%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
-<%@ include file="partials/header.jsp"%>
+	<%@ include file="partials/header.jsp"%>
 
 
-<c:if test="${not empty mapMessage}">
-<p>${mapMessage}</p>
-</c:if>
+	<c:if test="${not empty mapMessage}">
+		<p>${mapMessage}</p>
+	</c:if>
 
 
 
 
-<%-- <c:if test="${empty candidates}">
+	<%-- <c:if test="${empty candidates}">
 <c:if test="${empty locations }">
 	<div>
 		<h4>Which City would You like to base your map in?</h4>
@@ -73,22 +73,22 @@
 					<li>Locations:</li>
 					<c:forEach var="candidate" items="${candidates}">
 						<li><label><input type="checkbox" name="locale"
-							value="${candidate.place_id}">${candidate.name }
-							${candidate.rating}</label></li>
+								value="${candidate.place_id}">${candidate.name }
+								${candidate.rating}</label></li>
 					</c:forEach>
 
 				</ul>
-				<input type="text" value="name" name="name" /> 
-				<input type="hidden" value="${id}" name="mapId" /> 
-				<input type="hidden" value="${userId}" name="userId" />
-					
+				<input type="text" value="name" name="name" /> <input type="hidden"
+					value="${id}" name="mapId" /> <input type="hidden"
+					value="${userId}" name="userId" />
+
 			</form>
 			<button onclick="runTest()" class="btn btn-secondary">submit</button>
 		</div>
 
 
 
-<%-- 	</c:if>
+		<%-- 	</c:if>
 	<c:if test="${not empty locations}">
 
 		<form action="/play-map">
@@ -105,35 +105,34 @@
 			<button type="submit" class="btn btn-secondary">submit</button>
 		</form>
 	</div> --%>
-	
-	
-
-	
-	
-	
-	
-	
-</c:if>
-<c:if test = "${not empty locations}">
-
-	<form action="/play-map">
-		<select name="mapId">
-			<c:forEach items="${maps}" var="map">
-				<option value="${map.id}">${map.name}</option>
-			</c:forEach>
-		</select>
-		<input type="hidden" value="${userId}" name="userId"/>
-		<button type="submit">Play Map</button>
-	</form>
 
 
-	<h3>My Map</h3>
-	<!--The div element for the map -->
-	<div id="map" style=" height: 400px;width: 100%;"></div>
-	<!-- Replace the value of the key parameter with your own API key. -->
-</c:if>
+
+
+
+
+
+
+	</c:if>
+	<c:if test="${not empty locations}">
+
+		<form action="/play-map">
+			<select name="mapId">
+				<c:forEach items="${maps}" var="map">
+					<option value="${map.id}">${map.name}</option>
+				</c:forEach>
+			</select> <input type="hidden" value="${userId}" name="userId" />
+			<button type="submit">Play Map</button>
+		</form>
+
+
+		<h3>My Map</h3>
+		<!--The div element for the map -->
+		<div id="map" style="height: 400px; width: 100%;"></div>
+		<!-- Replace the value of the key parameter with your own API key. -->
+	</c:if>
 	<!-- <script>var locations = ${locations}</script> -->
-<%-- =======
+	<%-- =======
 			</select> <input type="hidden" value="${userId}" name="userId" />
 			<button type="submit">Play Map</button>
 		</form>
@@ -145,7 +144,7 @@
 		<!-- Replace the value of the key parameter with your own API key. -->
 	</c:if> --%>
 
-<script>
+	<script>
 // checked.onclick = runTest();
 
 function runTest() {
@@ -192,6 +191,6 @@ var locations = (${locations});
 	<script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNgPo3oGDoG2aLV7bxJeNDZNbP5CXd_aI&callback=initMap">
 </script>
-
+	<%@ include file="partials/script-tags.jsp"%>
 </body>
 </html>

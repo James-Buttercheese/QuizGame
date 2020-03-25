@@ -10,18 +10,13 @@
 </head>
 <body>
 
-
-	<div class="card" style="width: 18rem;">
-		<ul class="list-group list-group-flush">
-			<li class="list-group-item">Category: ${category}</li>
-			<li class="list-group-item">Difficulty: ${diffName}</li>
-		</ul>
-	</div>
-
-	<br />
-
-	<div class="alert alert-primary" role="alert">
-		<p style="text-align: center">${question}</p>
+	<h2 class="text-center">
+		<em><strong>${category}</strong> with the ${temperament}
+			${catName}</em>
+	</h2>
+	<div class="card mb-3" style="background-color: black;">
+		<img src="${catUrl}" class="card-img-top" alt="${catName}"
+			style="max-width: 25rem; margin-left: auto; margin-right: auto; max-height: 40%">
 	</div>
 
 

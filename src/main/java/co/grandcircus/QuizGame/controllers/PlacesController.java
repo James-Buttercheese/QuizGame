@@ -265,7 +265,7 @@ public class PlacesController {
 		mav.addObject("start", start);
 		mav.addObject("end", end);
 		mav.addObject("visited", visited);
-
+		mav.addObject("cats", cards);
 		return mav;
 	}
 	
