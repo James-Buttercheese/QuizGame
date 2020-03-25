@@ -88,13 +88,6 @@
 					<button type="submit" class="btn btn-secondary">submit</button>
 				</form> --%>
 			
-			
-			
-			
-			
-			
-			
-
 		</div>
 	</div>
 	</div>

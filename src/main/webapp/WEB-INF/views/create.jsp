@@ -9,7 +9,7 @@
 <%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
-	<%@ include file="partials/header.jsp"%>
+	<%-- <%@ include file="partials/header.jsp"%> --%>
 
 
 	<ul
@@ -58,12 +58,13 @@
 		<div class="container">
 			<!-- <div class="card" style="width: 40rem;"> -->
 			<div class="card">
-				<div class="card-header">City</div>
+				<div class="card-header">Create</div>
 				<!-- h4>Which City would You like to base your map in?</h4> -->
 				<form method="post" action="/create">
 					<div style="margin:auto;width: 40%;">
+					<br/>
+					<h6 style="font-family: Courier New, Courier, monospace; text-align:center; font-weight:bold">City </h6>
 					<div class="form-check form-check-inline" style="margin-top:10px;">
-					
 						<input class="form-check-input" type="radio"
 							name="city" id="inlineRadio1" value="detroit">
 						<label class="form-check-label" for="inlineRadio1"
@@ -91,8 +92,39 @@
 					<input type="hidden" value="${userId}" name="userId" />
 					<br/>
 					<div style="text-align:center;"><button type="submit" class="user-submit" >Submit</button></div>
+					<br/>
 				</form>
-				<h4>Or would you like to edit a map?</h4>
+				
+				
+				
+				<div class="card-header">Edit</div>
+				
+				<form method="post" action="/create">
+<%-- 				<c:if test="${!maps.equals(null)}"> --%>
+
+					<div class="form-group">
+					<br/>
+						<h6 class="card-subtitle mb-2 text-muted"
+							style="text-align: center; font-family: Courier, monospace;">Your
+							Maps:</h6>
+						<select multiple class="form-control"
+							id="exampleFormControlSelect2" name="mapId" required>
+							<c:forEach items="${maps}" var="map">
+								<option value="${map.id}">${map.name}</option>
+							</c:forEach>
+						</select> 
+						<input type="hidden" value="${userId}" name="userId" /> <br />
+						<div style="text-align: center;">
+							<button type="submit" class="user-submit">Edit Map</button>
+
+						</div>
+
+					</div>
+<%-- 				</c:if> --%>
+			</form>
+				
+				
+<%-- 				
 				<form method="post" action="/create">
 					<select name="mapId">
 						<c:forEach var="map" items="${maps}">
@@ -101,10 +133,10 @@
 					</select> <input type="hidden" value="${userId}" name="userId" />
 
 					<button type="submit" class="btn btn-secondary">submit</button>
-				</form>
+				</form> --%>
 			</div>
 			</div>
-		</c:if>
+		</c:if> 
 		
 		
  <footer class="navbar-light bg-light" style="position: absolute;
@@ -309,7 +341,7 @@ var locations = (${locations});
 
 
 	<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNgPo3oGDoG2aLV7bxJeNDZNbP5CXd_aI&callback=initMap">
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhSCRIHC_0IdQCQIRlbSf1zc5xACcIIqE&callback=initMap">
 </script>
 
 </body>
