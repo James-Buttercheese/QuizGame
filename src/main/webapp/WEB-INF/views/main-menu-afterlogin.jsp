@@ -52,21 +52,6 @@
 			</form>
 			<br />
 			
-			
-						<%-- 
-					<select name="mapId">
-						<c:forEach items="${maps}" var="map">
-							<option value="${map.id}">${map.name}</option>
-						</c:forEach>
-					</select>
-					<input type="hidden" value="${userId}" name="userId" />
-					<button type="submit">Play Map</button>
-				</c:if>
-			</form> --%>
-			
-			
-			
-			
 
 			<form action="/create">
 			
@@ -75,36 +60,12 @@
 				<button type="submit" class="user-submit">Create or Edit Map</button>
 				</div>
 			</form>
-			
-			
-<%-- 			<h4>Or would you like to edit a map?</h4>
-				<form method="post" action="/create">
-					<select name="mapId">
-						<c:forEach var="map" items="${maps}">
-							<option value="${map.id}">${map.name}</option>
-						</c:forEach>
-					</select> <input type="hidden" value="${userId}" name="userId" />
 
-					<button type="submit" class="btn btn-secondary">submit</button>
-				</form> --%>
-			
 		</div>
 	</div>
 	</div>
 
 
-
-
-
-
-	<!-- LOGIN AND SIGN UP HAVEN'T BEEN FULLY IMPLEMENTED YET -->
-
-	<%-- 	<h5>Cards you have collected</h5>
-	<select>
-			<c:forEach items="${items}" var="item">
-				<option >${item.cardName}</option>
-			</c:forEach>
-	</select> --%>
 
 
 <footer class="navbar-light bg-light" style="position: absolute;

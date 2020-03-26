@@ -14,41 +14,7 @@
 </head>
 <body>
 
-	<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<h1 class="navbar-brand">Conquests and Cats</h1>
-	<button class="navbar-toggler" type="button" data-toggle="collapse"
-		data-target="#navbarColor03" aria-controls="navbarColor03"
-		aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
 
-	<div class="collapse navbar-collapse" id="navbarColor03">
-<<<<<<< HEAD
-		<ul class="nav nav-pills nav-fill">			
- 			<li class="nav-item"><a class="nav-link" href="/how">How to play</a></li>
-			<li class="nav-item"><a class="nav-link" href="/bts">Behind the scenes</a></li> 
-=======
-		<ul class="navbar-nav mr-auto">
-			<!-- <li class="nav-item"><a class="nav-link" href="/play">New Game</a></li> -->
-			<!--  <li class="nav-item"><a class="nav-link" href="/">Load Game</a></li>-->
-			<!-- <li class="nav-item"><a class="nav-link" href="/">User Home</a>
-			</li> -->
-<!-- 			<li class="nav-item"><a class="nav-link" href="/how">How to play</a></li>
-			<li class="nav-item"><a class="nav-link" href="/bts">Behind the scenes</a></li>
-			<li class="nav-item"><a class="nav-link" href="/leaderboard">Leaderboard</a></li>
-		</ul>
-	</div>
-</nav> -->
-<!-- 
-	<ul class="nav nav-pills nav-fill">
-		<li class="nav-item"><a class="nav-link active" href="/" style="font-size:20px">Conquests and Cats</a>
-		</li>
-		<li class="nav-item"><a class="nav-link" href="/how">How To Play</a></li>
-		<li class="nav-item"><a class="nav-link" href="/bts">Behind The Scenes</a></li>
-		<li class="nav-item"><a class="nav-link disabled" href="#"
-			tabindex="-1" aria-disabled="true">Disabled</a></li>
-	</ul> -->
-	
 	<ul class="nav nav-pills nav-fill navbar navbar-light bg-light">
 <!-- 		<li class="nav-item"><a class="nav-link active" href="/" style="font-size:20px">Conquests and Cats</a>
 		</li> -->
@@ -63,20 +29,7 @@
 
 	<h1 id="title">Conquests and Cats: The Game</h1>
 
-<%-- <c:if test="${not empty message}">
-<div class="alert alert-info" role="alert">
-  ${message}
-</div>
-</c:if> --%>
 
-	
-	
-
-	<!-- LOGIN AND SIGN UP HAVEN'T BEEN FULLY IMPLEMENTED YET -->
-<!-- 	<a href="/login"><button>User Log In</button></a>
-	<a href="/user-create"><button>Create a User</button></a> -->
-	
-	
 
 
 <div class="container">
@@ -97,7 +50,7 @@
 
 <li class="list-group-item">If you win the battle, you gain a new kitty-friend in the form of a card. As winning battles is more difficult in a higher-rated restaurant, the prize-kittens you win from them are more powerful.</li>
 
-<li class="list-group-item">Be aware, do not lose all your milk-energy! You lose energy by losing quiz-battles and by going places too far away from where you are.  </li>
+<li class="list-group-item">Be aware, do not lose all your milk-energy! You lose energy by moving around the map based on distance so plan ahead.  </li>
 
 <li class="list-group-item">After winning three battles, you are going to upset The Evil Alley Cat. This cat is one mean (but cute) boss hiding at one of the restaurants. You do not need to fight the boss immediately, and can continue visiting restaurants that you have not yet been to in order to gather the perfect cat posse to fight to the boss.</li>
 
@@ -121,15 +74,7 @@
   <a href="https://github.com/jlcenters" target="_blank">Jillian Centers</a></p>
 </footer>
 
-	<%-- <a href="/create"><button>Create Map</button></a>
-	<form action="/play-map">
-		<select name="mapId">
-			<c:forEach items="${maps}" var="map">
-				<option value="${map.id}">${map.name}</option>
-			</c:forEach>
-		</select>
-		<button type="submit">Play Map</button>
-	</form> --%>
+
 	<%@ include file="partials/script-tags.jsp"%>
 </body>
 </html>
