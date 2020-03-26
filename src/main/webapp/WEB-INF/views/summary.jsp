@@ -110,10 +110,6 @@
 							</p>
 						</c:if>
 						<p>
-							<strong>You currently have ${energy} points of energy.</strong>
-							Be careful, and try not to let it get to zero!
-						</p>
-						<p>
 							<strong>You've conquered ${wins} area<c:if
 									test="${wins>1 || wins<1}">s </c:if> total.
 							</strong> Don't lose focus!

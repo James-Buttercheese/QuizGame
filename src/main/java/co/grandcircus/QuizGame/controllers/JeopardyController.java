@@ -258,6 +258,7 @@ public class JeopardyController {
 
 				Item item = new Item();
 //				item.setCard(card.getName());   
+				item.setCardActualName(card.getName());
 				item.setCard(card.getId());        //here!
 				User user = userdao.getOne(userId);
 				item.setUser(user);
@@ -268,7 +269,9 @@ public class JeopardyController {
 
 				cards.addCard(card);
 //				cards.addCardName(card.getName());
-				cards.addCardName(card.getId());
+//				cards.addCardName(card.getId());     //PUT THIS BACK!!!!!
+				cards.addCardName(card.getName());
+				
 
 				// System.out.println(cards.getCatCardsNames());
 
@@ -278,17 +281,6 @@ public class JeopardyController {
 					energy += 10;
 				} else {
 					energy += 15;
-				}
-				player.setEnergy(energy);
-			} else {
-				cardId = null;
-				correct = "You lost!";
-				if (diffName.equals("Easy")) {
-					energy -= 15;
-				} else if (diffName.equals("Medium")) {
-					energy -= 10;
-				} else {
-					energy -= 5;
 				}
 				player.setEnergy(energy);
 			}
@@ -308,6 +300,7 @@ public class JeopardyController {
 		mav.addObject("answers", answers); //
 		mav.addObject("diffName", diffName);
 		mav.addObject("category", category);
+		mav.addObject("question",question);
 		mav.addObject("correct", correct); // maybe put it as a static variable
 		mav.addObject("mapId", mapId); // maybe not pass it?
 
