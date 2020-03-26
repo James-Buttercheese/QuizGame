@@ -140,7 +140,7 @@
 
 		</c:otherwise>
 	</c:choose>
-	<%-- 	<%@ include file="partials/script-tags.jsp"%> --%>
+		<%@ include file="partials/script-tags.jsp"%>
 	<footer class="navbar-light bg-light"
 		style="position: absolute; bottom: 0; width: 100%;">
 		<p>© 2020 Copyright</p>

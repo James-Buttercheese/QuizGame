@@ -89,7 +89,7 @@
 
 <ul class="list-group list-group-flush">
 
-<li class="list-group-item">Start by creating your cat-master persona! Select your kitty-name and a password. Next, you’re ready to log-in to CatLand (it looks a lot like America).</li>
+<li class="list-group-item">Start by creating your cat-master persona! Select your kitty-name and a password. Next, you are ready to log-in to CatLand (it looks a lot like America).</li>
 
 <li class="list-group-item">Choose which city you would like to live your feline adventures. </li>
 
