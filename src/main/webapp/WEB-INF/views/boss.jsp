@@ -59,10 +59,6 @@
 	</div>
 	
 	<select name="feature"> 
-			<option value="adaptability">Adaptability</option>
-			<option value="affection_level">Affection</option>
-			<option value="child_friendly">Child-Friendliness</option>
-			<option value="dog_friendly">Dog-Friendliness</option>
 			<option value="energy_level">Energy</option>
 			<option value="grooming">Grooming</option>
 			<option value="intelligence">Intelligence</option>

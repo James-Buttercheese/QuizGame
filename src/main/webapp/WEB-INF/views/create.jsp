@@ -117,7 +117,7 @@
 					<div style="text-align: center">
 						<label
 							style="text-align: center; font-family: Courier New, Courier, monospace;">Map
-							Name<br /> <input type="text" name="name" />
+							Name<br /> <input type="text" name="name"/>
 						</label> <input type="hidden" value="${id}" name="mapId" /> <input
 							type="hidden" value="${userId}" name="userId" />
 					</div>
