@@ -40,7 +40,7 @@
 	<p>Who do you choose to battle and what feature?</p>
 	
 	<div class="card-deck">
-	<c:forEach var="cat" items="${cards.catCards}">
+	<c:forEach var="cat" items="${myCatCards}">
 	<form method="post">
 		<div class="card shadow-sm bg-primary border-danger text-white"
 		style="max-width: 22rem; margin-left: auto; margin-right: auto;">

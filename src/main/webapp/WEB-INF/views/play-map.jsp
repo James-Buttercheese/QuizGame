@@ -133,8 +133,7 @@ function initMap() {
   
   
   
-//TODO: CHANGE BACK TO 3
-  if (winCount >= 0) {
+  if (winCount >= 3) {
   var location = {lat: end.lat, lng: end.lng};
   var end = new google.maps.Marker({position: location,
 	  map: map,

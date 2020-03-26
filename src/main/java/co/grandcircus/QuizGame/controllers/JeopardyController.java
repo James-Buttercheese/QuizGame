@@ -383,13 +383,13 @@ public class JeopardyController {
 		List<String> catCardsNames = cards.getCatCardsNames();
 		List<Card> myCatCards = cards.getCatCards();
 
-//		System.out.println(myCatCards);
+		System.out.println(myCatCards);
 
 		Card bossCard = capi.generateBossCard();
 
 		ModelAndView mav = new ModelAndView("boss");
 		mav.addObject("myCatNames", catCardsNames);
-		mav.addObject("myCatCards", cards);
+		mav.addObject("myCatCards", myCatCards);
 		mav.addObject("bossCard", bossCard);
 		mav.addObject("bossWidth", bossCard.getWidth() * 0.3);
 		mav.addObject("bossHeight", bossCard.getHeight() * 0.3);
