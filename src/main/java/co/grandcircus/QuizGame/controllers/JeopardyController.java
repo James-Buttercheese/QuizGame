@@ -278,17 +278,6 @@ public class JeopardyController {
 					energy += 15;
 				}
 				player.setEnergy(energy);
-			} else {
-				cardId = null;
-				correct = "You lost!";
-				if (diffName.equals("Easy")) {
-					energy -= 15;
-				} else if (diffName.equals("Medium")) {
-					energy -= 10;
-				} else {
-					energy -= 5;
-				}
-				player.setEnergy(energy);
 			}
 		} else {
 			correct = "null :(";
@@ -306,6 +295,7 @@ public class JeopardyController {
 		mav.addObject("answers", answers); //
 		mav.addObject("diffName", diffName);
 		mav.addObject("category", category);
+		mav.addObject("question",question);
 		mav.addObject("correct", correct); // maybe put it as a static variable
 		mav.addObject("mapId", mapId); // maybe not pass it?
 
