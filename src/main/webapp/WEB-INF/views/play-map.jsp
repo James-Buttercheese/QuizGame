@@ -44,7 +44,7 @@
 		</h4>
 		<div
 			style="margin: auto; width: 50%; border: 1px solid green; padding: 10px; text-align: center; border-radius: 25px;">
-			<h6>
+			<h6 title = "Locations Captured">
 				<svg class="bi bi-flag-fill" width="1em" height="1em"
 					viewBox="0 0 16 16" fill="currentColor"
 					xmlns="http://www.w3.org/2000/svg">
@@ -57,7 +57,7 @@
 </svg>
 				${player.winCount}/3
 			</h6>
-			<h6>
+			<h6 title="Player Energy">
 				<svg class="bi bi-lightning" width="1em" height="1em"
 					viewBox="0 0 16 16" fill="currentColor"
 					xmlns="http://www.w3.org/2000/svg">
@@ -123,13 +123,7 @@ function initMap() {
 		    fontSize: "18px",
 		    fontWeight: "bold"
 		  }, 
-	  icon: {
-		    path: google.maps.SymbolPath.CIRCLE,
-		    fillColor: "green",
-		    strokeColor: "green",
-		    fillOpacity: 1.0,
-		    scale: 15
-		  }});
+	  icon: "http://icons.iconarchive.com/icons/artdesigner/urban-stories/48/House-icon.png"});
   
   
   
@@ -137,19 +131,8 @@ function initMap() {
   var location = {lat: end.lat, lng: end.lng};
   var end = new google.maps.Marker({position: location,
 	  map: map,
-	  label: {
-		    text: "Boss",
-		    color: "#black",
-		    fontSize: "18px",
-		    fontWeight: "bold"
-		  }, 
-	  icon: {
-		    path: google.maps.SymbolPath.CIRCLE,
-		    fillColor: "Red",
-		    strokeColor: "Red",
-		    fillOpacity: 1.0,
-		    scale: 15
-		  }});
+	  icon: 'http://icons.iconarchive.com/icons/fasticon/cat/64/Cat-Black-White-icon.png'
+	  });
   end.addListener('click', function() {
 	  window.location.assign('/boss-battle?userId='+userId);
 	  
@@ -170,14 +153,7 @@ function initMap() {
 		var location = {lat: result.lat, lng: result.lng};
 		  var seen = new google.maps.Marker({position: location,
 			  map: map, 
-			  icon: {
-				    path: google.maps.SymbolPath.CIRCLE,
-				    fillColor: "red",
-				    strokeColor: "purple",
-				    fillOpacity: .5,
-				    Opacity: .5,
-				    scale: 10
-				  },
+			  icon: 'http://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/24/Actions-flag-black-icon.png',
 			  title: "Visited"});
 		
 	} else {		 
@@ -190,7 +166,7 @@ function initMap() {
 			    fontSize: "14px",
 			    fontWeight: "bold"
 			  }, 
-		  icon: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/32/cat-icon.png',
+		  icon: 'http://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/32/Actions-flag-green-icon.png',
 		  title: result.place_id});
 	  marker.addListener('click', function() {
 		  window.location.assign('/jeopardy?placeId='+this.getTitle()+"&mapId="+mid+"&userId="+userId);
