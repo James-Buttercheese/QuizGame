@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,21 +16,17 @@
 </head>
 <body>
 
-	<%-- ${cardsInDb} --%>
-
-
-
-
 
 	<div class="container">
-		<div class="row">
+		<c:forEach items="${displayCards}" var="card" varStatus="cardCounter">
+		<c:if test="${cardCounter.count % 3 == 1}">
+		<div class="row v-center-parent">
+		</c:if>
 
-			<c:forEach items="${displayCards}" var="card">
+			
 				<div class="col-sm">
-					<!-- <div class="card bg-primary border-danger text-white"
-			style="max-width: 18rem; margin-left: auto; margin-right: auto;"> -->
-					<div class="card bg-primary border-danger text-white"
-						style="max-width: 18rem;" id="card-display">
+
+					<div class="card v-center-child">
 
 
 						<div class="card-header">
@@ -46,10 +43,13 @@
 						</div>
 					</div>
 				</div>
+				<c:if test="${cardCounter.count % 3 == 0||cardCounter.count == fn:length(values)}"> 
+				</div>
+				<br>
+			</c:if>
 			</c:forEach>
 		</div>
-	</div>
-	
+
 	
 
 	<div style="text-align: center;">
