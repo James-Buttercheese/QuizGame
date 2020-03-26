@@ -125,7 +125,7 @@ public class JeopardyController {
 			difficulty = difficultiesH[randNum];
 			diffName = "Hard";
 		}
-		System.out.println(randNum);
+//		System.out.println(randNum);
 //		}
 
 		Clue[] allClues = jeopApi.findByCategoryAndDifficulty(difficulty);
@@ -169,6 +169,12 @@ public class JeopardyController {
 // ADD CAT TO BE COLLECTED
 		do {
 			card = capi.generateCard(difficulty);
+			
+			
+//			System.out.println(cards.getCatCardsNames());
+//			System.out.println(card.getName());
+//			System.out.println(cards.getCatCardsNames().contains(card.getName()));
+			
 			String temp = card.getTemperament();
 			String[] tempArr = temp.split(",");
 			temp = tempArr[0];
@@ -180,8 +186,10 @@ public class JeopardyController {
 
 		} while (cards.getCatCardsNames().contains(card.getName())); // may fall in inf loop if game is too long
 
-		System.out.println("Answer on Request: " + answers);
-		System.out.println("Correct Answer on Request: " + correctAnswer);
+		
+		
+//		System.out.println("Answer on Request: " + answers);
+//		System.out.println("Correct Answer on Request: " + correctAnswer);
 
 		mav.addObject("mainClue", mainClue);
 		mav.addObject("answers", answers);
@@ -210,8 +218,8 @@ public class JeopardyController {
 		String correct = "";
 		Card card = new Card();
 
-		System.out.println("Answer on Post: " + answer);
-		System.out.println("Correct Answer on Post: " + correctAnswer);
+//		System.out.println("Answer on Post: " + answer);
+//		System.out.println("Correct Answer on Post: " + correctAnswer);
 
 		if (player != null) {
 			energy = player.getEnergy();
@@ -324,7 +332,7 @@ public class JeopardyController {
 		}
 		if (dist != 0) {
 			int energy = (int) (dist * 10);
-			System.out.println(energy);
+//			System.out.println(energy);
 			player.setEnergy(player.getEnergy() - energy);
 		}
 
@@ -456,8 +464,8 @@ public class JeopardyController {
 			break;
 		}
 
-		System.out.println("Point User: " + pointUser);
-		System.out.println("Point Boss: " + pointBoss);
+//		System.out.println("Point User: " + pointUser);
+//		System.out.println("Point Boss: " + pointBoss);
 
 		String result = "";
 		if (pointUser > pointBoss) {

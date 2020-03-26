@@ -56,8 +56,10 @@
 			</form> --%>
 				<div style="text-align: center;">
 					<form action="/view-cards">
-						<input type="hidden" value="${username}" name="username" /> <input
-							type="hidden" value="${pin}" name="pin" />
+						<%-- <input type="hidden" value="${username}" name="username" /> 
+						<input
+							type="hidden" value="${pin}" name="pin" /> --%>
+							<input type="hidden" value="${userId}" name="userId" />
 						<button class="user-submit">View Cards</button>
 					</form>
 				</div>
