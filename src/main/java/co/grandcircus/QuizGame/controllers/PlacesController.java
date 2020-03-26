@@ -174,6 +174,23 @@ public class PlacesController {
 		}
 		
 		if (mapId != null  && ids != null) {
+			
+			List<GameMap> maps = mapdao.findByUserId(userId);
+			mav.addObject("maps", maps);
+			String pkey = placesKey;
+			mav.addObject("apikey", pkey);
+			List<String> locales = new ArrayList<>();
+			List<Result> results = new ArrayList<>();
+
+			for (String id : ids) {
+				Result result = placesApi.getById(id);
+
+				results.add(result);//creates a list of result entities based on ids sent from .jsp
+				locales.add(result.getGeometry().getLocation().toString());// creates a list of latlngs for temp map
+
+			}
+			mav.addObject("locations", locales);
+			
 			mav.addObject("mapMessage", "Your map was successfully updated.");
 		}
 		

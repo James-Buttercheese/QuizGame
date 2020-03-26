@@ -27,19 +27,26 @@
 				</c:choose>
 
 				<hr>
-				<ul>
-					<li><p>
-							<strong>A ${cardName} has joined your party!</strong>
-						</p></li>
-					<li><p>
-							<strong>You currently have ${energy} points of energy.</strong>
-							Don't let it get to zero!
-						</p></li>
-					<li><p>
-							<strong>You've conquered ${wins} area<c:if
-									test="${wins>1 || wins<1}">s </c:if> total.</strong> Keep up the good work!
-						</p></li>
-				</ul>
+				<!-- 				<ul> -->
+				<!-- 					<li> -->
+				<p>
+					<strong>A ${cardName} has joined your party!</strong>
+				</p>
+				<!-- 						</li>
+					<li> -->
+				<p>
+					<strong>You currently have ${energy} points of energy.</strong>
+					Don't let it get to zero!
+				</p>
+				<!-- 						</li>
+					<li> -->
+				<p>
+					<strong>You've conquered ${wins} area<c:if
+							test="${wins>1 || wins<1}">s </c:if> total.
+					</strong> Keep up the good work!
+				</p>
+				<!-- 						</li>
+				</ul> -->
 			</div>
 			<div class="card shadow-sm bg-primary border-danger text-white"
 				style="max-width: 18rem; margin-left: auto; margin-right: auto;">
@@ -76,12 +83,19 @@
 						<h5>
 							<strong>Game Over</strong>
 						</h5>
-						<small class="text-center">You ran out of energy, and decided to go back home. At least it was fun while it lasted.
+						<small class="text-center">You ran out of energy, and
+							decided to go back home. At least it was fun while it lasted.
 							Please play again.</small>
 					</div>
 
-					<img src="${lostUrl}" width="${lostWidth}pt"
-						height="${lostHeight}pt" />
+
+					<div
+						style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
+						<p style="text-align: center;">
+							<img src="${lostUrl}" width="${lostWidth}pt"
+								height="${lostHeight}pt" />
+						</p>
+					</div>
 					<br />
 					<h2>
 						<a href="/" class="btn btn-danger btn-outline-light">Main Menu</a>
@@ -92,21 +106,40 @@
 						<h4 class="alert-heading text-center">Are you spacing out?
 							That's incorrect!</h4>
 						<hr>
-						<ul>						
-							<c:if test="${energy>1}"><li><p>
-									<strong>You currently have ${energy} points of energy.</strong>
-									Be careful, and try not to let it get to zero!
-								</p></li></c:if>
-							<li><p>
-									<strong>You've conquered ${wins} area<c:if
-											test="${wins>1 || wins<1}">s </c:if> total.
-									</strong> Don't lose focus!
-								</p></li>
-						</ul>
+						<c:if test="${energy==1}">
+							<p>
+								<strong>You only have 1 point of energy left.</strong>
+								Make your decisions wisely!
+							</p>
+						</c:if>
+						<c:if test="${energy>1}">
+							<p>
+								<strong>You currently have ${energy} points of energy.</strong>
+								Be careful, and try not to let it get to zero!
+							</p>
+						</c:if>
+						<p>
+							<strong>You currently have ${energy} points of energy.</strong>
+							Be careful, and try not to let it get to zero!
+						</p>
+						<p>
+							<strong>You've conquered ${wins} area<c:if
+									test="${wins>1 || wins<1}">s </c:if> total.
+							</strong> Don't lose focus!
+						</p>
 					</div>
-					<img src="${lostUrl}" width="${lostWidth}pt"
-						height="${lostHeight}pt" style="margin-left: auto; margin-right: auto;" />
+					<div
+						style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
+
+						<%-- <img src="${lostUrl}" width="${lostWidth}pt"
+						height="${lostHeight}pt" style="margin-left: auto; margin-right: auto;" /> --%>
+						<p style="text-align: center">
+							<img src="${lostUrl}" width="${lostWidth}pt"
+								height="${lostHeight}pt" />
+						</p>
+					</div>
 					<br />
+
 					<form action="/play-map">
 						<input type="hidden" value="${mapId}" name="mapId" /> <input
 							type="hidden" value="${userId}" name="userId" />
@@ -119,6 +152,20 @@
 
 		</c:otherwise>
 	</c:choose>
-<%-- 	<%@ include file="partials/script-tags.jsp"%> --%>
+	<%-- 	<%@ include file="partials/script-tags.jsp"%> --%>
+	<footer class="navbar-light bg-light"
+		style="position: absolute; bottom: 0; width: 100%;">
+		<p>© 2020 Copyright</p>
+		<p style="line-height: 0.2;">Application by:</p>
+		<p style="margin-bottom: 0;">
+			<a href="https://github.com/amandabcampos" target="_blank">Amanda
+				Campos</a> | <a href="https://github.com/James-Buttercheese"
+				target="_blank">James McDowell</a> | <a
+				href="https://github.com/jlcenters" target="_blank">Jillian
+				Centers</a>
+		</p>
+	</footer>
+
+
 </body>
 </html>

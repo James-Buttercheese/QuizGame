@@ -173,7 +173,7 @@
   <a href="https://github.com/jlcenters" target="_blank">Jillian Centers</a></p>
 </footer>
 
-	<a href="/">Home</a>
+<!-- 	<a href="/">Home</a> -->
 	<%@ include file="partials/script-tags.jsp"%>
 </body>
 </html>

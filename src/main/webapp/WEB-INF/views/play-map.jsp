@@ -9,11 +9,30 @@
 <%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
-	<%@ include file="partials/header.jsp"%>
+	<%-- <%@ include file="partials/header.jsp"%> --%>
 <%-- 	<%@ include file="partials/script-tags.jsp"%> --%>
 
+ 	<ul class="nav nav-pills nav-fill navbar navbar-light bg-light"> 
+<!-- 		<li class="nav-item"><a class="nav-link active" href="/" style="font-size:20px">Conquests and Cats</a>
+		</li> -->
+<!-- 		<li class="nav-item"><a class="nav-link" href="/user-create">Register</a></li>
+		<li class="nav-item"><a class="nav-link" href="/login">Login</a></li> -->	
+		<li class="nav-item"><a class="nav-link" href="/bts" target="_blank">Behind The Scenes</a></li>
+		<li class="nav-item"><a class="nav-link" href="/leaderboard" target="/blank">Leaderboard</a></li>
+		<li class="nav-item"><a class="nav-link" href="/">Logout</a></li>
+<!-- 		<li class="nav-item"><a class="nav-link disabled" href="#"
+			tabindex="-1" aria-disabled="true">Disabled</a></li> -->
+	</ul>
 
-	<h3>Select a destination to conquer:</h3>
+
+
+
+
+
+<div class="container">
+
+	<br/>
+	<h3 style="font-family: Courier New, Courier, monospace; text-align:center;">Select a destination to conquer:</h3>
 
 	<c:if test="${boss.equals('Boss')}">
 		<div class="alert alert-warning alert-dismissible fade show"
@@ -33,13 +52,20 @@
 
 	<!-- <script>var locations = ${locations}</script> -->
 
-
+	
 	<!-- USER INFORMATION -->
-	<h4 class="text-center">
+	<h4 class="text-center" style="font-family: Courier New, Courier, monospace;">
 		<strong>Status:</strong>
 	</h4>
-	<ul>
-		<li><h6>
+	<div style="margin: auto;
+  width: 50%;
+  border: 1px solid green;
+  padding: 10px;
+  text-align:center;
+  border-radius: 25px;">
+<!-- 	<ul>
+		<li> -->
+		<h6>
 				<svg class="bi bi-flag-fill" width="1em" height="1em"
 					viewBox="0 0 16 16" fill="currentColor"
 					xmlns="http://www.w3.org/2000/svg">
@@ -51,8 +77,10 @@
 						clip-rule="evenodd" />
 </svg>
 				${player.winCount}/3
-			</h6></li>
-		<li><h6>
+			</h6>
+<!-- 			</li>
+		<li> -->
+		<h6>
 				<svg class="bi bi-lightning" width="1em" height="1em"
 					viewBox="0 0 16 16" fill="currentColor"
 					xmlns="http://www.w3.org/2000/svg">
@@ -61,17 +89,21 @@
 						clip-rule="evenodd" />
 </svg>
 				(${player.energy})
-			</h6></li>
-		<li><h6>Party:</h6>
-			<ul>
+			</h6>
+<!-- 			</li>
+		<li> -->
+		<h6>Party:</h6>
+<!-- 			<ul> -->
 				<c:forEach items="${cats.catCardsNames}" var="cat">
 					<li>${cat}</li>
 				</c:forEach>
-			</ul></li>
-	</ul>
+<!-- 			</ul>
+			</li>
+	</ul> -->
+	</div>
 
-	<h4 class="text-center">Your Quest</h4>
-	<p class="text-center">
+	<h4 class="text-center" style="font-family: Courier New, Courier, monospace;">Your Quest</h4>
+	<p class="text-center" style="font-family: Courier New, Courier, monospace;">
 		Purr as loud as possible, be the most annoying cat that you can, and,
 		knock everything off the table. My slave human didn't give me any food
 		so i pooped on the floor attempt to leap between furniture but
@@ -86,6 +118,18 @@
 	</p>
 	<c:set var="winCount" scope="session" value="${player.winCount}" />
 	<c:set var="visited" scope="session" value="${player.visited}" />
+</div>
+
+ <footer class="navbar-light bg-light" style="position: absolute;
+  bottom: 0;
+  width: 100%;">
+  <p>© 2020 Copyright</p>
+  <p style="line-height: 0.2;">Application by:</p>
+  <p style="margin-bottom:0;"><a href="https://github.com/amandabcampos" target="_blank">Amanda Campos</a> | 
+  <a href="https://github.com/James-Buttercheese" target="_blank">James McDowell</a> | 
+  <a href="https://github.com/jlcenters" target="_blank">Jillian Centers</a></p>
+</footer>
+
 
 	<script>
 	
@@ -203,7 +247,7 @@ function initMap() {
 }
 
 </script>
-	<%@ include file="partials/script-tags.jsp"%>
+<%-- 	<%@ include file="partials/script-tags.jsp"%> --%>
 
 
 	<script 
