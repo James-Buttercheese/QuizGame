@@ -130,5 +130,6 @@
 		</select>
 		<button type="submit">Play Map</button>
 	</form> --%>
+	<%@ include file="partials/script-tags.jsp"%>
 </body>
 </html>

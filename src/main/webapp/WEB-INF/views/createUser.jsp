@@ -6,15 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Register</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous">
-<link rel="stylesheet" href="/style.css" />
 <%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
-
 
 	<ul class="nav nav-pills nav-fill navbar navbar-light bg-light">
 <!-- 		<li class="nav-item"><a class="nav-link active" href="/" style="font-size:20px">Conquests and Cats</a>
@@ -89,7 +83,6 @@
   <a href="https://github.com/jlcenters" target="_blank">Jillian Centers</a></p>
 </footer>
 
-
-
+	<%@ include file="partials/script-tags.jsp"%>
 </body>
 </html>

@@ -127,6 +127,6 @@ function runTest() {
 	}
 }
 </script>
-
+<%@ include file="partials/script-tags.jsp"%>
 </body>
 </html>

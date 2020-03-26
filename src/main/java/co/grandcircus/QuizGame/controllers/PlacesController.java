@@ -308,7 +308,8 @@ public class PlacesController {
 		mav.addObject("start", start);
 		mav.addObject("end", end);
 		mav.addObject("visited", visited);
-		
+//needed for party list - Jill
+		mav.addObject("cats", cards);		
 		String pkey = placesKey;
 		mav.addObject("apikey", pkey);
 

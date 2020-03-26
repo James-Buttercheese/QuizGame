@@ -65,17 +65,17 @@ public class JeopardyController {
 
 	@Autowired
 	private PinRepo pinrepo;
-	
+
 	@Autowired
 	private ItemRepo itemrepo;
-	
-	
 
 	@RequestMapping("/jeopardy")
 	public ModelAndView game(@RequestParam(name = "placeId", required = false) String placeId,
 			@RequestParam(name = "mapId", required = false) Long mapId,
 			@RequestParam(name = "userId", required = false) Long userId,
-			@SessionAttribute(name = "player", required = false) Player player) {
+			@SessionAttribute(name = "player", required = false) Player player,
+			@SessionAttribute(name = "cards", required = false) Cards cards
+			/*@RequestParam(name = "cardId", required = false) String cardId*/) {
 
 		ModelAndView mav = new ModelAndView("jeopardyGame");
 		mav.addObject("userId", userId);
@@ -84,10 +84,12 @@ public class JeopardyController {
 		Double rating = result.getRating();
 
 		difficulty = 0;
-		Integer[] difficultiesE = new Integer[2];
-		Integer[] difficultiesMH = new Integer[3];
+		Integer[] difficultiesE = new Integer[3];
+		Integer[] difficultiesM = new Integer[3];
+		Integer[] difficultiesH = new Integer[2];
 		Random rand = new Random();
 		Integer randNum = null;
+		Card card = null;
 
 		if (placeId != null) {
 			player.getVisited().add(new PiD(placeId));
@@ -101,29 +103,29 @@ public class JeopardyController {
 ////			difficulty = 1000;			
 //			return new ModelAndView("redirect:/boss-battle");
 //		} else {
-			diffName = "";
-			if (rating < 4.2) {
-				difficultiesE[0] = 100;
-				difficultiesE[1] = 200;
-				randNum = rand.nextInt(difficultiesE.length);
-				difficulty = difficultiesE[randNum];
-				diffName = "Easy";
-			} else if (rating < 4.4) {
-				difficultiesMH[0] = 300;
-				difficultiesMH[1] = 400;
-				difficultiesMH[2] = 500;
-				randNum = rand.nextInt(difficultiesMH.length);
-				difficulty = difficultiesMH[randNum];
-				diffName = "Medium";
-			} else if (rating <= 5.0) {
-				difficultiesMH[0] = 600;
-				difficultiesMH[1] = 800;
-				difficultiesMH[2] = 1000;
-				randNum = rand.nextInt(difficultiesMH.length);
-				difficulty = difficultiesMH[randNum];
-				diffName = "Hard";
-			}
-
+		diffName = "";
+		if (rating < 4.3) {
+			difficultiesE[0] = 100;
+			difficultiesE[1] = 200;
+			difficultiesE[2] = 300;
+			randNum = rand.nextInt(difficultiesE.length - 1);
+			difficulty = difficultiesE[randNum];
+			diffName = "Easy";
+		} else if (rating < 4.6) {
+			difficultiesM[0] = 400;
+			difficultiesM[1] = 500;
+			difficultiesM[2] = 600;
+			randNum = rand.nextInt(difficultiesM.length - 1);
+			difficulty = difficultiesM[randNum];
+			diffName = "Medium";
+		} else if (rating <= 5.0) {
+			difficultiesH[0] = 800;
+			difficultiesH[1] = 1000;
+			randNum = rand.nextInt(difficultiesH.length - 1);
+			difficulty = difficultiesH[randNum];
+			diffName = "Hard";
+		}
+		System.out.println(randNum);
 //		}
 
 		Clue[] allClues = jeopApi.findByCategoryAndDifficulty(difficulty);
@@ -131,11 +133,10 @@ public class JeopardyController {
 		do {
 			mainClue = jeopApi.generateRandomClue(allClues);
 		} while (mainClue.getQuestion().isEmpty());
-		
-		
+
 //		System.out.println("amanda".replaceAll("\\\\", ""));
 //		System.out.println("ama\'nda".replaceAll("\\\\", ""));
-		
+
 		mainClue.setQuestion(mainClue.getQuestion().replaceAll("\\\\", ""));
 
 		Integer categoryId = mainClue.getCategory_id();
@@ -160,11 +161,24 @@ public class JeopardyController {
 			randomAnswer = randomAnswer.replaceAll("\\\\", "");
 			answers.add(randomAnswer);
 		}
-		
 
 		category = mainClue.getCategory().getTitle();
 		question = mainClue.getQuestion();
 		correctAnswer = mainClue.getAnswer();
+
+// ADD CAT TO BE COLLECTED
+		do {
+			card = capi.generateCard(difficulty);
+			String temp = card.getTemperament();
+			String[] tempArr = temp.split(",");
+			temp = tempArr[0];
+			mav.addObject("catName", card.getName());
+			mav.addObject("catUrl", card.getUrl());
+			mav.addObject("cardId",card.getId());
+			mav.addObject("temperament", temp);
+			System.out.println("Card: " + card);
+
+		} while (cards.getCatCardsNames().contains(card.getName())); // may fall in inf loop if game is too long
 
 		System.out.println("Answer on Request: " + answers);
 		System.out.println("Correct Answer on Request: " + correctAnswer);
@@ -183,7 +197,12 @@ public class JeopardyController {
 			@RequestParam(name = "mapId", required = false) Long mapId, // maybe up top
 			@RequestParam(name = "userId", required = false) Long userId,
 			@SessionAttribute(name = "player", required = false) Player player,
-			@SessionAttribute(name = "cards", required = false) Cards cards// ,
+			@SessionAttribute(name = "cards", required = false) Cards cards,
+			@RequestParam(name = "cardId", required = false) String cardId,
+			@RequestParam(name = "catName", required = false) String catName,
+			@RequestParam(name = "catUrl", required = false) String catUrl,
+			@RequestParam(name = "temperament", required = false) String temperament,
+			@RequestParam(name="category", required=false) String category// ,
 	/* @SessionAttribute(name = "cardsNames", required = false) Cards cardsNames */) {
 
 		ModelAndView mav = new ModelAndView("jeopardyResult");
@@ -192,7 +211,7 @@ public class JeopardyController {
 		Integer energy = 0;
 		Integer wins = 0;
 		String correct = "";
-		Card card = null;
+		Card card = new Card();
 
 		System.out.println("Answer on Post: " + answer);
 		System.out.println("Correct Answer on Post: " + correctAnswer);
@@ -205,29 +224,50 @@ public class JeopardyController {
 				correct = "You won!";
 				wins++;
 				player.setWinCount(wins);
-
-				do {
-					card = capi.generateCard(difficulty);
-
-					// System.out.println("Card: " + card);
-
-				} while (cards.getCatCardsNames().contains(card.getName())); // may fall in inf loop if game is too long
 				
+				CatResponse res = capi.findBreed(cardId);
+				card.setId(res.getBreeds().get(0).getId());
+				card.setName(res.getBreeds().get(0).getName());
+				card.setTemperament(res.getBreeds().get(0).getTemperament());
+				card.setOrigin(res.getBreeds().get(0).getOrigin());
+				card.setDescription(res.getBreeds().get(0).getDescription());
+				card.setAdaptability(res.getBreeds().get(0).getAdaptability());
+				card.setAffection_level(res.getBreeds().get(0).getAffection_level());
+				card.setChild_friendly(res.getBreeds().get(0).getChild_friendly());
+				card.setDog_friendly(res.getBreeds().get(0).getDog_friendly());
+				card.setEnergy_level(res.getBreeds().get(0).getEnergy_level());
+				card.setGrooming(res.getBreeds().get(0).getGrooming());
+				card.setHealth_issues(res.getBreeds().get(0).getHealth_issues());
+				card.setIntelligence(res.getBreeds().get(0).getIntelligence());
+				card.setShedding_level(res.getBreeds().get(0).getShedding_level());
+				card.setSocial_needs(res.getBreeds().get(0).getSocial_needs());
+				card.setStranger_friendly(res.getBreeds().get(0).getStranger_friendly());
+				card.setVocalisation(res.getBreeds().get(0).getVocalisation());
+				card.setUrl(res.getUrl());
+				card.setWidth(res.getWidth());
+				card.setHeight(res.getHeight());
+//				do {
+//					card = capi.generateCard(difficulty);
+//
+//					// System.out.println("Card: " + card);
+//
+//				} while (cards.getCatCardsNames().contains(card.getName())); // may fall in inf loop if game is too long
+
 				List<Item> cardsInDb = itemrepo.findByUserId(userId);
 				List<String> cardsInDbNames = new ArrayList<>();
 				for (Item cd : cardsInDb) {
-					cardsInDbNames.add(cd.getCardName());    //may cause slow
+					cardsInDbNames.add(cd.getCardName()); // may cause slow
 				}
-				
+
 				Item item = new Item();
 				item.setCard(card.getName());
 				User user = userdao.getOne(userId);
 				item.setUser(user);
-				
+
 				if (!cardsInDbNames.contains(item.getCardName())) {
 					itemrepo.save(item);
 				}
-				
+
 				cards.addCard(card);
 				cards.addCardName(card.getName());
 
@@ -242,6 +282,7 @@ public class JeopardyController {
 				}
 				player.setEnergy(energy);
 			} else {
+				cardId = null;
 				correct = "You lost!";
 				if (diffName.equals("Easy")) {
 					energy -= 15;
@@ -260,9 +301,15 @@ public class JeopardyController {
 		if (card != null) {
 			mav.addObject("card", card);
 		}
-
+		
 //		System.out.println("card on result: " + card);
 
+		mav.addObject("card", card);
+		mav.addObject("cardId",cardId);
+		mav.addObject("catUrl",catUrl);
+		mav.addObject("catName",catName);
+		mav.addObject("temperament", temperament);
+		mav.addObject("category",category);
 		mav.addObject("question", question);
 		mav.addObject("correctAnswer", correctAnswer);
 		mav.addObject("answers", answers); //
@@ -279,6 +326,9 @@ public class JeopardyController {
 			@RequestParam("correct") String correct, // maybe not
 			@RequestParam(name = "userId", required = false) Long userId,
 			@RequestParam(name = "cardId", required = false) String cardId,
+			@RequestParam(name = "catName", required = false) String catName,
+			@RequestParam(name = "catUrl", required = false) String catUrl,
+			@RequestParam(name = "temperament", required = false) String temperament,
 			@SessionAttribute(name = "player", required = false) Player player,
 			@SessionAttribute(name = "cards", required = false) Cards cards) {
 
@@ -307,8 +357,8 @@ public class JeopardyController {
 //		System.out.println("All cards: " + cards.getCatCards());
 //		System.out.println("Length: " + cards.getCatCards().size());
 
-		if (cardId != null) {
-			mav.addObject("cardName", capi.findBreed(cardId).getBreeds().get(0).getName());
+		if (cardId != null && correct.equalsIgnoreCase("You won!")) {
+			//mav.addObject("cardName", capi.findBreed(cardId).getBreeds().get(0).getName());
 
 			mav.addObject("cardName", capi.findBreed(cardId).getBreeds().get(0).getName());
 			mav.addObject("cardTemperament", capi.findBreed(cardId).getBreeds().get(0).getTemperament());
@@ -348,7 +398,7 @@ public class JeopardyController {
 		mav.addObject("bossCard", bossCard);
 		mav.addObject("bossWidth", bossCard.getWidth() * 0.3);
 		mav.addObject("bossHeight", bossCard.getHeight() * 0.3);
-		
+
 		if (userId != null) {
 			mav.addObject("userId", userId);
 		}
@@ -362,8 +412,7 @@ public class JeopardyController {
 
 	@PostMapping("/boss-battle")
 	public ModelAndView boss(@RequestParam("battleCardId") String battleCardId,
-			@RequestParam("bossCardId") String bossCardId, 
-			@RequestParam("feature") String feature,
+			@RequestParam("bossCardId") String bossCardId, @RequestParam("feature") String feature,
 			@RequestParam(name = "userId", required = false) Long userId,
 			@SessionAttribute(name = "player", required = false) Player player) {
 		CatResponse catResponseUser = capi.findBreed(battleCardId);
@@ -371,7 +420,7 @@ public class JeopardyController {
 
 		CatResponse catResponseBoss = capi.findBreed(bossCardId);
 		Breed breedBoss = catResponseBoss.getBreeds().get(0);
-
+//TODO: ADD LIST OF FEATURES TO PULL PARTY'S STATS FROM
 		Integer pointUser = 0;
 		Integer pointBoss = 0;
 
@@ -428,16 +477,15 @@ public class JeopardyController {
 		String result = "";
 		if (pointUser > pointBoss) {
 			result = "You won! Your " + feature + ": " + pointUser + " Boss " + feature + ": " + pointBoss;
-			if(userId != null) {
-			if(player != null) {
-				User user = userdao.findById(userId).orElse(null);
-				user.setScore(user.getScore()+player.getEnergy());
-				user.setWins(user.getWins()+1);
-				userdao.save(user);
+			if (userId != null) {
+				if (player != null) {
+					User user = userdao.findById(userId).orElse(null);
+					user.setScore(user.getScore() + player.getEnergy());
+					user.setWins(user.getWins() + 1);
+					userdao.save(user);
+				}
 			}
-			}
-			
-			
+
 		} else if (pointUser < pointBoss) {
 			result = "You lost! Your " + feature + ": " + pointUser + " Boss " + feature + ": " + pointBoss;
 			;
@@ -446,7 +494,7 @@ public class JeopardyController {
 			mav.addObject("tied", "You tied!");
 			if (userId != null) {
 				mav.addObject("userId", userId);
-			}	
+			}
 			return mav;
 		}
 

@@ -6,16 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Behind The Scenes</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous">
-<link rel="stylesheet" href="/style.css" />
 <%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
-
-
 
 	<ul class="nav nav-pills nav-fill navbar navbar-light bg-light">
 		<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
@@ -130,6 +123,7 @@
 		Detroit). These personalized maps and selected restaurants are stored
 		on separate databases. The maps previously created by the user,
 		including the latest, are displayed on the dashboard to be played.</p>
+>>>>>>> e0007d366316f8b8f78bf37d5d294e85bc04defc
 
 	<h5>Sessions</h5>
 	<p>Players start with an Energy Level of 15 and 0 cards. A session
@@ -178,10 +172,8 @@
   <a href="https://github.com/James-Buttercheese" target="_blank">James McDowell</a> | 
   <a href="https://github.com/jlcenters" target="_blank">Jillian Centers</a></p>
 </footer>
- 
- 
- 
 
-
+<!-- 	<a href="/">Home</a> -->
+	<%@ include file="partials/script-tags.jsp"%>
 </body>
 </html>
