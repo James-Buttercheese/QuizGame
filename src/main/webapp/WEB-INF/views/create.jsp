@@ -9,13 +9,31 @@
 <%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
-	<%@ include file="partials/header.jsp"%>
-
+<%-- 	<%@ include file="partials/header.jsp"%> --%>
+	
+	
+	 <ul class="nav nav-pills nav-fill navbar navbar-light bg-light"> 
+<!-- 		<li class="nav-item"><a class="nav-link active" href="/" style="font-size:20px">Conquests and Cats</a>
+		</li> -->
+<!-- 		<li class="nav-item"><a class="nav-link" href="/user-create">Register</a></li>
+		<li class="nav-item"><a class="nav-link" href="/login">Login</a></li> -->	
+		<li class="nav-item"><a class="nav-link" href="/bts" target="_blank">Behind The Scenes</a></li>
+		<li class="nav-item"><a class="nav-link" href="/leaderboard" target="/blank">Leaderboard</a></li>
+		<li class="nav-item"><a class="nav-link" href="/">Logout</a></li>
+<!-- 		<li class="nav-item"><a class="nav-link disabled" href="#"
+			tabindex="-1" aria-disabled="true">Disabled</a></li> -->
+	</ul>
+	
+	
+	
+	
+	
+<!-- 
 
 	<ul
 		class="nav nav-pills justify-content-end navbar navbar-light bg-light">
 		<li class="nav-item"><a class="nav-link" href="/">Logout</a></li>
-	</ul>
+	</ul> -->
 
 
 
