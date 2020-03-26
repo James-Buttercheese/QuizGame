@@ -92,11 +92,11 @@
 						<h4 class="alert-heading text-center">Are you spacing out?
 							That's incorrect!</h4>
 						<hr>
-						<ul>
-							<li><p>
+						<ul>						
+							<c:if test="${energy>1}"><li><p>
 									<strong>You currently have ${energy} points of energy.</strong>
 									Be careful, and try not to let it get to zero!
-								</p></li>
+								</p></li></c:if>
 							<li><p>
 									<strong>You've conquered ${wins} area<c:if
 											test="${wins>1 || wins<1}">s </c:if> total.
