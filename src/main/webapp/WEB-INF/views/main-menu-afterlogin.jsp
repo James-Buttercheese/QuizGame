@@ -38,14 +38,9 @@
 				<h5 class="card-title">Welcome, ${name} Kitty</h5>
 				<h6 class="card-subtitle mb-2 text-muted"
 					style="text-align: center; font-family: Courier, monospace;">Cards
-					Collected: ${numCards}</h6>
+					Collected: ${numCards} / 67</h6>
 				<br />
-				<%-- 			<form action="/view-cards">
-			<input type="hidden" value="${cardsInDb}" name="cardsInDb"/>
-			<div style="text-align:center;">
-			<button type="submit" class="user-submit">View Cards</button>
-			</div>
-			</form> --%>
+
 				<div style="text-align: center;">
 					<form action="/view-cards">
 						<%-- <input type="hidden" value="${username}" name="username" /> 
@@ -71,6 +66,10 @@
 								<c:forEach items="${maps}" var="map">
 									<option value="${map.id}">${map.name}</option>
 								</c:forEach>
+								<c:forEach items="${backupMaps}" var="map">
+									<option value="${map.id}">${map.name}</option>
+								</c:forEach>
+								
 							</select> <input type="hidden" value="${userId}" name="userId" /> <br />
 							<div style="text-align: center;">
 								<button type="submit" class="user-submit">Play Map</button>

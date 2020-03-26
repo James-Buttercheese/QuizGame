@@ -130,8 +130,10 @@ public class GameController {
 			mav.addObject("name", usernamee.substring(0, 1).toUpperCase() + usernamee.substring(1));
 			mav.addObject("numCards", cardsInDb.size());
 			mav.addObject("items", cardsInDb);
-			mav.addObject("maps", mapdao.findByUserId(userId));
-			mav.addObject("userId", userId);
+			mav.addObject("maps",mapdao.findByUserId(userId));
+			mav.addObject("backupMaps", mapdao.findByUserId(3L));
+			mav.addObject("userId",userId);
+
 			return mav;
 		}
 
