@@ -241,7 +241,7 @@ var locations = (${locations});
 		src="https://maps.googleapis.com/maps/api/js?key=${apikey}&callback=initMap">
 
 </script>
-<%-- 	<%@ include file="partials/script-tags.jsp"%> --%>
+	<%@ include file="partials/script-tags.jsp"%>
 
 </body>
 </html>

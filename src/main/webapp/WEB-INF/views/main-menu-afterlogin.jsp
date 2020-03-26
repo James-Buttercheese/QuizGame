@@ -87,45 +87,16 @@
 					</c:if>
 				</form>
 				<br />
+			
 
+			<form action="/create">
+			
+				<input type="hidden" name="userId" value="${userId}" />
+				<div style="text-align: center;">
+				<button type="submit" class="user-submit">Create or Edit Map</button>
+				</div>
+			</form>
 
-				<%-- 
-					<select name="mapId">
-						<c:forEach items="${maps}" var="map">
-							<option value="${map.id}">${map.name}</option>
-						</c:forEach>
-					</select>
-					<input type="hidden" value="${userId}" name="userId" />
-					<button type="submit">Play Map</button>
-				</c:if>
-			</form> --%>
-
-
-
-
-
-				<form action="/create">
-
-					<input type="hidden" name="userId" value="${userId}" />
-					<div style="text-align: center;">
-						<button type="submit" class="user-submit">Create or Edit
-							Map</button>
-					</div>
-				</form>
-
-
-				<%-- 			<h4>Or would you like to edit a map?</h4>
-				<form method="post" action="/create">
-					<select name="mapId">
-						<c:forEach var="map" items="${maps}">
-							<option value="${map.id}">${map.name}</option>
-						</c:forEach>
-					</select> <input type="hidden" value="${userId}" name="userId" />
-
-					<button type="submit" class="btn btn-secondary">submit</button>
-				</form> --%>
-
-			</div>
 		</div>
 	</div>
 
@@ -133,43 +104,27 @@
 
 
 
+<footer class="navbar-light bg-light" style="position: absolute;
+  bottom: 0;
+  width: 100%;">
+  <p>Â© 2020 Copyright</p>
+  <p style="line-height: 0.2;">Application by:</p>
+  <p style="margin-bottom:0;"><a href="https://github.com/amandabcampos" target="_blank">Amanda Campos</a> | 
+  <a href="https://github.com/James-Buttercheese" target="_blank">James McDowell</a> | 
+  <a href="https://github.com/jlcenters" target="_blank">Jillian Centers</a></p>
+</footer>
 
-	<!-- LOGIN AND SIGN UP HAVEN'T BEEN FULLY IMPLEMENTED YET -->
+<script>
+function runTest() {
+	if (document.querySelectorAll("input[type='checkbox']:checked").length >= 5){
+		console.log(document.querySelectorAll("input[type='checkbox']:checked").length);
+		document.getElementById("createform").submit(); 
+	} else {
+		window.alert("You will need at least 5 locations for the map to be beatable.");
+	}
+}
+</script>
+<%@ include file="partials/script-tags.jsp"%>
 
-	<%-- 	<h5>Cards you have collected</h5>
-	<select>
-			<c:forEach items="${items}" var="item">
-				<option >${item.cardName}</option>
-			</c:forEach>
-	</select> --%>
-
-
-	<footer class="navbar-light bg-light"
-		style="position: absolute; bottom: 0; width: 100%;">
-		<p>© 2020 Copyright</p>
-		<p style="line-height: 0.2;">Application by:</p>
-		<p style="margin-bottom: 0;">
-			<a href="https://github.com/amandabcampos" target="_blank">Amanda
-				Campos</a> | <a href="https://github.com/James-Buttercheese"
-				target="_blank">James McDowell</a> | <a
-				href="https://github.com/jlcenters" target="_blank">Jillian
-				Centers</a>
-		</p>
-	</footer>
-
-	<script>
-		function runTest() {
-			if (document.querySelectorAll("input[type='checkbox']:checked").length >= 5) {
-				console
-						.log(document
-								.querySelectorAll("input[type='checkbox']:checked").length);
-				document.getElementById("createform").submit();
-			} else {
-				window
-						.alert("You will need at least 5 locations for the map to be beatable.");
-			}
-		}
-	</script>
-	<%@ include file="partials/script-tags.jsp"%>
 </body>
 </html>
