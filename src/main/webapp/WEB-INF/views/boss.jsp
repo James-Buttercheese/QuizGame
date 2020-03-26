@@ -71,7 +71,7 @@
 			<option value="stranger_friendly">Stranger-Friendliness</option>
 			<option value="vocalisation">Vocalisation</option>
 	</select>
-	<input type="hidden" value="${cat.id}" />
+	<input type="hidden" name="battleCardId" value="${cat.id}" />
 	<input type="hidden" value="${bossCard.id}" name="bossCardId" /> <input
 			type="hidden" value="${userId}" name="userId" />
 		<button type="submit">I choose you!</button>
@@ -79,31 +79,6 @@
 	</c:forEach>
 	</div>
 	
-	
-	
-	<form method="post">
-		<select name="battleCardId">
-			<c:forEach var="catCard" items="${myCatCards}">
-				<option value="${catCard.id}">${catCard.name}</option>
-			</c:forEach>
-		</select> <select name="feature">
-<!-- 			<option value="adaptability">Adaptability</option> -->
-<!-- 			<option value="affection_level">Affection</option> -->
-<!-- 			<option value="child_friendly">Child friendly</option> -->
-<!-- 			<option value="dog_friendly">Dog friendly</option> -->
-			<option value="energy_level">Energy</option>
-			<option value="grooming">Grooming</option>
-			<option value="intelligence">Intelligence</option>
-			<option value="shedding_level">Shedding</option>
-			<option value="social_needs">Social Needs</option>
-			<option value="stranger_friendly">Stranger Friendly</option>
-			<option value="vocalisation">Vocalisation</option>
-		</select>
-		<input type="hidden" value="${bossCard.id}" name="bossCardId" /> <input
-			type="hidden" value="${userId}" name="userId" />
-		<button type="submit">I choose you!</button>
-	</form>
-
 	<%@ include file="partials/footer.jsp"%>
 	<%@ include file="partials/script-tags.jsp"%>
 </body>

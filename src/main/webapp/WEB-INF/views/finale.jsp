@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>GAME OVER</title>
+<title>Game: End!</title>
 <%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>

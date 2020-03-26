@@ -380,7 +380,6 @@ public class JeopardyController {
 			@RequestParam(name = "tied", required = false) String tied,
 			@RequestParam(name = "userId", required = false) Long userId) {
 		sesh.getAttribute("cards");
-		List<String> catCardsNames = cards.getCatCardsNames();
 		List<Card> myCatCards = cards.getCatCards();
 
 		System.out.println(myCatCards);
@@ -388,7 +387,6 @@ public class JeopardyController {
 		Card bossCard = capi.generateBossCard();
 
 		ModelAndView mav = new ModelAndView("boss");
-		mav.addObject("myCatNames", catCardsNames);
 		mav.addObject("myCatCards", myCatCards);
 		mav.addObject("bossCard", bossCard);
 		mav.addObject("bossWidth", bossCard.getWidth() * 0.3);
@@ -415,7 +413,6 @@ public class JeopardyController {
 
 		CatResponse catResponseBoss = capi.findBreed(bossCardId);
 		Breed breedBoss = catResponseBoss.getBreeds().get(0);
-//TODO: ADD LIST OF FEATURES TO PULL PARTY'S STATS FROM
 		Integer pointUser = 0;
 		Integer pointBoss = 0;
 
