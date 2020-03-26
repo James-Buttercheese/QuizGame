@@ -14,12 +14,14 @@
 	<%@ include file="partials/header.jsp"%>
 
 	<c:if test="${not empty tied}">
-		<h2>${tied}</h2>
+		<div class="alert alert-danger" role="alert">
+			<p class="message">Tie!</p>
+		</div>
 	</c:if>
 
 
 
-	<p>You will be playing against the:</p>
+	<p style="font-family: Courier New, Courier, monospace; font-weight:bold; font-size:25px;">You will be playing against the:</p>
 	<div class="card shadow-sm bg-danger border-warning text-white"
 		style="max-width: 22rem; margin-left: auto; margin-right: auto;">
 		<div class="card-header">
@@ -36,14 +38,15 @@
 		</div>
 	</div>
 
-
-	<p>Who do you choose to battle and what feature?</p>
+<br/>
+	<p style="font-family: Courier New, Courier, monospace; font-weight:bold; font-size:25px;">Choose your card!</p>
 	
-	<div class="card-deck">
+<div class="container">
+ <div class="card-deck" >
 	<c:forEach var="cat" items="${myCatCards}">
 	<form method="post">
 		<div class="card shadow-sm bg-primary border-danger text-white"
-		style="max-width: 22rem; margin-left: auto; margin-right: auto;">
+		style="max-width: 22rem; margin-left: auto; margin-right: 10px;">
 		<div class="card-header">
 			<h4 class="card-title">${cat.name}</h4>
 			<p class="card-title text-right">${cat.temperament}</p>
@@ -58,11 +61,14 @@
 		</div>
 	</div>
 	
-	<select name="feature"> 
-			<option value="adaptability">Adaptability</option>
-			<option value="affection_level">Affection</option>
-			<option value="child_friendly">Child-Friendliness</option>
-			<option value="dog_friendly">Dog-Friendliness</option>
+	
+	
+	<div class="form-group">
+	<select name="feature" multiple class="form-control" id="exampleFormControlSelect2"> 
+<!-- 			<option value="adaptability">Adaptability</option> -->
+<!-- 			<option value="affection_level">Affection</option> -->
+<!-- 			<option value="child_friendly">Child-Friendliness</option>
+			<option value="dog_friendly">Dog-Friendliness</option> -->
 			<option value="energy_level">Energy</option>
 			<option value="grooming">Grooming</option>
 			<option value="intelligence">Intelligence</option>
@@ -71,12 +77,14 @@
 			<option value="stranger_friendly">Stranger-Friendliness</option>
 			<option value="vocalisation">Vocalisation</option>
 	</select>
+	</div>
 	<input type="hidden" name="battleCardId" value="${cat.id}" />
 	<input type="hidden" value="${bossCard.id}" name="bossCardId" /> <input
 			type="hidden" value="${userId}" name="userId" />
-		<button type="submit">I choose you!</button>
+		<button type="submit" class="user-submit">I choose you!</button>
 	</form>
 	</c:forEach>
+	</div> 
 	</div>
 	
 	<%@ include file="partials/footer.jsp"%>
