@@ -13,7 +13,7 @@
 	<p>${result}</p>
 	<a href="/">Play again</a>
 
-
-<%-- 	<%@ include file="partials/script-tags.jsp"%> --%>
+	<%@ include file="partials/footer.jsp"%>
+	<%@ include file="partials/script-tags.jsp"%>
 </body>
 </html>

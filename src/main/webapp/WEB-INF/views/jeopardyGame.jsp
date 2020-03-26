@@ -9,7 +9,6 @@
 <%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
-
 	<h2 class="text-center">
 		<em><strong>${mainClue.category.title}</strong> with the
 			${temperament} ${catName}</em>
@@ -33,8 +32,8 @@
 						type="hidden" value="${temperament}" name="temperament" /> <input
 						type="hidden" value="${cardId}" name="cardId" /> <input
 						type="hidden" value="${mainClue.value}" name="difficulty" /> <input
-						type="hidden" value="${mapId}" name="mapId" />
-						<input type="hidden" value="${mainClue.category.title}" name="category" />
+						type="hidden" value="${mapId}" name="mapId" /> <input
+						type="hidden" value="${mainClue.category.title}" name="category" />
 					<%-- <input type="hidden" value="${mainClue.question}" name="question" /> --%>
 					<%-- <input type="hidden" value="${mainClue.answer}" name="correctAnswer" /> --%>
 					<%-- <input type="hidden" value="${answers}" name="answers" /> --%>
@@ -48,19 +47,8 @@
 			</li>
 		</c:forEach>
 	</ul>
-	
-	 <footer class="navbar-light bg-light" style="position: absolute;
-  bottom: 0;
-  width: 100%;">
-  <p>© 2020 Copyright</p>
-  <p style="line-height: 0.2;">Application by:</p>
-  <p style="margin-bottom:0;"><a href="https://github.com/amandabcampos" target="_blank">Amanda Campos</a> | 
-  <a href="https://github.com/James-Buttercheese" target="_blank">James McDowell</a> | 
-  <a href="https://github.com/jlcenters" target="_blank">Jillian Centers</a></p>
-</footer>
 
-
-
-<%-- 	<%@ include file="partials/script-tags.jsp"%> --%>
+	<%@ include file="partials/footer.jsp"%>
+	<%@ include file="partials/script-tags.jsp"%>
 </body>
 </html>

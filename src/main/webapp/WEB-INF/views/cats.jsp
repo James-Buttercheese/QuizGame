@@ -9,7 +9,7 @@
 <%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
-
+	<%@ include file="partials/header.jsp"%>
 
 	<table class="table">
 		<thead>
@@ -32,7 +32,7 @@
 		</tbody>
 	</table>
 
-
-<%@ include file="partials/script-tags.jsp"%>
+	<%@ include file="partials/footer.jsp"%>
+	<%@ include file="partials/script-tags.jsp"%>
 </body>
 </html>

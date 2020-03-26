@@ -5,15 +5,11 @@
 		aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
-
-	<div class="collapse navbar-collapse" id="navbarColor03">
-		<ul class="navbar-nav mr-auto">
-			<!-- <li class="nav-item"><a class="nav-link" href="/play">New Game</a></li> -->
-			<!-- <li class="nav-item"><a class="nav-link" href="/">User Home</a>
-			</li> -->
-			<li class="nav-item"><a class="nav-link" href="/">Leave/Logout</a></li>
-			<li class="nav-item"><a class="nav-link" href="/bts" target="_blank">Behind The Scenes</a></li>
-		<li class="nav-item"><a class="nav-link" href="/leaderboard" target="_blank">Leaderboard</a></li>
-		</ul>
-	</div>
+	<ul class="nav nav-pills nav-fill navbar navbar-light bg-light">
+		<li class="nav-item"><a class="nav-link" href="/bts"
+			target="_blank">Behind The Scenes</a></li>
+		<li class="nav-item"><a class="nav-link" href="/leaderboard"
+			target="/blank">Leaderboard</a></li>
+		<li class="nav-item"><a class="nav-link" href="/">Logout</a></li>
+	</ul>
 </nav>

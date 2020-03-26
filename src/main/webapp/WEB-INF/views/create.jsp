@@ -9,15 +9,7 @@
 <%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
-	
-	
-	 <ul class="nav nav-pills nav-fill navbar navbar-light bg-light"> 
-	
-		<li class="nav-item"><a class="nav-link" href="/bts" target="_blank">Behind The Scenes</a></li>
-		<li class="nav-item"><a class="nav-link" href="/leaderboard" target="/blank">Leaderboard</a></li>
-		<li class="nav-item"><a class="nav-link" href="/">Logout</a></li>
-
-	</ul>
+	<%@ include file="partials/header.jsp"%>
 
 
 	<c:if test="${not empty mapMessage}">
@@ -179,20 +171,6 @@
 
 	</c:if>
 
-	<footer class="navbar-light bg-light"
-		style="position: absolute; bottom: 0; width: 100%;">
-		<p>© 2020 Copyright</p>
-		<p style="line-height: 0.2;">Application by:</p>
-		<p style="margin-bottom: 0;">
-			<a href="https://github.com/amandabcampos" target="_blank">Amanda
-				Campos</a> | <a href="https://github.com/James-Buttercheese"
-				target="_blank">James McDowell</a> | <a
-				href="https://github.com/jlcenters" target="_blank">Jillian
-				Centers</a>
-		</p>
-	</footer>
-
-
 	<script>
 // checked.onclick = runTest();
 
@@ -241,7 +219,8 @@ var locations = (${locations});
 		src="https://maps.googleapis.com/maps/api/js?key=${apikey}&callback=initMap">
 
 </script>
-<%-- 	<%@ include file="partials/script-tags.jsp"%> --%>
+<%@ include file="partials/footer.jsp"%>
+<%@ include file="partials/script-tags.jsp"%>
 
 </body>
 </html>

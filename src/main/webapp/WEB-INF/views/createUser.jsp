@@ -11,16 +11,12 @@
 <body>
 
 	<ul class="nav nav-pills nav-fill navbar navbar-light bg-light">
-<!-- 		<li class="nav-item"><a class="nav-link active" href="/" style="font-size:20px">Conquests and Cats</a>
-		</li> -->
+
 		<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
 		<li class="nav-item"><a class="nav-link" href="/login">Login</a></li>	
 		<li class="nav-item"><a class="nav-link" href="/bts">Behind The Scenes</a></li>
 		<li class="nav-item"><a class="nav-link" href="/leaderboard">Leaderboard</a></li>
-<!-- 		<li class="nav-item"><a class="nav-link disabled" href="#"
-			tabindex="-1" aria-disabled="true">Disabled</a></li> -->
 	</ul>
-	
 	<c:if test="${not empty message}">
 <div class="alert alert-danger" role="alert">
   <p class="message">${message}</p>
@@ -56,33 +52,11 @@
 			<button type="submit" class="user-submit">Register</button>
 			<!-- </li> -->
 			
-			</ul>
 		</div>
 	</form>
 	</div>
 
-	<!-- <form method="post">
-  <div class="form-group">
-    <label for="username">Username
-    <input type="text" class="form-control" id="username" name="username" required>
-    </label>
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" id="password" name="pin" required>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form> -->
-<footer class="navbar-light bg-light" style="position: absolute;
-  bottom: 0;
-  width: 100%;">
-  <p>© 2020 Copyright</p>
-  <p style="line-height: 0.2;">Application by:</p>
-  <p style="margin-bottom:0;"><a href="https://github.com/amandabcampos" target="_blank">Amanda Campos</a> | 
-  <a href="https://github.com/James-Buttercheese" target="_blank">James McDowell</a> | 
-  <a href="https://github.com/jlcenters" target="_blank">Jillian Centers</a></p>
-</footer>
-
+	<%@ include file="partials/footer.jsp"%>
 	<%@ include file="partials/script-tags.jsp"%>
 </body>
 </html>

@@ -239,8 +239,8 @@ public class PlacesController {
 			User user = userdao.findById(userId).orElse(null);
 			
 			System.out.println("hi");
-			System.out.println(userId);
-			System.out.println(user);
+			System.out.print(userId);
+			System.out.print(user);
 			
 			user.setPlayed(user.getPlayed()+1);
 			userdao.save(user);
@@ -265,8 +265,8 @@ public class PlacesController {
 			car.setCatCards(catCards);
 			sesh.setAttribute("cards", car);
 			
-			List<String> catCardsNames = new ArrayList<>(); //??
-			car.setCatCardsNames(catCardsNames); //???
+			List<String> catCardsNames = new ArrayList<>();
+			car.setCatCardsNames(catCardsNames);
 			
 			
 			cards = (Cards) sesh.getAttribute("cards");	

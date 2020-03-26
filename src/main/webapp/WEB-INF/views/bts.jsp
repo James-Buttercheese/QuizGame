@@ -9,7 +9,6 @@
 <%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
-
 	<ul class="nav nav-pills nav-fill navbar navbar-light bg-light">
 		<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
 		<li class="nav-item"><a class="nav-link" href="/user-create">Register</a></li>
@@ -163,17 +162,7 @@
 		amongst the most powerful cards. Boss cards will continue to get
 		generated in the case of ties.</p>
  -->
- <footer class="navbar-light bg-light" style="position: absolute;
-  bottom: 0;
-  width: 100%;">
-  <p>© 2020 Copyright</p>
-  <p style="line-height: 0.2;">Application by:</p>
-  <p style="margin-bottom:0;"><a href="https://github.com/amandabcampos" target="_blank">Amanda Campos</a> | 
-  <a href="https://github.com/James-Buttercheese" target="_blank">James McDowell</a> | 
-  <a href="https://github.com/jlcenters" target="_blank">Jillian Centers</a></p>
-</footer>
-
-<!-- 	<a href="/">Home</a> -->
+	<%@ include file="partials/footer.jsp"%>
 	<%@ include file="partials/script-tags.jsp"%>
 </body>
 </html>

@@ -368,7 +368,8 @@ public class JeopardyController {
 	public ModelAndView boss(@SessionAttribute(name = "cards", required = false) Cards cards,
 			@RequestParam(name = "tied", required = false) String tied,
 			@RequestParam(name = "userId", required = false) Long userId) {
-
+		sesh.getAttribute("cards");
+		List<String> catCardsNames = cards.getCatCardsNames();
 		List<Card> myCatCards = cards.getCatCards();
 
 //		System.out.println(myCatCards);
@@ -376,7 +377,8 @@ public class JeopardyController {
 		Card bossCard = capi.generateBossCard();
 
 		ModelAndView mav = new ModelAndView("boss");
-		mav.addObject("myCatCards", myCatCards);
+		mav.addObject("myCatNames", catCardsNames);
+		mav.addObject("myCatCards", cards);
 		mav.addObject("bossCard", bossCard);
 		mav.addObject("bossWidth", bossCard.getWidth() * 0.3);
 		mav.addObject("bossHeight", bossCard.getHeight() * 0.3);

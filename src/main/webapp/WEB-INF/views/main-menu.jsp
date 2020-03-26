@@ -6,58 +6,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- <meta charset="ISO-8859-1"> -->
 <meta charset="UTF-8">
 <title>Main Menu</title>
 <%@ include file="partials/style-tags.jsp"%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-
-	<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<h1 class="navbar-brand">Conquests and Cats</h1>
-	<button class="navbar-toggler" type="button" data-toggle="collapse"
-		data-target="#navbarColor03" aria-controls="navbarColor03"
-		aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-
-	<div class="collapse navbar-collapse" id="navbarColor03">
-<<<<<<< HEAD
-		<ul class="nav nav-pills nav-fill">			
- 			<li class="nav-item"><a class="nav-link" href="/how">How to play</a></li>
-			<li class="nav-item"><a class="nav-link" href="/bts">Behind the scenes</a></li> 
-=======
-		<ul class="navbar-nav mr-auto">
-			<!-- <li class="nav-item"><a class="nav-link" href="/play">New Game</a></li> -->
-			<!--  <li class="nav-item"><a class="nav-link" href="/">Load Game</a></li>-->
-			<!-- <li class="nav-item"><a class="nav-link" href="/">User Home</a>
-			</li> -->
-<!-- 			<li class="nav-item"><a class="nav-link" href="/how">How to play</a></li>
-			<li class="nav-item"><a class="nav-link" href="/bts">Behind the scenes</a></li>
-			<li class="nav-item"><a class="nav-link" href="/leaderboard">Leaderboard</a></li>
-		</ul>
-	</div>
-</nav> -->
-<!-- 
-	<ul class="nav nav-pills nav-fill">
-		<li class="nav-item"><a class="nav-link active" href="/" style="font-size:20px">Conquests and Cats</a>
-		</li>
-		<li class="nav-item"><a class="nav-link" href="/how">How To Play</a></li>
-		<li class="nav-item"><a class="nav-link" href="/bts">Behind The Scenes</a></li>
-		<li class="nav-item"><a class="nav-link disabled" href="#"
-			tabindex="-1" aria-disabled="true">Disabled</a></li>
-	</ul> -->
-	
 	<ul class="nav nav-pills nav-fill navbar navbar-light bg-light">
-<!-- 		<li class="nav-item"><a class="nav-link active" href="/" style="font-size:20px">Conquests and Cats</a>
-		</li> -->
+
 		<li class="nav-item"><a class="nav-link" href="/user-create">Register</a></li>
 		<li class="nav-item"><a class="nav-link" href="/login">Login</a></li>	
 		<li class="nav-item"><a class="nav-link" href="/bts">Behind The Scenes</a></li>
 		<li class="nav-item"><a class="nav-link" href="/leaderboard">Leaderboard</a></li>
-<!-- 		<li class="nav-item"><a class="nav-link disabled" href="#"
-			tabindex="-1" aria-disabled="true">Disabled</a></li> -->
 	</ul>
 
 
@@ -111,25 +71,7 @@
 
 <br/>
 	
- <footer class="navbar-light bg-light" style="position: absolute;
-  bottom: 0;
-  width: 100%;">
-  <p>© 2020 Copyright</p>
-  <p style="line-height: 0.2;">Application by:</p>
-  <p style="margin-bottom:0;"><a href="https://github.com/amandabcampos" target="_blank">Amanda Campos</a> | 
-  <a href="https://github.com/James-Buttercheese" target="_blank">James McDowell</a> | 
-  <a href="https://github.com/jlcenters" target="_blank">Jillian Centers</a></p>
-</footer>
-
-	<%-- <a href="/create"><button>Create Map</button></a>
-	<form action="/play-map">
-		<select name="mapId">
-			<c:forEach items="${maps}" var="map">
-				<option value="${map.id}">${map.name}</option>
-			</c:forEach>
-		</select>
-		<button type="submit">Play Map</button>
-	</form> --%>
+ 	<%@ include file="partials/footer.jsp"%>
 	<%@ include file="partials/script-tags.jsp"%>
 </body>
 </html>
