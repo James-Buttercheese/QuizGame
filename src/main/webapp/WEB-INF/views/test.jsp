@@ -9,26 +9,59 @@
 <%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
-	<svg class="bi bi-trophy" width="1em" height="1em" viewBox="0 0 16 16"
-		fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path
-			d="M3 1h10c-.495 3.467-.5 10-5 10S3.495 4.467 3 1zm0 15a1 1 0 011-1h8a1 1 0 011 1H3zm2-1a1 1 0 011-1h4a1 1 0 011 1H5z" />
-  <path fill-rule="evenodd"
-			d="M12.5 3a2 2 0 100 4 2 2 0 000-4zm-3 2a3 3 0 116 0 3 3 0 01-6 0zm-6-2a2 2 0 100 4 2 2 0 000-4zm-3 2a3 3 0 116 0 3 3 0 01-6 0z"
-			clip-rule="evenodd" />
-  <path d="M7 10h2v4H7v-4z" />
-  <path d="M10 11c0 .552-.895 1-2 1s-2-.448-2-1 .895-1 2-1 2 .448 2 1z" />
-</svg>
-<img alt="whomp" src="<svg class="bi bi-trophy" width="1em" height="1em" viewBox="0 0 16 16"
-		fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path
-			d="M3 1h10c-.495 3.467-.5 10-5 10S3.495 4.467 3 1zm0 15a1 1 0 011-1h8a1 1 0 011 1H3zm2-1a1 1 0 011-1h4a1 1 0 011 1H5z" />
-  <path fill-rule="evenodd"
-			d="M12.5 3a2 2 0 100 4 2 2 0 000-4zm-3 2a3 3 0 116 0 3 3 0 01-6 0zm-6-2a2 2 0 100 4 2 2 0 000-4zm-3 2a3 3 0 116 0 3 3 0 01-6 0z"
-			clip-rule="evenodd" />
-  <path d="M7 10h2v4H7v-4z" />
-  <path d="M10 11c0 .552-.895 1-2 1s-2-.448-2-1 .895-1 2-1 2 .448 2 1z" />
-</svg>">
-<%@ include file="partials/script-tags.jsp"%>
+
+	<div class="jumbotron">
+		<h1 class="display-4 text-center">Result!</h1>
+		<p class="lead">info goes here</p>
+		<hr>
+		<hr class="my-4">
+		<p>Please play again!</p>
+		<a class="btn btn-primary btn-lg btn-block text-white" href="/"
+			role="button">Main Menu</a>
+	</div>
+
+
+
+	<h4 class="text text-center">If you liked what you saw, don't
+		forget to check out the creators!</h4>
+
+	<div class="btn-group text-center" style="text-align: center">
+		<button type="button" class="btn btn-warning dropdown-toggle-split"
+			data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+			style="display: inline-block">Amanda Campos</button>
+		<div class="dropdown-menu">
+			<a class="dropdown-item" href="mailto:amandabcampos8@gmail.com"
+				target="_blank">amandabcampos8@gmail.com</a>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item" href="http://github.com/amandabcampos"
+				target="_blank">Github</a> <a class="dropdown-item"
+				href="http://linkedin.com/in/amandabcampos" target="_blank">LinkedIn</a>
+		
+		<button type="button" class="btn btn-warning dropdown-toggle-split"
+			style="text-align: center" data-toggle="dropdown"
+			aria-haspopup="true" aria-expanded="false">James McDowell</button>
+		<div class="dropdown-menu">
+			<a class="dropdown-item" href="mailto:JamesMcDowell1897@gmail.com"
+				target="_blank">JamesMcDowell1897@gmail.com</a>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item" href="https://github.com/James-Buttercheese"
+				target="_blank">Github</a> <a class="dropdown-item"
+				href="http://www.linkedin.com/in/jamesmcdowell1897" target="_blank">LinkedIn</a>
+		</div>
+		<button type="button" class="btn btn-warning dropdown-toggle-split"
+			style="text-align: center" data-toggle="dropdown"
+			aria-haspopup="true" aria-expanded="false">Jillian Centers</button>
+		<div class="dropdown-menu">
+			<a class="dropdown-item" href="mailto:jillcenters@protonmail.com"
+				target="_blank">jillcenters@protonmail.com</a>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item" href="http://github.com/jlcenters"
+				target="_blank">Github</a> <a class="dropdown-item"
+				href="https://www.linkedin.com/in/jillcenters/" target="_blank">LinkedIn</a>
+		</div>
+	</div>
+	</div>
+
+	<%@ include file="partials/script-tags.jsp"%>
 </body>
 </html>

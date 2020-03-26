@@ -466,9 +466,12 @@ public class JeopardyController {
 //		System.out.println("Point User: " + pointUser);
 //		System.out.println("Point Boss: " + pointBoss);
 
+
 		String result = "";
+		String info = "";
 		if (pointUser > pointBoss) {
-			result = "You won! Your " + feature + ": " + pointUser + " Boss " + feature + ": " + pointBoss;
+			result = "You Won!";
+			info = "You won! Your cat's " + feature + " was at level " + pointUser + ", which beat the Ruler's level " + pointBoss + ".";
 			if (userId != null) {
 				if (player != null) {
 					User user = userdao.findById(userId).orElse(null);
@@ -479,11 +482,12 @@ public class JeopardyController {
 			}
 
 		} else if (pointUser < pointBoss) {
-			result = "You lost! Your " + feature + ": " + pointUser + " Boss " + feature + ": " + pointBoss;
-			;
+			result = "You Lost.";
+			info = "Your cat's " + feature + "was a level " + pointUser + ", but the Ruler's was a level " + pointBoss + ".";
+			
 		} else {
 			ModelAndView mav = new ModelAndView("redirect:/boss-battle");
-			mav.addObject("tied", "You tied!");
+			mav.addObject("tied", "You were equally matched! Someone takes his place...");
 			if (userId != null) {
 				mav.addObject("userId", userId);
 			}
@@ -493,8 +497,9 @@ public class JeopardyController {
 		// mav.addObject("cat", breed);
 		// mav.addObject("bossCardId", bossCardId);
 
-		return new ModelAndView("finale", "result", result);
-
+		ModelAndView mv = new ModelAndView("finale","result",result); 
+		mv.addObject("info",info);
+		return mv;
 	}
 
 	public double getDifference(@SessionAttribute(name = "player", required = false) Player player) {
