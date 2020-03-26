@@ -1,7 +1,7 @@
 package co.grandcircus.QuizGame.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import co.grandcircus.QuizGame.CatAPI;
 import co.grandcircus.QuizGame.JeopardyAPI;
 import co.grandcircus.QuizGame.PlacesAPI;
+import co.grandcircus.QuizGame.catEntities.CatResponse;
+import co.grandcircus.QuizGame.entities.Card;
 import co.grandcircus.QuizGame.entities.GameMap;
 import co.grandcircus.QuizGame.entities.Item;
 import co.grandcircus.QuizGame.entities.User;
@@ -30,6 +33,9 @@ public class GameController {
 	private JeopardyAPI japi;
 	
 	@Autowired
+	private CatAPI capi;
+	
+	@Autowired
 	private GameMapRepo mapdao;
 	
 	@Autowired
@@ -42,6 +48,8 @@ public class GameController {
 	private ItemRepo itemrepo;
 	
 	private static boolean isBoss;
+	
+	private static List<Item> cardsInDb;
 	
 	@RequestMapping("/")
 	public ModelAndView mainMenu(@RequestParam(name="message", required=false) String message) {
@@ -98,7 +106,13 @@ public class GameController {
 		}
 		if (userId != null) {	
 			ModelAndView mav = new ModelAndView("main-menu-afterlogin");
-			List<Item> cardsInDb = itemrepo.findByUserId(userId);
+			
+			mav.addObject("username", username);
+			mav.addObject("pin", pin);
+//			List<Item> cardsInDb = itemrepo.findByUserId(userId);
+			cardsInDb = itemrepo.findByUserId(userId);
+			
+			mav.addObject("cardsInDb",cardsInDb);
 			
 			//System.out.println(cardsInDb.size());
 			mav.addObject("name", username.substring(0,1).toUpperCase() + username.substring(1));
@@ -115,6 +129,33 @@ public class GameController {
 		
 //		return new ModelAndView("redirect:/");
 	}
+	
+	@RequestMapping("/view-cards")
+	public ModelAndView displayCards(@RequestParam("username") String username,
+			@RequestParam("pin") String pin) {
+		System.out.println(cardsInDb);
+		List<Card> displayCards = new ArrayList();
+		
+		for (Item crd : cardsInDb) {
+			CatResponse cr = capi.findBreed(crd.getCardName());
+			Card cardd = new Card();
+			cardd.setName(cr.getBreeds().get(0).getName());
+			cardd.setTemperament(cr.getBreeds().get(0).getTemperament());
+			cardd.setDescription(cr.getBreeds().get(0).getDescription());
+			cardd.setOrigin(cr.getBreeds().get(0).getOrigin());
+			cardd.setUrl(cr.getUrl());
+			displayCards.add(cardd);
+		}
+		
+		ModelAndView mav = new ModelAndView("displayCards");
+		mav.addObject("username", username);
+		mav.addObject("pin", pin);
+		mav.addObject("displayCards", displayCards);
+		return mav;
+		
+//		return new ModelAndView("displayCards", "displayCards", displayCards);
+	}
+	
 	
 	@RequestMapping("/user-create")
 	public ModelAndView signup(@RequestParam(name="message", required=false) String message) {

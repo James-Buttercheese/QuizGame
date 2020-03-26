@@ -257,7 +257,8 @@ public class JeopardyController {
 				}
 
 				Item item = new Item();
-				item.setCard(card.getName());
+//				item.setCard(card.getName());   
+				item.setCard(card.getId());        //here!
 				User user = userdao.getOne(userId);
 				item.setUser(user);
 
@@ -266,7 +267,8 @@ public class JeopardyController {
 				}
 
 				cards.addCard(card);
-				cards.addCardName(card.getName());
+//				cards.addCardName(card.getName());
+				cards.addCardName(card.getId());
 
 				// System.out.println(cards.getCatCardsNames());
 
