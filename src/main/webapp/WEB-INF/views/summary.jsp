@@ -25,28 +25,19 @@
 							flawlessly.</p>
 					</c:otherwise>
 				</c:choose>
-
 				<hr>
-				<!-- 				<ul> -->
-				<!-- 					<li> -->
 				<p>
 					<strong>A ${cardName} has joined your party!</strong>
 				</p>
-				<!-- 						</li>
-					<li> -->
 				<p>
 					<strong>You currently have ${energy} points of energy.</strong>
 					Don't let it get to zero!
 				</p>
-				<!-- 						</li>
-					<li> -->
 				<p>
 					<strong>You've conquered ${wins} area<c:if
 							test="${wins>1 || wins<1}">s </c:if> total.
 					</strong> Keep up the good work!
 				</p>
-				<!-- 						</li>
-				</ul> -->
 			</div>
 			<div class="card shadow-sm bg-primary border-danger text-white"
 				style="max-width: 18rem; margin-left: auto; margin-right: auto;">
@@ -89,9 +80,12 @@
 					</div>
 
 
-						<div style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
-						<p style="text-align:center;"><img src="${lostUrl}" width="${lostWidth}pt"
-							height="${lostHeight}pt" /></p>
+					<div
+						style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
+						<p style="text-align: center;">
+							<img src="${lostUrl}" width="${lostWidth}pt"
+								height="${lostHeight}pt" />
+						</p>
 					</div>
 					<br />
 					<h2>
@@ -103,28 +97,37 @@
 						<h4 class="alert-heading text-center">Are you spacing out?
 							That's incorrect!</h4>
 						<hr>
-						<!-- 						<ul>
-							<li> -->
+						<c:if test="${energy==1}">
+							<p>
+								<strong>You only have 1 point of energy left.</strong>
+								Make your decisions wisely!
+							</p>
+						</c:if>
+						<c:if test="${energy>1}">
+							<p>
+								<strong>You currently have ${energy} points of energy.</strong>
+								Be careful, and try not to let it get to zero!
+							</p>
+						</c:if>
 						<p>
 							<strong>You currently have ${energy} points of energy.</strong>
 							Be careful, and try not to let it get to zero!
 						</p>
-						<!-- 								</li>
-							<li> -->
 						<p>
 							<strong>You've conquered ${wins} area<c:if
 									test="${wins>1 || wins<1}">s </c:if> total.
 							</strong> Don't lose focus!
 						</p>
-						<!-- 								</li>
-						</ul> -->
 					</div>
-					<div style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
+					<div
+						style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
 
 						<%-- <img src="${lostUrl}" width="${lostWidth}pt"
 						height="${lostHeight}pt" style="margin-left: auto; margin-right: auto;" /> --%>
-						<p style="text-align:center"><img src="${lostUrl}" width="${lostWidth}pt"
-							height="${lostHeight}pt" /></p>
+						<p style="text-align: center">
+							<img src="${lostUrl}" width="${lostWidth}pt"
+								height="${lostHeight}pt" />
+						</p>
 					</div>
 					<br />
 

@@ -10,9 +10,6 @@
 </head>
 <body>
 
-	<h2 class="text-center">
-		<em><strong>${category}</strong> with the ${temperament}
-			${catName}</em>
 	</h2>
 	<div class="card mb-3" style="background-color: black;">
 		<img src="${catUrl}" class="card-img-top" alt="${catName}"

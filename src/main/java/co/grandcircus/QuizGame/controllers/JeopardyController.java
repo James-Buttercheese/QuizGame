@@ -108,20 +108,20 @@ public class JeopardyController {
 			difficultiesE[0] = 100;
 			difficultiesE[1] = 200;
 			difficultiesE[2] = 300;
-			randNum = rand.nextInt(difficultiesE.length - 1);
+			randNum = rand.nextInt(difficultiesE.length);
 			difficulty = difficultiesE[randNum];
 			diffName = "Easy";
 		} else if (rating < 4.6) {
 			difficultiesM[0] = 400;
 			difficultiesM[1] = 500;
 			difficultiesM[2] = 600;
-			randNum = rand.nextInt(difficultiesM.length - 1);
+			randNum = rand.nextInt(difficultiesM.length);
 			difficulty = difficultiesM[randNum];
 			diffName = "Medium";
 		} else if (rating <= 5.0) {
 			difficultiesH[0] = 800;
 			difficultiesH[1] = 1000;
-			randNum = rand.nextInt(difficultiesH.length - 1);
+			randNum = rand.nextInt(difficultiesH.length);
 			difficulty = difficultiesH[randNum];
 			diffName = "Hard";
 		}
@@ -199,10 +199,7 @@ public class JeopardyController {
 			@SessionAttribute(name = "player", required = false) Player player,
 			@SessionAttribute(name = "cards", required = false) Cards cards,
 			@RequestParam(name = "cardId", required = false) String cardId,
-			@RequestParam(name = "catName", required = false) String catName,
-			@RequestParam(name = "catUrl", required = false) String catUrl,
-			@RequestParam(name = "temperament", required = false) String temperament,
-			@RequestParam(name="category", required=false) String category// ,
+			@RequestParam(name = "catUrl", required = false) String catUrl// ,
 	/* @SessionAttribute(name = "cardsNames", required = false) Cards cardsNames */) {
 
 		ModelAndView mav = new ModelAndView("jeopardyResult");
@@ -292,7 +289,6 @@ public class JeopardyController {
 					energy -= 10;
 				} else {
 					energy -= 5;
-					player.setEnergy(energy);
 				}
 				player.setEnergy(energy);
 			}
@@ -305,14 +301,9 @@ public class JeopardyController {
 		}
 		
 //		System.out.println("card on result: " + card);
-
 		mav.addObject("card", card);
 		mav.addObject("cardId",cardId);
 		mav.addObject("catUrl",catUrl);
-		mav.addObject("catName",catName);
-		mav.addObject("temperament", temperament);
-		mav.addObject("category",category);
-		mav.addObject("question", question);
 		mav.addObject("correctAnswer", correctAnswer);
 		mav.addObject("answers", answers); //
 		mav.addObject("diffName", diffName);
@@ -330,7 +321,6 @@ public class JeopardyController {
 			@RequestParam(name = "cardId", required = false) String cardId,
 			@RequestParam(name = "catName", required = false) String catName,
 			@RequestParam(name = "catUrl", required = false) String catUrl,
-			@RequestParam(name = "temperament", required = false) String temperament,
 			@SessionAttribute(name = "player", required = false) Player player,
 			@SessionAttribute(name = "cards", required = false) Cards cards) {
 
