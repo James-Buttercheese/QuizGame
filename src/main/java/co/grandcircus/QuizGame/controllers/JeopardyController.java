@@ -125,7 +125,7 @@ public class JeopardyController {
 			difficulty = difficultiesH[randNum];
 			diffName = "Hard";
 		}
-		System.out.println(randNum);
+//		System.out.println(randNum);
 //		}
 
 		Clue[] allClues = jeopApi.findByCategoryAndDifficulty(difficulty);
@@ -169,6 +169,12 @@ public class JeopardyController {
 // ADD CAT TO BE COLLECTED
 		do {
 			card = capi.generateCard(difficulty);
+			
+			
+//			System.out.println(cards.getCatCardsNames());
+//			System.out.println(card.getName());
+//			System.out.println(cards.getCatCardsNames().contains(card.getName()));
+			
 			String temp = card.getTemperament();
 			String[] tempArr = temp.split(",");
 			temp = tempArr[0];
@@ -180,8 +186,10 @@ public class JeopardyController {
 
 		} while (cards.getCatCardsNames().contains(card.getName())); // may fall in inf loop if game is too long
 
-		System.out.println("Answer on Request: " + answers);
-		System.out.println("Correct Answer on Request: " + correctAnswer);
+		
+		
+//		System.out.println("Answer on Request: " + answers);
+//		System.out.println("Correct Answer on Request: " + correctAnswer);
 
 		mav.addObject("mainClue", mainClue);
 		mav.addObject("answers", answers);
@@ -210,8 +218,8 @@ public class JeopardyController {
 		String correct = "";
 		Card card = new Card();
 
-		System.out.println("Answer on Post: " + answer);
-		System.out.println("Correct Answer on Post: " + correctAnswer);
+//		System.out.println("Answer on Post: " + answer);
+//		System.out.println("Correct Answer on Post: " + correctAnswer);
 
 		if (player != null) {
 			energy = player.getEnergy();
@@ -228,10 +236,10 @@ public class JeopardyController {
 				card.setTemperament(res.getBreeds().get(0).getTemperament());
 				card.setOrigin(res.getBreeds().get(0).getOrigin());
 				card.setDescription(res.getBreeds().get(0).getDescription());
-				card.setAdaptability(res.getBreeds().get(0).getAdaptability());
-				card.setAffection_level(res.getBreeds().get(0).getAffection_level());
-				card.setChild_friendly(res.getBreeds().get(0).getChild_friendly());
-				card.setDog_friendly(res.getBreeds().get(0).getDog_friendly());
+//				card.setAdaptability(res.getBreeds().get(0).getAdaptability());
+//				card.setAffection_level(res.getBreeds().get(0).getAffection_level());
+//				card.setChild_friendly(res.getBreeds().get(0).getChild_friendly());
+//				card.setDog_friendly(res.getBreeds().get(0).getDog_friendly());
 				card.setEnergy_level(res.getBreeds().get(0).getEnergy_level());
 				card.setGrooming(res.getBreeds().get(0).getGrooming());
 				card.setHealth_issues(res.getBreeds().get(0).getHealth_issues());
@@ -258,6 +266,7 @@ public class JeopardyController {
 
 				Item item = new Item();
 //				item.setCard(card.getName());   
+				item.setCardActualName(card.getName());
 				item.setCard(card.getId());        //here!
 				User user = userdao.getOne(userId);
 				item.setUser(user);
@@ -268,7 +277,9 @@ public class JeopardyController {
 
 				cards.addCard(card);
 //				cards.addCardName(card.getName());
-				cards.addCardName(card.getId());
+//				cards.addCardName(card.getId());     //PUT THIS BACK!!!!!
+				cards.addCardName(card.getName());
+				
 
 				// System.out.println(cards.getCatCardsNames());
 
@@ -321,7 +332,7 @@ public class JeopardyController {
 		}
 		if (dist != 0) {
 			int energy = (int) (dist * 10);
-			System.out.println(energy);
+//			System.out.println(energy);
 			player.setEnergy(player.getEnergy() - energy);
 		}
 
@@ -409,22 +420,22 @@ public class JeopardyController {
 		Integer pointBoss = 0;
 
 		switch (feature) {
-		case "adaptability":
-			pointUser = breedUser.getAdaptability();
-			pointBoss = breedBoss.getAdaptability();
-			break;
-		case "affection_level":
-			pointUser = breedUser.getAffection_level();
-			pointBoss = breedBoss.getAffection_level();
-			break;
-		case "child_friendly":
-			pointUser = breedUser.getChild_friendly();
-			pointBoss = breedBoss.getChild_friendly();
-			break;
-		case "dog_friendly":
-			pointUser = breedUser.getDog_friendly();
-			pointBoss = breedBoss.getDog_friendly();
-			break;
+//		case "adaptability":
+//			pointUser = breedUser.getAdaptability();
+//			pointBoss = breedBoss.getAdaptability();
+//			break;
+//		case "affection_level":
+//			pointUser = breedUser.getAffection_level();
+//			pointBoss = breedBoss.getAffection_level();
+//			break;
+//		case "child_friendly":
+//			pointUser = breedUser.getChild_friendly();
+//			pointBoss = breedBoss.getChild_friendly();
+//			break;
+//		case "dog_friendly":
+//			pointUser = breedUser.getDog_friendly();
+//			pointBoss = breedBoss.getDog_friendly();
+//			break;
 		case "energy_level":
 			pointUser = breedUser.getEnergy_level();
 			pointBoss = breedBoss.getEnergy_level();
@@ -455,8 +466,8 @@ public class JeopardyController {
 			break;
 		}
 
-		System.out.println("Point User: " + pointUser);
-		System.out.println("Point Boss: " + pointBoss);
+//		System.out.println("Point User: " + pointUser);
+//		System.out.println("Point Boss: " + pointBoss);
 
 		String result = "";
 		if (pointUser > pointBoss) {

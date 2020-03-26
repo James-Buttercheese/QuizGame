@@ -222,5 +222,6 @@ var locations = (${locations});
 <%@ include file="partials/footer.jsp"%>
 <%@ include file="partials/script-tags.jsp"%>
 
+
 </body>
 </html>

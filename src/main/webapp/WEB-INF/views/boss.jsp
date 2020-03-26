@@ -87,10 +87,10 @@
 				<option value="${catCard.id}">${catCard.name}</option>
 			</c:forEach>
 		</select> <select name="feature">
-			<option value="adaptability">Adaptability</option>
-			<option value="affection_level">Affection</option>
-			<option value="child_friendly">Child friendly</option>
-			<option value="dog_friendly">Dog friendly</option>
+<!-- 			<option value="adaptability">Adaptability</option> -->
+<!-- 			<option value="affection_level">Affection</option> -->
+<!-- 			<option value="child_friendly">Child friendly</option> -->
+<!-- 			<option value="dog_friendly">Dog friendly</option> -->
 			<option value="energy_level">Energy</option>
 			<option value="grooming">Grooming</option>
 			<option value="intelligence">Intelligence</option>

@@ -10,6 +10,7 @@ public class Item {
 	private Long id;
 
 	private String cardName;    //maybe not but we'll see
+	private String cardActualName;
 //	private String status;
 
 	@ManyToOne (cascade = CascadeType.ALL)
@@ -46,6 +47,20 @@ public class Item {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	
+
+	public String getCardActualName() {
+		return cardActualName;
+	}
+
+	public void setCardActualName(String cardActualName) {
+		this.cardActualName = cardActualName;
+	}
+
+	public void setCardName(String cardName) {
+		this.cardName = cardName;
 	}
 
 	@Override

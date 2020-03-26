@@ -23,20 +23,7 @@
 
 	<h1 id="title">Conquests and Cats: The Game</h1>
 
-<%-- <c:if test="${not empty message}">
-<div class="alert alert-info" role="alert">
-  ${message}
-</div>
-</c:if> --%>
 
-	
-	
-
-	<!-- LOGIN AND SIGN UP HAVEN'T BEEN FULLY IMPLEMENTED YET -->
-<!-- 	<a href="/login"><button>User Log In</button></a>
-	<a href="/user-create"><button>Create a User</button></a> -->
-	
-	
 
 
 <div class="container">
@@ -49,7 +36,7 @@
 
 <ul class="list-group list-group-flush">
 
-<li class="list-group-item">Start by creating your cat-master persona! Select your kitty-name and a password. Next, you’re ready to log-in to CatLand (it looks a lot like America).</li>
+<li class="list-group-item">Start by creating your cat-master persona! Select your kitty-name and a password. Next, you are ready to log-in to CatLand (it looks a lot like America).</li>
 
 <li class="list-group-item">Choose which city you would like to live your feline adventures. </li>
 
@@ -57,7 +44,7 @@
 
 <li class="list-group-item">If you win the battle, you gain a new kitty-friend in the form of a card. As winning battles is more difficult in a higher-rated restaurant, the prize-kittens you win from them are more powerful.</li>
 
-<li class="list-group-item">Be aware, do not lose all your milk-energy! You lose energy by losing quiz-battles and by going places too far away from where you are.  </li>
+<li class="list-group-item">Be aware, do not lose all your milk-energy! You lose energy by moving around the map based on distance so plan ahead.  </li>
 
 <li class="list-group-item">After winning three battles, you are going to upset The Evil Alley Cat. This cat is one mean (but cute) boss hiding at one of the restaurants. You do not need to fight the boss immediately, and can continue visiting restaurants that you have not yet been to in order to gather the perfect cat posse to fight to the boss.</li>
 

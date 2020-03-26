@@ -23,6 +23,7 @@ import co.grandcircus.QuizGame.entities.User;
 import co.grandcircus.QuizGame.repositories.GameMapRepo;
 import co.grandcircus.QuizGame.repositories.ItemRepo;
 import co.grandcircus.QuizGame.repositories.UserRepo;
+
 @Controller
 public class GameController {
 
@@ -31,111 +32,120 @@ public class GameController {
 
 	@Autowired
 	private JeopardyAPI japi;
-	
+
 	@Autowired
 	private CatAPI capi;
-	
+
 	@Autowired
 	private GameMapRepo mapdao;
-	
+
 	@Autowired
 	private HttpSession sesh;
-	
+
 	@Autowired
 	private UserRepo userdao;
-	
+
 	@Autowired
 	private ItemRepo itemrepo;
-	
+
 	private static boolean isBoss;
-	
+
 	private static List<Item> cardsInDb;
-	
+
 	@RequestMapping("/")
-	public ModelAndView mainMenu(@RequestParam(name="message", required=false) String message) {
+	public ModelAndView mainMenu(@RequestParam(name = "message", required = false) String message) {
 		sesh.invalidate();
 		isBoss = false;
 		List<GameMap> maps = mapdao.findAll();
-		
+
 		ModelAndView mav = new ModelAndView("main-menu");
 		mav.addObject("maps", maps);
-		
+
 //		System.out.println(message);
-		
+
 		if (message != null) {
 			mav.addObject("message", message);
 		}
 		return mav;
 //		return new ModelAndView("main-menu", "maps", maps);
 	}
-	
+
 //	@RequestMapping("/how")
 //	public ModelAndView how() {
 //		return new ModelAndView("how");
 //	}
-	
+
 	@RequestMapping("/bts")
 	public ModelAndView bts() {
 		return new ModelAndView("bts");
 	}
-	
+
 //Added for logging in/signing up; Make user from db Serializable(?)
-	
+
 	@RequestMapping("/login")
-	public ModelAndView login(@RequestParam(name="message", required=false) String message) {	
+	public ModelAndView login(@RequestParam(name = "message", required = false) String message) {
 		ModelAndView mav = new ModelAndView("login");
 		if (message != null) {
 			mav.addObject("message", message);
 		}
 		return mav;
 	}
-	
+
 	@PostMapping("/login")
-	public ModelAndView loginAuth(@RequestParam("username") String username,
-			@RequestParam("pin") String pin) {
+	public ModelAndView loginAuth(@RequestParam(value = "username", required = false) String username,
+			@RequestParam(value = "pin", required = false) String pin,
+			@RequestParam(value = "userId", required = false) Long userId) {
 		List<User> users = userdao.findAll();
-		Long userId = null;
-			
-		for (User user : users) {
-			if (user.getUsername().equals(username)) {
-				if (user.getPin().equals(pin)) {
-					userId = user.getId();
-					break;
+
+		System.out.println("hello " + userId);
+		if (userId == null) {
+
+			for (User user : users) {
+				if (user.getUsername().equals(username)) {
+					if (user.getPin().equals(pin)) {
+						userId = user.getId();
+						break;
+					}
 				}
 			}
 		}
-		if (userId != null) {	
+		if (userId != null) {
 			ModelAndView mav = new ModelAndView("main-menu-afterlogin");
+
+//			mav.addObject("username", username);
+//			mav.addObject("pin", pin);
+			mav.addObject("userId", userId);
 			
-			mav.addObject("username", username);
-			mav.addObject("pin", pin);
+			System.out.println("hello2");
 //			List<Item> cardsInDb = itemrepo.findByUserId(userId);
 			cardsInDb = itemrepo.findByUserId(userId);
 			
-			mav.addObject("cardsInDb",cardsInDb);
-			
-			//System.out.println(cardsInDb.size());
-			mav.addObject("name", username.substring(0,1).toUpperCase() + username.substring(1));
+			System.out.println("hello3");
+
+			mav.addObject("cardsInDb", cardsInDb);
+
+			// System.out.println(cardsInDb.size());
+			User userr = userdao.findById(userId).orElse(null);
+			String usernamee = userr.getUsername();
+			mav.addObject("name", usernamee.substring(0, 1).toUpperCase() + usernamee.substring(1));
 			mav.addObject("numCards", cardsInDb.size());
 			mav.addObject("items", cardsInDb);
-			mav.addObject("maps",mapdao.findByUserId(userId));
-			mav.addObject("userId",userId);
+			mav.addObject("maps", mapdao.findByUserId(userId));
+			mav.addObject("userId", userId);
 			return mav;
 		}
-		
-		
+
 		ModelAndView mav = new ModelAndView("redirect:/login", "message", "Unregistred User | Incorrect information.");
 		return mav;
-		
+
 //		return new ModelAndView("redirect:/");
 	}
-	
+
 	@RequestMapping("/view-cards")
-	public ModelAndView displayCards(@RequestParam("username") String username,
-			@RequestParam("pin") String pin) {
+	public ModelAndView displayCards(@RequestParam("userId") Long userId) {
 		System.out.println(cardsInDb);
 		List<Card> displayCards = new ArrayList();
-		
+
 		for (Item crd : cardsInDb) {
 			CatResponse cr = capi.findBreed(crd.getCardName());
 			Card cardd = new Card();
@@ -146,31 +156,31 @@ public class GameController {
 			cardd.setUrl(cr.getUrl());
 			displayCards.add(cardd);
 		}
-		
+
 		ModelAndView mav = new ModelAndView("displayCards");
-		mav.addObject("username", username);
-		mav.addObject("pin", pin);
+//		mav.addObject("username", username);
+//		mav.addObject("pin", pin);
+		mav.addObject("userId", userId);
 		mav.addObject("displayCards", displayCards);
 		return mav;
-		
+
 //		return new ModelAndView("displayCards", "displayCards", displayCards);
 	}
-	
-	
+
 	@RequestMapping("/user-create")
-	public ModelAndView signup(@RequestParam(name="message", required=false) String message) {
+	public ModelAndView signup(@RequestParam(name = "message", required = false) String message) {
 		ModelAndView mav = new ModelAndView("createUser");
 		if (message != null) {
 			mav.addObject("message", message);
 		}
 		return mav;
 	}
-	
+
 	@PostMapping("/user-create")
 	public ModelAndView signup(User user, @RequestParam("username") String username) {
-		//String message="";
-		//User check = userdao.findByUsername(username);
-		
+		// String message="";
+		// User check = userdao.findByUsername(username);
+
 		if (userdao.findByUsername(username) != null) {
 			if (username.equals(userdao.findByUsername(username).getUsername())) {
 				ModelAndView mav = new ModelAndView("redirect:/user-create");
@@ -181,41 +191,40 @@ public class GameController {
 			System.out.println("hello");
 			userdao.save(user);
 			ModelAndView mav = new ModelAndView("redirect:/login");
-			mav.addObject("message","Successfull registration. Login.");
+			mav.addObject("message", "Successfull registration. Login.");
 			return mav;
 		}
-		
+
 		return null;
 //		return new ModelAndView("redirect:/user-create", "message", message);
-		
+
 //		ModelAndView mav = new ModelAndView("redirect:/");
 //		mav.addObject("message", "User added. Please login");
 //		return mav;
 	}
-	
-	@RequestMapping("/leaderboard") 
+
+	@RequestMapping("/leaderboard")
 	public ModelAndView leaderboard() {
-		
+
 		List<User> users = userdao.findByOrderByScoreDesc();
-		
+
 		return new ModelAndView("leaderboard", "players", users);
 	}
-	
-	@RequestMapping("/wins") 
+
+	@RequestMapping("/wins")
 	public ModelAndView winsLeaderboard() {
-		
+
 		List<User> users = userdao.findByOrderByWinsDesc();
-		
+
 		return new ModelAndView("leaderboard", "players", users);
 	}
-	@RequestMapping("/played") 
+
+	@RequestMapping("/played")
 	public ModelAndView playedLeaderboard() {
-		
+
 		List<User> users = userdao.findByOrderByPlayedDesc();
-		
+
 		return new ModelAndView("leaderboard", "players", users);
 	}
-	
-	
-	
+
 }

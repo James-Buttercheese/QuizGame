@@ -188,16 +188,10 @@ function initMap() {
 		  label: {
 			    text: result.name + " Rating: " + result.rating,
 			    color: "#black",
-			    fontSize: "12px",
+			    fontSize: "14px",
 			    fontWeight: "bold"
 			  }, 
-		  icon: {
-			    path: google.maps.SymbolPath.CIRCLE,
-			    fillColor: "red",
-			    strokeColor: "skyblue",
-			    fillOpacity: .5,
-			    scale: 10
-			  },
+		  icon: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/32/cat-icon.png',
 		  title: result.place_id});
 	  marker.addListener('click', function() {
 		  window.location.assign('/jeopardy?placeId='+this.getTitle()+"&mapId="+mid+"&userId="+userId);

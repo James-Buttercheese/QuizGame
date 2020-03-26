@@ -9,7 +9,7 @@
 <%@ include file="partials/style-tags.jsp"%>
 </head>
 <body>
-<ul class="nav nav-pills nav-fill navbar navbar-light bg-light">
+	<ul class="nav nav-pills nav-fill navbar navbar-light bg-light">
 		<!-- 		<li class="nav-item"><a class="nav-link active" href="/" style="font-size:20px">Conquests and Cats</a>
 		</li> -->
 		<!-- 		<li class="nav-item"><a class="nav-link" href="/user-create">Register</a></li>
@@ -48,8 +48,10 @@
 			</form> --%>
 				<div style="text-align: center;">
 					<form action="/view-cards">
-						<input type="hidden" value="${username}" name="username" /> <input
-							type="hidden" value="${pin}" name="pin" />
+						<%-- <input type="hidden" value="${username}" name="username" /> 
+						<input
+							type="hidden" value="${pin}" name="pin" /> --%>
+						<input type="hidden" value="${userId}" name="userId" />
 						<button class="user-submit">View Cards</button>
 					</form>
 				</div>
@@ -81,21 +83,6 @@
 				<br />
 
 
-				<%-- 
-					<select name="mapId">
-						<c:forEach items="${maps}" var="map">
-							<option value="${map.id}">${map.name}</option>
-						</c:forEach>
-					</select>
-					<input type="hidden" value="${userId}" name="userId" />
-					<button type="submit">Play Map</button>
-				</c:if>
-			</form> --%>
-
-
-
-
-
 				<form action="/create">
 
 					<input type="hidden" name="userId" value="${userId}" />
@@ -105,36 +92,33 @@
 					</div>
 				</form>
 
-
-				<%-- 			<h4>Or would you like to edit a map?</h4>
-				<form method="post" action="/create">
-					<select name="mapId">
-						<c:forEach var="map" items="${maps}">
-							<option value="${map.id}">${map.name}</option>
-						</c:forEach>
-					</select> <input type="hidden" value="${userId}" name="userId" />
-
-					<button type="submit" class="btn btn-secondary">submit</button>
-				</form> --%>
-
 			</div>
 		</div>
 	</div>
 
+	<footer class="navbar-light bg-light"
+		style="position: absolute; bottom: 0; width: 100%;">
+		<p>� 2020 Copyright</p>
+		<p style="line-height: 0.2;">Application by:</p>
+		<p style="margin-bottom: 0;">
+			<a href="https://github.com/amandabcampos" target="_blank">Amanda
+				Campos</a> | <a href="https://github.com/James-Buttercheese"
+				target="_blank">James McDowell</a> | <a
+				href="https://github.com/jlcenters" target="_blank">Jillian
+				Centers</a>
+		</p>
+	</footer>
 
 
-
-
-
-	<!-- LOGIN AND SIGN UP HAVEN'T BEEN FULLY IMPLEMENTED YET -->
-
-	<%-- 	<h5>Cards you have collected</h5>
-	<select>
-			<c:forEach items="${items}" var="item">
-				<option >${item.cardName}</option>
-			</c:forEach>
-	</select> --%>
-
+	<!-- <footer class="navbar-light bg-light" style="position: absolute;
+  bottom: 0;
+  width: 100%;">
+  <p>© 2020 Copyright</p>
+  <p style="line-height: 0.2;">Application by:</p>
+  <p style="margin-bottom:0;"><a href="https://github.com/amandabcampos" target="_blank">Amanda Campos</a> | 
+  <a href="https://github.com/James-Buttercheese" target="_blank">James McDowell</a> | 
+  <a href="https://github.com/jlcenters" target="_blank">Jillian Centers</a></p>
+</footer> -->
 
 	<script>
 		function runTest() {
