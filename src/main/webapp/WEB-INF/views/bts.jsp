@@ -37,7 +37,7 @@
       <td>A map creation feature is available. A list of cities and their
 		respective locations are displayed - retrieved from the 
 		<a href="https://developers.google.com/places/web-service/intro" target="_blank">Google Places
-		API</a>. These locations are restaurants within a radius of 1500 (?) from
+		API</a>. These locations are restaurants within a radius of 1500 meters from
 		a pre-selected downtown landmark (e.g, the Renaissance Center in
 		Detroit). These personalized maps and selected restaurants are stored
 		on separate databases. The maps previously created by the user,
@@ -61,8 +61,8 @@
     <tr>
       <th scope="row">Rating</th>
       <td>A mathematical analysis was conducted considering the ratings of
-		the restaurants in downtown areas. Such ratings influentiate the level
-		of difficulty, the amount of energy won/lost and the types of cat
+		the restaurants in downtown areas. Such ratings influence the level
+		of difficulty, the amount of energy won and the types of cat
 		cards received at the end of the quizzes. 
 		
 		<div style="text-align:center">
@@ -90,9 +90,10 @@
 		further away two selected locations are, the more energy will be lost.
 		
 		<div style="text-align:center">
-		Easy: Increase of 5 or decrease of 15 <br/>
-		Medium: Increase or decrease of 10<br/>
-		Hard: Increase of 15 or decrease 5
+		On correct answers: <br/>
+		Easy: Increase of 5 <br/>
+		Medium: Increase of 10<br/>
+		Hard: Increase of 15
 		</div>
 		</td>
     </tr>

@@ -236,10 +236,10 @@ public class JeopardyController {
 				card.setTemperament(res.getBreeds().get(0).getTemperament());
 				card.setOrigin(res.getBreeds().get(0).getOrigin());
 				card.setDescription(res.getBreeds().get(0).getDescription());
-				card.setAdaptability(res.getBreeds().get(0).getAdaptability());
-				card.setAffection_level(res.getBreeds().get(0).getAffection_level());
-				card.setChild_friendly(res.getBreeds().get(0).getChild_friendly());
-				card.setDog_friendly(res.getBreeds().get(0).getDog_friendly());
+//				card.setAdaptability(res.getBreeds().get(0).getAdaptability());
+//				card.setAffection_level(res.getBreeds().get(0).getAffection_level());
+//				card.setChild_friendly(res.getBreeds().get(0).getChild_friendly());
+//				card.setDog_friendly(res.getBreeds().get(0).getDog_friendly());
 				card.setEnergy_level(res.getBreeds().get(0).getEnergy_level());
 				card.setGrooming(res.getBreeds().get(0).getGrooming());
 				card.setHealth_issues(res.getBreeds().get(0).getHealth_issues());
@@ -418,22 +418,22 @@ public class JeopardyController {
 		Integer pointBoss = 0;
 
 		switch (feature) {
-		case "adaptability":
-			pointUser = breedUser.getAdaptability();
-			pointBoss = breedBoss.getAdaptability();
-			break;
-		case "affection_level":
-			pointUser = breedUser.getAffection_level();
-			pointBoss = breedBoss.getAffection_level();
-			break;
-		case "child_friendly":
-			pointUser = breedUser.getChild_friendly();
-			pointBoss = breedBoss.getChild_friendly();
-			break;
-		case "dog_friendly":
-			pointUser = breedUser.getDog_friendly();
-			pointBoss = breedBoss.getDog_friendly();
-			break;
+//		case "adaptability":
+//			pointUser = breedUser.getAdaptability();
+//			pointBoss = breedBoss.getAdaptability();
+//			break;
+//		case "affection_level":
+//			pointUser = breedUser.getAffection_level();
+//			pointBoss = breedBoss.getAffection_level();
+//			break;
+//		case "child_friendly":
+//			pointUser = breedUser.getChild_friendly();
+//			pointBoss = breedBoss.getChild_friendly();
+//			break;
+//		case "dog_friendly":
+//			pointUser = breedUser.getDog_friendly();
+//			pointBoss = breedBoss.getDog_friendly();
+//			break;
 		case "energy_level":
 			pointUser = breedUser.getEnergy_level();
 			pointBoss = breedBoss.getEnergy_level();
